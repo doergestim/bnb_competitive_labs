@@ -1,7 +1,7 @@
 # All cards of the V3 Core Deck by Category
 
 ## Initial Compromise
-- [Phishing](/Card/IC/Phishing.md)
+- [Phishing](/Cards/IC/Phishing.md)
 - [Compomised Web Server]()
 - [Unauthorized Cloud Access]()
 - [Insider Threat]()
