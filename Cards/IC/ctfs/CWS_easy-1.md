@@ -31,3 +31,9 @@ What **vulnerability** is being exploited?
 ---
 
 Correct Flag: **B**
+
+---
+
+[Next Question](CWS_easy-2.md)
+
+[Back to Card's Main Page](/Cards/IC/Compromised_Web_Server.md)
