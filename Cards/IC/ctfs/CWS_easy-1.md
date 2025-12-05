@@ -1,0 +1,33 @@
+# Easy CTF 1 – Simple Web Exploit
+
+A small company hosts a login page for internal staff. During testing, you notice that the login form behaves strangely when special characters are used.
+
+Your goal is to identify what type of vulnerability is present.
+
+---
+
+## Observation
+
+When entering:
+' OR '1'='1
+
+the application logs you in without valid credentials.
+
+---
+
+## Question
+
+What vulnerability is being exploited?
+
+---
+
+## Flags (Choose One)
+
+- A) Cross-Site Scripting (XSS)
+- B) SQL Injection
+- C) Command Injection
+- D) Broken Authentication
+
+---
+
+Correct Flag: B
