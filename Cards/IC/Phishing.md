@@ -10,9 +10,7 @@
 
 
 ***                                                                 
-<b><i>Continuing the course? </br>[Next Card](/Cards/)</i></b>
-
-<b><i>Want to go back? </br>[Previous Card](/Cards/)</i></b>
+<b><i>Continuing the course? </br>[Next Card](/Cards/IC/Compromised_Web_Server.md)</i></b>
 
 <b><i>Looking for a different Card? </br>[Card Directory](/card_navigation.md)</i></b>
 
