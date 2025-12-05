@@ -82,15 +82,10 @@ Compromised web servers are rarely isolated incidents. They are often the first 
 
 
 
-
-
-
-
-
 ***                                                                 
-<b><i>Continuing the course? </br>[Next Card](/Cards/)</i></b>
+<b><i>Continuing the course? </br>[Next Card](/Cards/IC/Unauthorized_Cloud_Access.md)</i></b>
 
-<b><i>Want to go back? </br>[Previous Card](/Cards/)</i></b>
+<b><i>Want to go back? </br>[Previous Card](/Cards/IC/Phishing.md)</i></b>
 
 <b><i>Looking for a different Card? </br>[Card Directory](/card_navigation.md)</i></b>
 
