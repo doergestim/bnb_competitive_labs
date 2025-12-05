@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+
 # Easy CTF 1 – Simple Web Exploit
 
 A small company hosts a login page for internal staff. During testing, you notice that the login form behaves strangely when special characters are used.
