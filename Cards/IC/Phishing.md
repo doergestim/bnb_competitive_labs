@@ -10,16 +10,16 @@
 
 
 ***                                                                 
-<b><i>Continuing the course? </br>[Next Lab](/Cards/)</i></b>
+<b><i>Continuing the course? </br>[Next Card](/Cards/)</i></b>
 
-<b><i>Want to go back? </br>[Previous Lab](/Cards/)</i></b>
+<b><i>Want to go back? </br>[Previous Card](/Cards/)</i></b>
 
-<b><i>Looking for a different lab? </br>[Lab Directory](/card_navigation.md)</i></b>
+<b><i>Looking for a different Card? </br>[Card Directory](/card_navigation.md)</i></b>
 
 ***Finished with the Labs?***
 
 Please be sure to destroy the lab environment!
 
-[Click here for instructions on how to destroy the Lab Environment](/IntroClassFiles/Tools/IntroClass/LabDestruction/labdestruction.md)
+[Click here for instructions on how to destroy the Lab Environment](/labdestruction.md)
 
 ---
