@@ -9,7 +9,7 @@ Your goal is to identify what type of vulnerability is present.
 ## Observation
 
 When entering:
-' OR '1'='1
+`' OR '1'='1`
 
 the application logs you in without valid credentials.
 
@@ -17,17 +17,17 @@ the application logs you in without valid credentials.
 
 ## Question
 
-What vulnerability is being exploited?
+What **vulnerability** is being exploited?
 
 ---
 
 ## Flags (Choose One)
 
-- A) Cross-Site Scripting (XSS)
-- B) SQL Injection
-- C) Command Injection
-- D) Broken Authentication
+- **A)** Cross-Site Scripting (XSS)
+- **B)** SQL Injection
+- **C)** Command Injection
+- **D)** Broken Authentication
 
 ---
 
-Correct Flag: B
+Correct Flag: **B**
