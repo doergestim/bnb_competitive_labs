@@ -32,3 +32,13 @@ What most likely happened?
 ---
 
 Correct Flag: **A**
+
+
+
+---
+
+# Finished?
+
+[Next Question](CWS_medium.md)
+
+[Back to Card's Main Page](/Cards/IC/Compromised_Web_Server.md)
