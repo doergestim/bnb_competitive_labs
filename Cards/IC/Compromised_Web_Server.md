@@ -60,10 +60,10 @@ In many real cases, the compromise is only discovered after damage has already b
 
 You will solve four challenges related to compromised web servers:
 
-- [Easy 1 – Simple Web Exploit](ctfs/easy-1.md)
-- [Easy 2 – Basic Log Investigation](ctfs/easy-2.md)
-- [Medium – Post-Exploitation](ctfs/medium.md)
-- [Hard – Full Server Takeover](ctfs/hard.md)
+- [Easy 1 – Simple Web Exploit](ctfs/CWS_easy-1.md)
+- [Easy 2 – Basic Log Investigation](ctfs/CWS_easy-2.md)
+- [Medium – Post-Exploitation](ctfs/CWS_medium.md)
+- [Hard – Full Server Takeover](ctfs/CWS_hard.md)
 
 ---
 
