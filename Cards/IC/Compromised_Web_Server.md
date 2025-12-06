@@ -1,8 +1,8 @@
-![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
-# Compromised Web Server
 
 <img width="300" height="414" alt="BNB_CARDS_v3_02" src="https://github.com/user-attachments/assets/9675acf6-1e8d-480e-a8be-e90ea0c5fddf" />
+
+# Compromised Web Server
 
 A web server is considered **compromised** when an attacker manages to gain access to it without permission. This usually happens because of a vulnerability in the website, the server software, or its configuration.
 
