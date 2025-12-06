@@ -1,6 +1,6 @@
 ![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
-<img width="1449" height="2000" alt="BNB_CARDS_v3_02" src="https://github.com/user-attachments/assets/9675acf6-1e8d-480e-a8be-e90ea0c5fddf" />
+<img width="100" height="138" alt="BNB_CARDS_v3_02" src="https://github.com/user-attachments/assets/9675acf6-1e8d-480e-a8be-e90ea0c5fddf" />
 
 # Compromised Web Server
 
