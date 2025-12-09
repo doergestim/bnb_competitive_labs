@@ -3,10 +3,9 @@
 <img width="300" height="414" alt="BNB_CARDS_v3_02" src="https://github.com/user-attachments/assets/9675acf6-1e8d-480e-a8be-e90ea0c5fddf" />
 
 # Compromised Web Server
+When an attacker gains unauthorized access to a web server, it is deemed **compromised**. This typically occurs as a result of a vulnerability in the server software, the website, or its configuration.
 
-A web server is considered **compromised** when an attacker manages to gain access to it without permission. This usually happens because of a vulnerability in the website, the server software, or its configuration.
-
-Since web servers are exposed to the internet, they are one of the most common entry points used in real attacks.
+Web servers are among the most frequently used entry points in actual attacks because they are connected to the internet.
 
 ---
 
