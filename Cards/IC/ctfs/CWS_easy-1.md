@@ -1,43 +1,45 @@
 ![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
-# Easy CTF 1 – Simple Web Exploit
+# Easy CTF 1 -- Suspicious Cloud Login
 
-A small company hosts a login page for internal staff. During testing, you notice that the login form behaves strangely when special characters are used.
+A SOC analyst notices a successful login to a cloud admin account
+outside of normal business hours.
 
-Your goal is to identify what type of vulnerability is present.
+Your goal is to identify what makes this login suspicious.
 
----
+------------------------------------------------------------------------
 
 ## Observation
 
-When entering:
-`' OR '1'='1`
+Cloud audit logs show: - User: `admin@corp.local` - Login time:
+`03:17 AM` - Country: `Russia` - MFA: `Not Used`
 
-the application logs you in without valid credentials.
+All previous logins for this user came from the local office network
+during work hours.
 
----
+------------------------------------------------------------------------
 
 ## Question
 
-What **vulnerability** is being exploited?
+What **security failure** most likely allowed this access?
 
----
+------------------------------------------------------------------------
 
 ## Flags (Choose One)
 
-- **A)** Cross-Site Scripting (XSS)
-- **B)** SQL Injection
-- **C)** Command Injection
-- **D)** Broken Authentication
+-   **A)** Missing MFA enforcement\
+-   **B)** Outdated cloud service\
+-   **C)** Weak firewall rules\
+-   **D)** Misconfigured storage bucket
 
----
+------------------------------------------------------------------------
 
-Correct Flag: **B**
+Correct Flag: **A**
 
----
+------------------------------------------------------------------------
 
 # Finished?
 
-[Next Question](CWS_easy-2.md)
+[Next Question](UCA_easy-2.md)
 
-[Back to Card's Main Page](/Cards/IC/Compromised_Web_Server.md)
+[Back to Card's Main Page](/Cards/Cloud/Unauthorized_Cloud_Access.md)
