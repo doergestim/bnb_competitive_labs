@@ -2,9 +2,9 @@
 
 ## Initial Compromise
 - [Phishing](/Cards/IC/Phishing.md)
-- [Compomised Web Server](/Cards/IC/)
-- [Unauthorized Cloud Access](/Cards/IC/)
-- [Insider Threat](/Cards/IC/)
+- [Compomised Web Server](/Cards/IC/Compromised_Web_Server.md)
+- [Unauthorized Cloud Access](/Cards/IC/Unaunthorized_Cloud_Access.md)
+- [Insider Threat](/Cards/IC/Insider_Threat.md)
 - [External Password Spray](/Cards/IC/)
 - [Trusted Relationship](/Cards/IC/)
 - [Social Engineering](/Cards/IC/)
