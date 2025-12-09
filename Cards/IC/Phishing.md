@@ -2,9 +2,9 @@
 
 # Phishing
 
-**Phishing** is an attack where users are tricked into revealing credentials, clicking malicious links, or opening infected files. It usually arrives by email but can also come through SMS, chat apps, or social media
+**Phishing** is an attack in which users are duped into divulging login information, opening infected files, or clicking on malicious links. It typically arrives via email, but it can also arrive via social media, chat apps, or SMS.
 
-Unlike technical exploits, phishing targets **people**, not systems. One successful click is often enough to give attackers access to internal networks, cloud accounts, or sensitive data
+Phishing targets **individuals** rather than systems, in contrast to technical exploits. Attackers can frequently gain access to sensitive data, cloud accounts, and internal networks with just one successful click.
 
 ---
 
