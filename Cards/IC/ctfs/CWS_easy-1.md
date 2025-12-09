@@ -14,7 +14,7 @@ Your goal is to identify what makes this login suspicious.
 Cloud audit logs show: - User: `admin@corp.local` - Login time:
 `03:17 AM` - Country: `Russia` - MFA: `Not Used`
 
-All previous logins for this user came from the local office network
+All previous **logins** for this **user** came from the local office network
 during work hours.
 
 ------------------------------------------------------------------------
@@ -27,9 +27,9 @@ What **security failure** most likely allowed this access?
 
 ## Flags (Choose One)
 
--   **A)** Missing MFA enforcement\
--   **B)** Outdated cloud service\
--   **C)** Weak firewall rules\
+-   **A)** Missing MFA enforcement
+-   **B)** Outdated cloud service
+-   **C)** Weak firewall rules
 -   **D)** Misconfigured storage bucket
 
 ------------------------------------------------------------------------
