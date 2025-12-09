@@ -27,9 +27,9 @@ What **security failure** most likely allowed this access?
 
 ## Flags (Choose One)
 
--   **A)** Missing MFA enforcement\
--   **B)** Outdated cloud service\
--   **C)** Weak firewall rules\
+-   **A)** Missing MFA enforcement
+-   **B)** Outdated cloud service
+-   **C)** Weak firewall rules
 -   **D)** Misconfigured storage bucket
 
 ------------------------------------------------------------------------
