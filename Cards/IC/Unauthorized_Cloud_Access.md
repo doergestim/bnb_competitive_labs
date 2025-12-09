@@ -2,14 +2,9 @@
 
 # Unauthorized Cloud Access
 
-**Unauthorized cloud access** happens when an attacker gains access to
-cloud infrastructure or SaaS platforms without permission. This could be
-access to cloud servers, storage, identities, or business applications
-like email and file sharing.
+When an **attacker** accesses **SaaS platforms** or **cloud infrastructure** without authorization, it is known as unauthorized cloud access. Cloud servers, storage, identities, and business apps like file sharing and email could all be examples of this.
 
-Because cloud platforms are exposed to the internet and heavily rely on
-identity and permissions, a single mistake can give attackers wide
-access very quickly.
+Because **cloud platforms** rely heavily on identity and permissions and are exposed to the internet, a single error can quickly grant attackers widespread access.
 
 ------------------------------------------------------------------------
 
@@ -88,9 +83,7 @@ Hands-on labs using real cloud attack and investigation tools:
 
 ------------------------------------------------------------------------
 
-Unauthorized cloud access is one of the fastest ways attackers take
-control of modern organizations. Understanding how it happens and how to
-spot it is a core defensive skill for anyone working with cloud systems.
+Unauthorized cloud access is one of the fastest ways attackers take control of modern organizations. Understanding how it happens and how to spot it is a core defensive skill for anyone working with cloud systems.
 
 
 
