@@ -11,7 +11,7 @@ You click the link and see a page that looks exactly like your normal login port
 ## Observation
 
 The URL of the page is:
-`http://secure-it-support-login[.]com`
+`http://secure-it-support-login.com`
 
 After entering test credentials, you are redirected to the real company website.
 
