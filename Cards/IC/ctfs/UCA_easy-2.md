@@ -1,6 +1,6 @@
 ![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
-# Easy CTF 2 -- Exposed API Key
+# Easy CTF 2 - Exposed API Key
 
 A developer pushed a project to a public repository. While reviewing the
 files, you suspect sensitive cloud credentials were exposed.
