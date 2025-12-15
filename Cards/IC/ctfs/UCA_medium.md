@@ -1,6 +1,6 @@
 ![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
-# Medium CTF -- Cloud Privilege Escalation
+# Medium CTF - Cloud Privilege Escalation
 
 You have access to a low-privileged cloud user account created for a junior developer
 
