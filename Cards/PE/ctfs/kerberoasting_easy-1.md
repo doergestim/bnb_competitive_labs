@@ -2,7 +2,7 @@
 
 # Easy CTF 1 – Finding SPNs
 
-You have access to a Windows domain as a **low-privileged domain user**.
+You have access to a Windows domain as a **low-privileged domain user**
 
 During basic Active Directory enumeration, you run a command to list Service Principal Names (SPNs) and get the following result:
 
@@ -31,13 +31,6 @@ Why is this information interesting to an attacker?
 ---
 
 Correct Flag: **B**
-
----
-
-## Explanation
-
-Any domain user can request Kerberos service tickets for accounts that have SPNs.  
-Those tickets can be extracted and cracked offline, which is the basis of Kerberoasting.
 
 ---
 
