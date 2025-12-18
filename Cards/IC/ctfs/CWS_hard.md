@@ -21,13 +21,13 @@ Which **attack chain** best describes what happened?
 ## Flags (Choose One)
 
 - **A)** XSS -> CSRF -> RCE -> Root
-- **B)** SQLi -> Credential Reuse -> SSH -> Privilege Escalation
+- **B)** Brute Force -> DDoS -> Defacement
 - **C)** Phishing -> Malware -> Lateral Movement
-- **D)** Brute Force -> DDoS -> Defacement
+- **D)** SQLi -> Credential Reuse -> SSH -> Privilege Escalation
 
 ---
 
-Correct Flag: **B**
+Correct Flag: **D**
 
 
 ---
