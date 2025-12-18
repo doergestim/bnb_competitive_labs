@@ -23,13 +23,13 @@ What **primary attacker objective** is being demonstrated?
 ## Flags (Choose One)
 
 -   **A)** Data exfiltration
--   **B)** Persistence and control
--   **C)** Phishing campaign
+-   **B)** Phishing campaign
+-   **C)** Persistence and control
 -   **D)** Denial of service
 
 ---
 
-Correct Flag: **B**
+Correct Flag: **C**
 
 ---
 
