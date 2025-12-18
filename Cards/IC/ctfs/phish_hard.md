@@ -26,13 +26,13 @@ What allowed the attacker to reach internal systems?
 ## Flags (Choose One)
 
 - **A)** Exploited zero-day vulnerability  
-- **B)** Stolen VPN credentials from phishing  
-- **C)** Drive-by malware infection  
+- **B)** Drive-by malware infection  
+- **C)** Stolen VPN credentials from phishing  
 - **D)** Insider threat  
 
 ---
 
-Correct Flag: **B**
+Correct Flag: **C**
 
 ---
 
