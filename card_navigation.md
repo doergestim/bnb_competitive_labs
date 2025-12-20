@@ -52,6 +52,6 @@
 - [Endpoint Analysis](/Cards/DET/)
 - [Isolation](/Cards/DET/)
 - [Crisis Management](/Cards/DET/)
-- [Memory Analysis](/Cards/DET/)
+- [Memory Analysis](/Cards/DET/Memory_Analysis.md)
 - [Cloud Event Logs Analysis](/Cards/DET/)
 - [Permissions Audit](/Cards/DET/)
