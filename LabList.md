@@ -1,3 +1,4 @@
+# IC
 - Burp Suite
 - Caido
 - CredMaster
@@ -22,6 +23,7 @@
 - Social-Engineer Toolkit
 - Sqlmap
 
+# PE
 - Adminer
 - BloodHound
 - DonPAPI
@@ -47,6 +49,7 @@
 - ServiceController
 - SharpUp
 
+# C2E
 - Gcat
 - Gost
 - Havok
@@ -56,6 +59,7 @@
 - Sneaky Creeper
 - UBoatRAT
 
+# PER
 - SharpStay
 - SharpPersist
 - StayKit
@@ -82,6 +86,7 @@
 - USB Rubber Ducky
 - OMGCable
 
+# DET
 - AC-Hunter 
 - Active Defense Harbinger Distribution
 - BloodHound
