@@ -49,7 +49,7 @@
 - [Active Defense And Cyber Deception](/Cards/DET/)
 - [Endpoint Security Protection Analysis](/Cards/DET/)
 - [User And Entity Behavious Analytics](/Cards/DET/UEBA_Analytics.md)
-- [Endpoint Analysis](/Cards/DET/)
+- [Endpoint Analysis](/Cards/DET/Endpoint_Analysis.md)
 - [Isolation](/Cards/DET/)
 - [Crisis Management](/Cards/DET/)
 - [Memory Analysis](/Cards/DET/Memory_Analysis.md)
