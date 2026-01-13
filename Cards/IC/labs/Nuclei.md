@@ -134,7 +134,7 @@ You may see:
 ## Filter a scan to only show specific severities
 
 ```bash
-nuclei -u http://localhost:3000 -severity low,medium,high
+nuclei -u http://localhost:3000 -severity info
 ```
 
 ---
@@ -143,7 +143,7 @@ nuclei -u http://localhost:3000 -severity low,medium,high
 
 Run scan and save output:
 ```bash
-nuclei -u http://localhost:3000 severity low,medium,high -o results.txt
+nuclei -u http://localhost:3000 severity info -o results.txt
 ```
 
 View results:
