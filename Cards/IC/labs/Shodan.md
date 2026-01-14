@@ -133,7 +133,7 @@ jq -r '.data[] | "\(.port) \(.transport) \(.product // "unknown") \(.version // 
 
 ---
 
-## Export and parse search results (download → parse)
+## Export and parse search results (download -> parse)
 This is useful for reporting or later analysis.
 
 ### Download a dataset (example query)
