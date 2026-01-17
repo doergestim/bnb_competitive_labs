@@ -86,7 +86,7 @@ When you click an IP address, you’ll see:
 
 ---
 
-# Search using ports
+## Search using ports
 In the search bar, try:
 
 ```
@@ -107,7 +107,7 @@ This shows systems exposing **RDP** (common attack target)
 
 ---
 
-# Filter by country
+## Filter by country
 Search for:
 
 ```
@@ -123,7 +123,7 @@ Things to observe:
 
 ---
 
-# Search by product or service
+## Search by product or service
 Try these searches:
 
 ```
@@ -147,7 +147,7 @@ Click into a few results
 
 ---
 
-# Look for login pages (very common mistake)
+## Look for login pages
 Search:
 
 ```
@@ -165,7 +165,7 @@ Look at:
 
 ---
 
-# Vulnerabilities
+## Vulnerabilities
 On some host pages you’ll see:
 - **Vulnerabilities**
 - **CVE identifiers**
