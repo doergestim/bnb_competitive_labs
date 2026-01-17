@@ -2,249 +2,191 @@
 
 # Shodan
 
-## What you’ll do in this lab
-- Install the **Shodan CLI**
-- Connect the CLI using your **API key**
-- Run basic searches and filters (country, org, ports)
-- Inspect a host (services, banners)
-- Export results to files (download + parse)
-- Check your own public IP (and understand common “no results” cases)
+**Goal:** Learn what Shodan can do using the **web interface**
 
 ---
 
+## In this lab you will
+- Understand what Shodan is and how it works
+- Use the Shodan **web UI** to search the internet
+- Read service banners and exposed ports
+- Use basic filters (port, country, product)
+- Inspect a host in detail
+- Understand why exposed services are risky
+
+---
+
+## What is Shodan?
+Shodan is a **search engine for internet-connected devices**.
+
+Unlike Google (which indexes web pages), **Shodan** indexes:
+- Open **ports**
+- **Services** (SSH, FTP, HTTP, RDP, etc)
+- Software **banners**
+- Sometimes **known vulnerabilities** (**CVEs**)
+
+Everything you see is collected by **Shodan scanners**, not by you
+
+
 ## Create a Shodan account
-Create an account on Shodan [HERE](https://account.shodan.io/register)
+Create an account on Shodan [HERE](https://account.shodan.io/register) and log in with it
 
 <img width="734" height="540" alt="image" src="https://github.com/user-attachments/assets/275aef2c-df81-4661-a81b-8faa3808df44" />
 
----
 
-## First search: “What is exposed on the internet?”
-Shodan searches **service banners** (the text a service reveals when scanned), not just open ports.
 
-### Count results (fast)
-```bash
-shodan count "apache"
+## First search: exposed web servers
+At the top search bar at [this link](https://www.shodan.io/), enter:
+
+```
+apache
 ```
 
-### Get a few results (read-only)
-Show the first 5 results and only a few fields:
+Press **Enter** or the **magnifying glass**
 
-```bash
-shodan search --limit 5 --fields ip_str,port,org,hostnames "apache"
-```
+<img width="622" height="66" alt="image" src="https://github.com/user-attachments/assets/1b8ec8ed-f33f-4c3d-9d39-3dfb8e62a340" />
 
-**What to look for**
-- `ip_str`: the IP address
-- `port`: the exposed service port
-- `org`: the network owner (sometimes empty)
-- `hostnames`: DNS names (sometimes empty)
 
----
+### What you should see
+- A list of IP addresses
+- Open ports (usually 80 or 443)
+- Organization / ISP
+- Country
+- Short service banners
 
-## Use simple filters (country, port, product)
-Shodan queries support powerful filters. Here are beginner-friendly ones.
+<img width="1920" height="1029" alt="image" src="https://github.com/user-attachments/assets/8836a417-a3e9-4820-9e5c-0cd1e2cb2965" />
 
-### Filter by country (example: Romania = RO)
-```bash
-shodan count "nginx country:RO"
-shodan search --limit 5 --fields ip_str,port,org,hostnames "nginx country:RO"
-```
+- There are a total of `14,737,596` probable **apache** servers at the time of search, that is a lot!
 
-### Filter by port
-```bash
-shodan count "port:22"
-shodan search --limit 5 --fields ip_str,port,org,hostnames "port:22"
-```
-
-### Filter by product (banner-identified software)
-```bash
-shodan count "product:OpenSSH"
-shodan search --limit 5 --fields ip_str,port,org,hostnames "product:OpenSSH"
-```
-
->[!Notes]
-> “product” depends on banner detection. Not every service reports product info.
+Click on **any result**
 
 ---
 
-## ummarize results with facets (top countries, orgs, ports)
-Facets give you quick “top N” summaries without pulling lots of results.
+## Reading a host page
+When you click an IP address, you’ll see:
 
-### Top countries for OpenSSH
-```bash
-shodan search --limit 0 --facets country "product:OpenSSH"
-```
+- **IP address**
+- **Open ports**
+- **Detected services**
+- **Banners**
+- Sometimes:
+  - SSL certificate info
+  - Software versions
+  - Tags
 
-### Top organizations for OpenSSH
-```bash
-shodan search --limit 0 --facets org "product:OpenSSH"
-```
+<img width="284" height="153" alt="image" src="https://github.com/user-attachments/assets/9aa94188-7578-455d-ad06-d54a978ceb7f" />
 
-### Top ports for “nginx”
-```bash
-shodan search --limit 0 --facets port "nginx"
-```
+<img width="960" height="305" alt="image" src="https://github.com/user-attachments/assets/baedf5ec-ca35-4481-bfa4-698f8eda1446" />
 
----
 
-## Host investigation (inspect one IP)
-Pick **one IP** from your previous search output (Step 4 or 5) and set it as a variable:
-
-```bash
-IP="PUT_AN_IP_HERE"
-```
-
-Now run:
-
-```bash
-shodan host "$IP"
-```
-
-**What you’re seeing**
-- Open ports discovered by Shodan
-- Service banners (often includes server type, certificates, page titles, etc.)
-- Sometimes tags like “vpn”, “compromised” (depends on Shodan data)
-
-### Save host data as JSON (for later review)
-```bash
-shodan host "$IP" --history --format json > host.json
-ls -lh host.json
-```
-
-### Read the JSON safely with jq
-Show the top-level keys:
-
-```bash
-jq 'keys' host.json
-```
-
-Show ports:
-
-```bash
-jq '.ports' host.json
-```
-
-Show a compact list of services Shodan saw:
-
-```bash
-jq -r '.data[] | "\(.port) \(.transport) \(.product // "unknown") \(.version // "")"' host.json | head -n 20
-```
+### What an attacker looks for
+- What ports are open?
+- What service is running on each port?
+- Is version information exposed?
 
 ---
 
-## Export and parse search results (download -> parse)
-This is useful for reporting or later analysis.
+# Search using ports
+In the search bar, try:
 
-### Download a dataset (example query)
-Pick a simple query, for example:
-
-```bash
-QUERY='nginx country:RO'
+```
+port:22
 ```
 
-Download:
+This shows systems exposing **SSH**
 
-```bash
-shodan download my_nginx_ro "$QUERY"
+Now try:
+
+```
+port:3389
 ```
 
-You should get a `.json.gz` file. Confirm:
+This shows systems exposing **RDP** (common attack target)
 
-```bash
-ls -lh my_nginx_ro.json.gz
-```
-
-### Parse the downloaded file into a clean table
-```bash
-shodan parse --fields ip_str,port,org,hostnames my_nginx_ro.json.gz | head -n 20
-```
-
-### Export to CSV (easy for Excel)
-```bash
-shodan parse --fields ip_str,port,org,hostnames --separator , my_nginx_ro.json.gz > my_nginx_ro.csv
-ls -lh my_nginx_ro.csv
-```
+> As a **defender**, ask yourself: should these services be exposed to the entire internet?
 
 ---
 
-## Check your own public IP (and why you might see “no data”)
-### Get your public IP
-```bash
-MYIP="$(curl -s ifconfig.me)"
-echo "My public IP is: $MYIP"
+# Filter by country
+Search for:
+
+```
+nginx country:US
 ```
 
-### 9.2 Try Shodan host lookup
-```bash
-shodan host "$MYIP"
-```
+Replace `US` with your own country code if you want
 
-If you get **no results**, that’s common! Reasons include:
-- Your router/NAT hides your internal devices
-- Your ISP blocks inbound ports
-- Shodan hasn’t scanned your IP recently
-- Your IP changed recently
-
-### Use Shodan InternetDB (free, no API key required)
-InternetDB is a simple endpoint that often returns basic exposure info:
-
-```bash
-curl -s "https://internetdb.shodan.io/$MYIP" | jq
-```
-
-**What to look for**
-- `ports`: which ports are exposed
-- `hostnames`: known DNS
-- `cpes`: product identifiers (if any)
-- `vulns`: known CVE mappings (if any)
-
-> If this returns empty ports, that can still be totally normal and means you’re not publicly exposed (good!).
+Things to observe:
+- How many results appear
+- Who owns these systems
+- What ports are exposed
 
 ---
 
-## Mini challenge
-Try answering these using **only Shodan searches**:
+# Search by product or service
+Try these searches:
 
-1) Find how many hosts expose **RDP (3389)** in your country:
-```bash
-shodan count "port:3389 country:RO"
+```
+product:OpenSSH
 ```
 
-2) Find a common port for **MongoDB** exposures:
-```bash
-shodan search --limit 0 --facets port "product:MongoDB"
+```
+product:MongoDB
 ```
 
-3) Find the top countries for **FTP**:
-```bash
-shodan search --limit 0 --facets country "port:21"
 ```
+product:MySQL
+```
+
+Click into a few results
+
+### Notice
+- Some services expose **exact versions**
+- Some have **no authentication visible**
+- Some are cloud-hosted
 
 ---
 
-## Cleanup
-Remove downloaded datasets:
+# Look for login pages (very common mistake)
+Search:
 
-```bash
-rm -f my_nginx_ro.json.gz my_nginx_ro.csv host.json
 ```
+http.title:login
+```
+
+Open a few results **without interacting**
+
+Look at:
+- Page titles
+- Server headers
+- Technologies listed
+
+> Seeing a login page does NOT mean it’s vulnerable - it means it’s **visible**
 
 ---
 
-## Quick reference: useful beginner queries
-Use these as “copy/paste starters”:
+# Vulnerabilities
+On some host pages you’ll see:
+- **Vulnerabilities**
+- **CVE identifiers**
 
-```bash
-shodan count "port:22"
-shodan count "port:3389"
-shodan count "http.title:login"
-shodan search --limit 5 --fields ip_str,port,org,hostnames "product:OpenSSH"
-shodan search --limit 0 --facets country,org,port "nginx"
-```
+Click a CVE number
 
+### Understand:
+- Shodan did NOT exploit the host
+- It mapped known vulnerable versions
+- This is correlation, not confirmation
 
+---
 
+## Defensive mindset
+For every exposed service you see, ask:
+- Does this need to be public?
+- Could this be behind a VPN?
+- Could this be restricted by IP?
+- Is version info necessary?
+
+Shodan is not the danger - **misconfiguration is**
 
 
 
