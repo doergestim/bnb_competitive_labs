@@ -79,7 +79,7 @@ You should see output that the server is listening on port `2121`
 
 ## Metasploit Console Basics
 
->[!NOTES]
+>[NOTES!]
 >This should be done in another terminal, open a new window!
 
 Start Metasploit:
