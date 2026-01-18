@@ -90,102 +90,140 @@ msfconsole
 ### Confirm database connection inside msfconsole
 Inside `msfconsole`, run:
 ```text
-msf6 > db_status
+msf > db_status
 ```
 
-If it says connected, great. If not, you can still continue (scans will work, but saving results may be limited).
+If it says connected, great. If not, you can still continue (scans will work, but saving results may be limited)
 
-## 4.2 Helpful navigation commands
+### Helpful navigation commands
 Try these inside `msfconsole`:
 ```text
-msf6 > help
-msf6 > version
-msf6 > show -h
-msf6 > search -h
+msf > help
+msf > version
+msf > show -h
+msf > search -h
 ```
 
 ---
 
-# Part 5 — Scan localhost (safe discovery)
+## Scan localhost
 
 We’ll treat `127.0.0.1` as our “target”.
 
-## 5.1 Create a workspace (keeps your lab results separate)
+### Create a workspace (keeps your lab results separate)
 ```text
-msf6 > workspace -a msf_beginner_lab
-msf6 > workspace
+msf > workspace -a msf_beginner_lab
 ```
 
-## 5.2 Port scan with Metasploit
+```text
+msf > workspace
+```
+
+<img width="363" height="120" alt="image" src="https://github.com/user-attachments/assets/324e654f-e486-4702-a5bb-b10f224ec560" />
+
+
+### Port scan with Metasploit
 Use a TCP port scanner module:
 ```text
-msf6 > search portscan tcp
+msf > search portscan tcp
 ```
+
+<img width="974" height="320" alt="image" src="https://github.com/user-attachments/assets/f4d988a7-5956-4904-99ab-e100b5de37d2" />
+
 
 Pick this common module:
 ```text
-msf6 > use auxiliary/scanner/portscan/tcp
+msf > use auxiliary/scanner/portscan/tcp
 ```
 
 Show options:
 ```text
-msf6 auxiliary(scanner/portscan/tcp) > show options
+msf auxiliary(scanner/portscan/tcp) > show options
 ```
+
+<img width="1319" height="373" alt="image" src="https://github.com/user-attachments/assets/21115925-aefb-47e3-a6bc-dd2535df3d3e" />
 
 Set the target and ports:
 ```text
-msf6 auxiliary(scanner/portscan/tcp) > set RHOSTS 127.0.0.1
-msf6 auxiliary(scanner/portscan/tcp) > set PORTS 21,22,80,443,2121
-msf6 auxiliary(scanner/portscan/tcp) > run
+msf auxiliary(scanner/portscan/tcp) > set RHOSTS 127.0.0.1
 ```
 
-You should see `2121` open (and maybe others depending on your machine).
+```text
+msf auxiliary(scanner/portscan/tcp) > set PORTS 21,22,80,443,2121
+```
 
-## 5.3 View discovered hosts/services (database)
+```text
+msf auxiliary(scanner/portscan/tcp) > run
+```
+
+You should see `2121` open
+
+<img width="598" height="167" alt="image" src="https://github.com/user-attachments/assets/ac869c82-5b03-456a-8b8a-a1f18cde7d7a" />
+
+
+### View discovered hosts/services (database)
 If DB is connected:
 ```text
-msf6 auxiliary(scanner/portscan/tcp) > hosts
-msf6 auxiliary(scanner/portscan/tcp) > services
+msf auxiliary(scanner/portscan/tcp) > hosts
 ```
 
-> If `hosts`/`services` are empty, that’s usually a DB issue. You can still proceed.
+```text
+msf auxiliary(scanner/portscan/tcp) > services
+```
+
+<img width="668" height="333" alt="image" src="https://github.com/user-attachments/assets/5ff89440-a1ae-436d-b466-6d3f5f6cd302" />
 
 ---
 
-# Part 6 — Identify the FTP service (version scanning)
+## Identify the FTP service (version scanning)
 
-Metasploit has scanner modules that grab banners and versions.
+Metasploit has scanner modules that grab banners and versions
 
-## 6.1 Use the FTP version scanner
+### Use the FTP version scanner
 ```text
-msf6 > use auxiliary/scanner/ftp/ftp_version
-msf6 auxiliary(scanner/ftp/ftp_version) > show options
+msf auxiliary(scanner/portscan/tcp) > use auxiliary/scanner/ftp/ftp_version
 ```
+
+```text
+msf auxiliary(scanner/ftp/ftp_version) > show options
+```
+
+<img width="1318" height="333" alt="image" src="https://github.com/user-attachments/assets/b701d74e-8fbc-403e-8515-c1eeafe5c8b4" />
+
 
 Set target and port:
 ```text
-msf6 auxiliary(scanner/ftp/ftp_version) > set RHOSTS 127.0.0.1
-msf6 auxiliary(scanner/ftp/ftp_version) > set RPORT 2121
-msf6 auxiliary(scanner/ftp/ftp_version) > run
+msf auxiliary(scanner/ftp/ftp_version) > set RHOSTS 127.0.0.1
 ```
 
-You should see a banner/version line returned by the server.
-
-Check services again (optional):
 ```text
-msf6 auxiliary(scanner/ftp/ftp_version) > services -p 2121
+msf auxiliary(scanner/ftp/ftp_version) > set RPORT 2121
 ```
+
+```text
+msf auxiliary(scanner/ftp/ftp_version) > run
+```
+
+<img width="697" height="165" alt="image" src="https://github.com/user-attachments/assets/a0f06e54-5a88-423a-904b-7bfffba26bd5" />
+
+
+Check services again:
+```text
+msf auxiliary(scanner/ftp/ftp_version) > services -p 2121
+```
+
+Notice how the **info** column has updated
 
 ---
 
-# Part 7 — Controlled credential check (local FTP login scanner)
+## Controlled credential check (local FTP login scanner)
 
 This demonstrates Metasploit’s credential modules in a **safe** way: you’re testing a service you started yourself.
 
-## 7.1 Create a tiny password list
+### Create a tiny password list
 In a **new terminal** (not msfconsole):
 ```bash
-cat > ~/msf-lab/passwords.txt << 'EOF'
+cat > ~/Desktop/msf-lab/passwords.txt << 'EOF'
 123456
 password
 Password123!
@@ -193,122 +231,53 @@ letmein
 EOF
 ```
 
-## 7.2 Run the FTP login scanner in Metasploit
+### Run the FTP login scanner in Metasploit
 Back in `msfconsole`:
 ```text
-msf6 > use auxiliary/scanner/ftp/ftp_login
-msf6 auxiliary(scanner/ftp/ftp_login) > show options
+msf auxiliary(scanner/ftp/ftp_version) > use auxiliary/scanner/ftp/ftp_login
 ```
+
+```text
+msf auxiliary(scanner/ftp/ftp_login) > show options
+```
+
+
+<img width="1510" height="615" alt="image" src="https://github.com/user-attachments/assets/653b9400-93ce-48dc-8bd4-cf41f09e6621" />
 
 Set the target and port:
 ```text
-msf6 auxiliary(scanner/ftp/ftp_login) > set RHOSTS 127.0.0.1
-msf6 auxiliary(scanner/ftp/ftp_login) > set RPORT 2121
+msf auxiliary(scanner/ftp/ftp_login) > set RHOSTS 127.0.0.1
+```
+
+```text
+msf auxiliary(scanner/ftp/ftp_login) > set RPORT 2121
 ```
 
 Set the username:
 ```text
-msf6 auxiliary(scanner/ftp/ftp_login) > set USERNAME student
+msf auxiliary(scanner/ftp/ftp_login) > set USERNAME student
 ```
 
 Point Metasploit to the password list:
 ```text
-msf6 auxiliary(scanner/ftp/ftp_login) > set PASS_FILE ~/msf-lab/passwords.txt
+msf auxiliary(scanner/ftp/ftp_login) > set PASS_FILE /home/panterasbook29/Desktop/msf-lab/passwords.txt
 ```
 
 Run it:
 ```text
-msf6 auxiliary(scanner/ftp/ftp_login) > run
+msf auxiliary(scanner/ftp/ftp_login) > run
 ```
 
-Expected result: it should report a successful login for `student:Password123!`.
+<img width="817" height="142" alt="image" src="https://github.com/user-attachments/assets/d6caac57-ea9d-45f2-8dbe-9ae2d7c8aa87" />
 
-## 7.3 See stored credentials (if DB is connected)
+Successful login for `student:Password123!`!!!
+
+### See stored credentials (if DB is connected)
 ```text
-msf6 auxiliary(scanner/ftp/ftp_login) > creds
+msf auxiliary(scanner/ftp/ftp_login) > creds
 ```
 
----
-
-# Part 8 — Bonus: Quick HTTP scanning (optional, still safe)
-
-We’ll spin up a simple local web server and scan it.
-
-## 8.1 Start a local web server
-In a **new terminal**, run:
-```bash
-cd ~/msf-lab
-python3 -m http.server 8080
-```
-
-## 8.2 Scan HTTP title with Metasploit
-In `msfconsole`:
-```text
-msf6 > use auxiliary/scanner/http/title
-msf6 auxiliary(scanner/http/title) > set RHOSTS 127.0.0.1
-msf6 auxiliary(scanner/http/title) > set RPORT 8080
-msf6 auxiliary(scanner/http/title) > run
-```
-
-You should see the page title (or a response indicating the server is reachable).
-
----
-
-# Part 9 — Clean up
-
-## 9.1 Stop the local servers
-- In the FTP server terminal: press **Ctrl+C**
-- In the HTTP server terminal (if used): press **Ctrl+C**
-
-## 9.2 Exit Metasploit
-```text
-msf6 > exit
-```
-
-## 9.3 (Optional) Stop the Metasploit DB
-```bash
-sudo msfdb stop
-```
-
----
-
-# What you learned (recap)
-- How to install and start Metasploit (`msfconsole`, `msfdb`)
-- How to use modules and options (`search`, `use`, `show options`, `set`, `run`)
-- How scanners work (port scan + version scan)
-- How a **controlled** login check works against a **local** service you own
-- How to store and review results (`workspace`, `hosts`, `services`, `creds`)
-
----
-
-# Troubleshooting
-
-## “msfconsole is slow”
-First run can take a bit while it initializes. Try updating packages:
-```bash
-sudo apt update
-sudo apt install -y metasploit-framework
-```
-
-## “db_status says not connected”
-Try:
-```bash
-sudo msfdb reinit
-sudo msfdb status
-```
-Then reopen `msfconsole` and run `db_status` again.
-
-## “Port 2121 already in use”
-Pick another port, e.g. `2122`:
-```bash
-python3 -m pyftpdlib -p 2122 -w -d ~/msf-lab/ftp-share -u student -P 'Password123!'
-```
-Then set `RPORT 2122` in Metasploit modules.
-
----
-
-
-
+<img width="1119" height="150" alt="image" src="https://github.com/user-attachments/assets/ee8742d5-45a9-4a3b-a83d-d02ce0c1325a" />
 
 
 
