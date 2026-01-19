@@ -3,7 +3,7 @@
 - Caido
 - CredMaster
 - Evilginx
-- Exploid-db
+- Exploit-db
 - FindMeAccess
 - FireProx
 - Gato-X
