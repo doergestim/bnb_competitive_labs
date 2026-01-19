@@ -12,7 +12,6 @@
 - Hashcat
 - Hydra
 - Metasploit
-- Modlishka
 - MSOLSpray
 - Nuclei
 - OSINT
