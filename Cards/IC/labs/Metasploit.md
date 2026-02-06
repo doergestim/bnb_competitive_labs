@@ -13,62 +13,14 @@
 
 ---
 
-
-## Install Metasploit 
-
-Check:
-
-```bash
-msfconsole -v
-```
-
-If it’s missing, install:
-
-```bash
-sudo apt update
-```
-
-```bash
-sudo apt install -y metasploit-framework
-```
-
----
-
-## Create a Safe Local Target
-
-We’ll run a local FTP server that you control, with a known test username/password
-
-### Install a simple FTP server library
-```bash
-sudo apt update
-```
-
-```bash
-sudo apt install -y python3-pip
-```
-
-```bash
-pip3 install --user pyftpdlib
-```
-
-
-### Create a folder to share
-```bash
-mkdir -p ~/Desktop/msf-lab/ftp-share
-```
-
-```bash
-echo "hello from ftp" > ~/Desktop/msf-lab/ftp-share/hello.txt
-```
-
-### Start the local FTP server (with a test user)
+### Start a local FTP server (with a test user)
 We will use:
 - Username: `student`
 - Password: `Password123!`
 
 Run this **in a terminal window** and keep it running:
 ```bash
-python3 -m pyftpdlib -p 2121 -w -d ~/Desktop/msf-lab/ftp-share -u student -P 'Password123!'
+python3 -m pyftpdlib -p 2121 -w -d ~/BnB/metasploit/ftp-share -u student -P 'Password123!'
 ```
 
 You should see output that the server is listening on port `2121`
@@ -223,7 +175,7 @@ This demonstrates Metasploit’s credential modules in a **safe** way: you’re 
 ### Create a tiny password list
 In a **new terminal** (not msfconsole):
 ```bash
-cat > ~/Desktop/msf-lab/passwords.txt << 'EOF'
+cat > ~/BnB/metasploit/passwords.txt << 'EOF'
 123456
 password
 Password123!
@@ -260,7 +212,7 @@ msf auxiliary(scanner/ftp/ftp_login) > set USERNAME student
 
 Point Metasploit to the password list:
 ```text
-msf auxiliary(scanner/ftp/ftp_login) > set PASS_FILE /home/panterasbook29/Desktop/msf-lab/passwords.txt
+msf auxiliary(scanner/ftp/ftp_login) > set PASS_FILE /home/ubuntu/BnB/metasploit/passwords.txt
 ```
 
 Run it:
