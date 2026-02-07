@@ -12,24 +12,6 @@ You will:
 - Run basic Nuclei scans
 - Understand results from both attacker and defender perspectives
 
-This lab is beginner-friendly and fully hands-on.
-
----
-
-## Install Docker
-
-```bash
-sudo apt update
-sudo apt install -y docker.io
-sudo systemctl start docker
-sudo systemctl enable docker
-```
-
-Verify Docker:
-```bash
-docker --version
-```
-
 ---
 
 ## Run OWASP Juice Shop
