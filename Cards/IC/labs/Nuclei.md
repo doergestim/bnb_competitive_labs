@@ -44,7 +44,8 @@ Verify it is running:
 sudo docker ps
 ```
 
-<img width="1550" height="70" alt="image" src="https://github.com/user-attachments/assets/378b9008-4c54-4860-a843-5eef325a2cb3" />
+<img width="1740" height="98" alt="juiceShopRunning" src="https://github.com/user-attachments/assets/58114df2-8f49-4468-aec6-3c60dc898a47" />
+
 
 
 Open your browser and go to:
@@ -56,31 +57,6 @@ http://localhost:3000
 
 
 You should see the OWASP Juice Shop homepage
-
----
-
-## Install Nuclei
-
-Install Go (required):
-```bash
-sudo apt install -y golang
-```
-
-Install Nuclei:
-```bash
-go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
-```
-
-Add Go binaries to PATH:
-```bash
-echo 'export PATH=$PATH:$HOME/go/bin' >> ~/.bashrc
-source ~/.bashrc
-```
-
-Verify installation:
-```bash
-nuclei -version
-```
 
 ---
 
