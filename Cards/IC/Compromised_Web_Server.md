@@ -74,7 +74,7 @@ Hands-on practice with the tools:
 - [Burp Suite Lab](labs/burp-suite.md)
 - [Caido Lab](labs/caido.md)
 - [sqlmap Lab](labs/sqlmap.md)
-- [Nuclei Lab](labs/nuclei.md)
+- [Nuclei Lab](labs/Nuclei.md)
 
 ---
 
