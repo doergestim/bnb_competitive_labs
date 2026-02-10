@@ -18,7 +18,7 @@
 
 ---
 
-## 2) Setup
+## Setup
 
 ### Go the the Lab Directory
 
@@ -46,10 +46,15 @@ which smbclient.py
 which smbserver.py
 ```
 
-If `which` prints paths, you're good.
+If `which` prints paths, you're good
+
+<img width="438" height="24" alt="image" src="https://github.com/user-attachments/assets/3982365c-6e30-4f4f-8375-e97956be2871" />
+
+<img width="438" height="24" alt="image" src="https://github.com/user-attachments/assets/0906da01-0b94-4ecf-9f04-7a87727c037a" />
+
 
 ---
-## 3) Start a local SMB "target" (Samba in Docker)
+## Start a local SMB "target" (Samba in Docker)
 
 We'll run Samba on **127.0.0.1:1445** (host port 1445 -> container port 445), so it won't conflict with anything using port 445.
 
@@ -90,7 +95,7 @@ nc -vz 127.0.0.1 1445
 You should see a "succeeded" message.
 
 ---
-## 4) Use Impacket to list shares and browse files
+## Use Impacket to list shares and browse files
 
 ### List shares on the target
 
@@ -171,7 +176,7 @@ cat ./target_share/upload.txt
 
 ---
 
-## 5) Run an SMB server using Impacket (reverse the roles)
+## Run an SMB server using Impacket (reverse the roles)
 
 So far, you used Impacket as a client to talk to Samba.
 
@@ -229,7 +234,7 @@ Ctrl+C
 
 ---
 
-# 6) Cleanup
+# Cleanup
 
 Stop and remove the Samba container:
 
@@ -244,56 +249,6 @@ Deactivate your Python environment:
 ```bash
 deactivate
 ```
-
-Optional: remove the lab directory:
-
-```bash
-cd ~
-rm -rf ~/impacket-lab
-```
-
----
-
-# Troubleshooting
-
-## "Connection refused" to 127.0.0.1:1445
-- Make sure the Samba container is running:
-
-```bash
-sudo docker ps --format 'table {{.Names}}\t{{.Ports}}'
-```
-
-You should see `samba-lab` mapped to `127.0.0.1:1445->445/tcp`.
-
-## "Authentication failed"
-- Re-check the exact username/password:
-  - Username: `student`
-  - Password: `Password123!`
-- Restart the container (cleanup step) and start it again.
-
-## "Command not found: smbclient.py"
-- Your virtualenv might not be active:
-
-```bash
-cd ~/impacket-lab
-source .venv/bin/activate
-which smbclient.py
-```
-
-If it's still missing, reinstall:
-
-```bash
-python -m pip install --upgrade pip
-python -m pip install --force-reinstall impacket
-```
-
----
-
-# What you just learned (quick recap)
-- Impacket is a collection of Python tools that speak real network protocols.
-- You used it as an SMB client (`smbclient.py`) for enumeration + file operations.
-- You also used it as an SMB server (`smbserver.py`) to host a share.
-
 
 
 ---
