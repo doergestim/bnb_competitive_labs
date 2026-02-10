@@ -120,6 +120,6 @@ This is how defenders:
 
 # Finished?
 
-[Back to Compromised_Web_Server.md's Main Page](/Cards/IC/Compromised_Web_Server.md.md)
+[Back to Compromised_Web_Server's Main Page](/Cards/IC/Compromised_Web_Server.md)
 
 [Back to External_Service_Exploitation's Main Page](/Cards/IC/External_Service_Exploitation.md)
