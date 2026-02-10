@@ -12,7 +12,7 @@ After you open a terminal, we need to gain root access by running the following:
 Now, let's delete any old leftover pot files
 
 ```bash
-rm /root/.local/share/hashcat/hashcat.potfile
+sudo rm /root/.local/share/hashcat/hashcat.potfile
 ```
 
 If you get an error that the file does not exist, that is fine.  It just means the file does not exist.  Carry on.
@@ -33,13 +33,8 @@ hashcat -a 0 -m 0 -r /usr/share/hashcat/rules/Incisive-leetspeak.rule MD5.txt pa
 
 The result will look like this:
 
-![](attachments/md5run.png)
+<img width="1335" height="838" alt="2026-02-10_13-54" src="https://github.com/user-attachments/assets/65ce6739-e080-4861-93c8-2ff424d6c497" />
 
-Running this command will not show us the cracked hashes. As seen above, in order to see cracked hashes, we need to run our command again and add the **--show** option onto the end.
-
-After running the command again with the **--show** option, you should see something like this:
-
-![](attachments/md5hashes.png)
 
 Lets crack some NT hashes.  These are the hashes that almost all modern **Windows** systems store these days.  Older systems may store **LANMAN**, but that is very rare.
 
