@@ -6,15 +6,15 @@
 
 ## In this lab we will
 - Stand up a local SMB server (Samba) as our "target"
-- Use Impacket to:
-  - List SMB shares
-  - Browse directories
-  - Upload and download files
+- Use **Impacket** to:
+  - List **SMB shares**
+  - Browse **directories**
+  - Upload and download **files**
   - (Optional) query basic SMB/RPC info
 
 ## Lab topology
 - Your Linux machine (attacker/workstation)
-- A Samba container listening on 127.0.0.1:1445 (target)
+- A Samba container listening on `127.0.0.1:1445` (**target**)
 
 ---
 
@@ -43,6 +43,9 @@ Also check that some scripts exist:
 
 ```bash
 which smbclient.py
+```
+
+```bash
 which smbserver.py
 ```
 
@@ -61,8 +64,11 @@ We'll run Samba on **127.0.0.1:1445** (host port 1445 -> container port 445), so
 ### Create a folder to share
 
 ```bash
-mkdir -p ./target_share
-echo "hello from the SMB target" > ./target_share/hello.txt
+mkdir target_share
+```
+
+```bash
+echo "hello from the SMB target" > target_share/hello.txt
 ```
 
 ### Start the Samba container
@@ -70,7 +76,6 @@ echo "hello from the SMB target" > ./target_share/hello.txt
 Run this command exactly:
 
 ```bash
-sudo docker rm -f samba-lab 2>/dev/null || true
 sudo docker run -d --name samba-lab \
   -p 127.0.0.1:1445:445 \
   -v "$PWD/target_share:/mount" \
@@ -84,7 +89,7 @@ What you just created:
 - SMB user: `student`
 - Password: `Password123!`
 - Share name: `share`
-- Files stored in: `~/impacket-lab/target_share`
+- Files stored in: `~/BnB/impacket/target_share`
 
 ### Confirm the port is listening
 
@@ -92,7 +97,10 @@ What you just created:
 nc -vz 127.0.0.1 1445
 ```
 
-You should see a "succeeded" message.
+You should see a "**succeeded**" message
+
+<img width="479" height="22" alt="image" src="https://github.com/user-attachments/assets/719fe026-da67-4ce9-a047-1299ac4b566e" />
+
 
 ---
 ## Use Impacket to list shares and browse files
@@ -100,36 +108,30 @@ You should see a "succeeded" message.
 ### List shares on the target
 
 ```bash
-smbclient.py student:Password123!@127.0.0.1 -port 1445
+smbclient //127.0.0.1/SHARE -p 1445 -U student
 ```
+
+- Enter the password set before - `Password123!`
 
 This opens an interactive SMB shell.
 
-Inside the `smbclient.py` prompt, run:
-
 ```text
-# list shares (tip: you can type `help` to see available commands)
-shares
-```
-
-You should see a share named `share`.
-
-### Enter the share and list files
-
-Still inside the Impacket SMB shell:
-
-```text
-use share
 ls
 ```
 
-You should see `hello.txt`.
+You should see `hello.txt`
+
+<img width="677" height="183" alt="2026-02-10_15-38" src="https://github.com/user-attachments/assets/9cfabf35-c6f1-4c06-a761-b8f3082a41f2" />
+
 
 ### Download a file from the SMB target
 
 ```text
 get hello.txt
 ```
+
+<img width="882" height="25" alt="image" src="https://github.com/user-attachments/assets/b2d296cd-4ff1-493b-b03b-3d5a23fd7321" />
+
 
 Exit the SMB shell:
 
@@ -141,8 +143,14 @@ Check that the file downloaded to your current directory:
 
 ```bash
 ls -l
+```
+
+```bash
 cat hello.txt
 ```
+
+<img width="563" height="45" alt="image" src="https://github.com/user-attachments/assets/136e6af8-9b09-470d-8194-a82596d24c3c" />
+
 
 ### Upload a file to the SMB target
 
@@ -155,23 +163,32 @@ echo "this file was uploaded using Impacket" > upload.txt
 Reconnect:
 
 ```bash
-smbclient.py student:Password123!@127.0.0.1 -port 1445
+smbclient //127.0.0.1/SHARE -p 1445 -U student
 ```
 
 Inside:
 
 ```text
 use share
+```
+
+```text
 put upload.txt
+```
+
+```text
 ls
+```
+
+```text
 exit
 ```
 
 Verify on the host that the file is in the shared folder:
 
 ```bash
-ls -l ./target_share
-cat ./target_share/upload.txt
+ls -l target_share
+cat target_share/upload.txt
 ```
 
 ---
@@ -185,8 +202,11 @@ Now you'll run **Impacket's own SMB server** and connect to it.
 ### Create an "attacker" share folder
 
 ```bash
-mkdir -p ./attacker_share
-echo "hello from impacket smbserver" > ./attacker_share/from_impacket.txt
+mkdir attacker_share
+```
+
+```bash
+echo "hello from impacket smbserver" > attacker_share/from_impacket.txt
 ```
 
 ### Start smbserver.py on a safe port
@@ -199,26 +219,42 @@ In Terminal 1, run:
 smbserver.py -port 2445 -smb2support LABSHARE ./attacker_share -username demo -password DemoPass123!
 ```
 
-Leave this running.
+Leave this running
 
 ### Connect to your Impacket SMB server
 
-Open Terminal 2 (new terminal), and run:
+Open Terminal 2 (**new terminal**), and run:
 
 ```bash
-source ~/impacket-lab/.venv/bin/activate
-smbclient.py demo:DemoPass123!@127.0.0.1 -port 2445
+cd ~/BnB/impacket
 ```
+
+```bash
+source venv/bin/activate
+```
+
+```bash
+smbclient //127.0.0.1/LABSHARE -p 2445 -U demo
+```
+
+- Enter the password set before - `DemoPass123!`
 
 Inside:
 
 ```text
-shares
-use LABSHARE
 ls
+```
+
+```text
 get from_impacket.txt
+```
+
+```text
 exit
 ```
+
+<img width="1014" height="180" alt="2026-02-10_15-47" src="https://github.com/user-attachments/assets/8cf635af-7ad8-456e-8cb8-94e33b89ceeb" />
+
 
 Back on the host:
 
