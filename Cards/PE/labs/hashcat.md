@@ -56,3 +56,10 @@ When this command is complete, it should look like this:
 We will not see the cracked hashes unless we append **--show** onto the end of the command. Lets do that.  Run it again to see the cracked hashes:
 
 ![](attachments/ntcracked.png)
+
+
+---
+
+# Finished?
+
+[Back to Card's Main Page](/Cards/PE/Kerberoasting.md)
