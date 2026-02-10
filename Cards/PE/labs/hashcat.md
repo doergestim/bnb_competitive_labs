@@ -12,7 +12,7 @@ After you open a terminal, we need to gain root access by running the following:
 Now, let's delete any old leftover pot files
 
 ```bash
-sudo rm /root/.local/share/hashcat/hashcat.potfile
+rm ~/.local/share/hashcat/hashcat.potfile  
 ```
 
 If you get an error that the file does not exist, that is fine.  It just means the file does not exist.  Carry on.
@@ -46,12 +46,7 @@ hashcat -a 0 -m 1000 -r/usr/share/hashcat/rules/Incisive-leetspeak.rule sam.txt 
 
 When this command is complete, it should look like this:
 
-![](attachments/nthashrun.png)
-
-We will not see the cracked hashes unless we append **--show** onto the end of the command. Lets do that.  Run it again to see the cracked hashes:
-
-![](attachments/ntcracked.png)
-
+<img width="1333" height="821" alt="image" src="https://github.com/user-attachments/assets/af468a02-3513-4705-ac6d-ceba91684ad2" />
 
 ---
 
