@@ -8,4 +8,6 @@
 
 # Finished?
 
-[Back to Card's Main Page](/Cards/PE/Kerberoasting.md)
+[Back to Keberoasting's Main Page](/Cards/PE/Kerberoasting.md)
+
+[Back to Local_Privilege_Escalation's Main Page](/Cards/PE/Local_Privilege_Escalation.md)
