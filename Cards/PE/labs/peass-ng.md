@@ -29,6 +29,9 @@ https://github.com/peass-ng/PEASS-ng
 
 ```bash
 sudo mkdir -p /opt/demoapp
+```
+
+```bash
 sudo bash -c 'cat > /opt/demoapp/config.ini << "EOF"
 [database]
 host=127.0.0.1
@@ -41,10 +44,13 @@ Make it readable by everyone (bad):
 
 ```bash
 sudo chmod 644 /opt/demoapp/config.ini
+```
+
+```bash
 ls -l /opt/demoapp/config.ini
 ```
 
-Quick check as `student`:
+Quick check as `ubuntu`:
 
 ```bash
 cat /opt/demoapp/config.ini
@@ -62,6 +68,9 @@ sudo bash -c 'cat > /usr/local/bin/demo-backup.sh << "EOF"
 # Demo script: writes a timestamp to a log file
 date >> /var/log/demo-backup.log
 EOF'
+```
+
+```bash
 sudo chmod +x /usr/local/bin/demo-backup.sh
 ```
 
@@ -87,20 +96,27 @@ This is the “obvious problem” we want LinPEAS to scream about:
 
 ```bash
 sudo chmod 777 /usr/local/bin/demo-backup.sh
+```
+
+```bash
 ls -l /usr/local/bin/demo-backup.sh
 ```
 
-> A root cron job + a writable script is a serious misconfiguration.  
-> In real environments, **this must be fixed immediately**.
-
+> A root cron job + a writable script is a serious misconfiguration.
 ---
 
 ## Run LinPEAS
 
 ```bash
 cd ~/BnB/peass
+```
+
+```bash
 ./linpeas.sh | tee linpeas-after.txt
 ```
+
+>[!NOTES]
+>Bare in mind it can take up to 10+ minutes
 
 You’ll likely see some normal system findings (that’s expected). Important are the few **very obvious** misconfigs that we added
 
@@ -152,7 +168,13 @@ Restrict it to root only:
 
 ```bash
 sudo chmod 600 /opt/demoapp/config.ini
+```
+
+```bash
 sudo chown root:root /opt/demoapp/config.ini
+```
+
+```bash
 ls -l /opt/demoapp/config.ini
 ```
 
@@ -162,7 +184,13 @@ Make it only writable by root:
 
 ```bash
 sudo chmod 755 /usr/local/bin/demo-backup.sh
+```
+
+```bash
 sudo chown root:root /usr/local/bin/demo-backup.sh
+```
+
+```bash
 ls -l /usr/local/bin/demo-backup.sh
 ```
 
