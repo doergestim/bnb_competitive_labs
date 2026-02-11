@@ -4,6 +4,229 @@
 
 # Ubuntu VM
 
+**Goal:** Learn what **PEASS-ng / LinPEAS** can discover on a Linux host by **creating a few safe “bad configs” in a lab VM**, running LinPEAS, and reviewing the findings.  
+
+https://github.com/peass-ng/PEASS-ng
+
+---
+
+## What you’ll do in this lab
+
+- Generate a report and filter for “interesting” lines
+- Create 3 simple lab misconfigurations and see LinPEAS detect them:
+  1. **World-readable “app config” with credentials**
+  2. **A root cron job that runs a script**
+  3. **A cron script that is writable by normal users** (a classic “this is bad” finding)
+- Fix the misconfigurations and re-run LinPEAS to confirm improvement
+
+---
+
+## Baseline run (before we add “bad configs”)
+
+Run LinPEAS and save output to a file:
+
+```bash
+cd ~/BnB/peass-ng
+./linpeas.sh | tee linpeas-baseline.txt
+```
+
+Now filter for common “high-signal” keywords:
+
+```bash
+grep -nEi "interesting|warning|writable|cron|sudo|password|credential" linpeas-baseline.txt | head -n 40
+```
+
+> You’ll likely see some normal system findings (that’s expected). We’ll add a few **very obvious** misconfigs next so they stand out.
+
+---
+
+## Create 3 simple lab misconfigurations (SAFE DEMO)
+
+**Important:** These are intentionally insecure. Do this only in a throwaway VM.
+
+### Create a world-readable “app config” with fake credentials
+
+```bash
+sudo mkdir -p /opt/demoapp
+sudo bash -c 'cat > /opt/demoapp/config.ini << "EOF"
+[database]
+host=127.0.0.1
+user=demoapp
+password=SuperFakePassword123!
+EOF'
+```
+
+Make it readable by everyone (bad):
+
+```bash
+sudo chmod 644 /opt/demoapp/config.ini
+ls -l /opt/demoapp/config.ini
+```
+
+Quick check as `student`:
+
+```bash
+cat /opt/demoapp/config.ini
+```
+
+---
+
+### Create a cron job that runs as root every minute
+
+Create a script that the cron job will run:
+
+```bash
+sudo bash -c 'cat > /usr/local/bin/demo-backup.sh << "EOF"
+#!/bin/bash
+# Demo script: writes a timestamp to a log file
+date >> /var/log/demo-backup.log
+EOF'
+sudo chmod +x /usr/local/bin/demo-backup.sh
+```
+
+Create a root cron entry:
+
+```bash
+sudo bash -c 'cat > /etc/cron.d/demo-backup << "EOF"
+* * * * * root /usr/local/bin/demo-backup.sh
+EOF'
+```
+
+Wait a minute, then confirm it’s executing:
+
+```bash
+sudo tail -n 5 /var/log/demo-backup.log
+```
+
+---
+
+### Make the root cron script writable by normal users (intentionally bad)
+
+This is the “obvious problem” we want LinPEAS to scream about:
+
+```bash
+sudo chmod 777 /usr/local/bin/demo-backup.sh
+ls -l /usr/local/bin/demo-backup.sh
+```
+
+> A root cron job + a writable script is a serious misconfiguration.  
+> In real environments, **this must be fixed immediately**.
+
+---
+
+## Run LinPEAS again (after adding misconfigs)
+
+```bash
+cd ~/lab/peass
+./linpeas.sh | tee linpeas-after.txt
+```
+
+### Find the “demoapp credentials” finding
+
+```bash
+grep -nE "/opt/demoapp/config.ini|demoapp|SuperFakePassword" linpeas-after.txt
+```
+
+### Find cron-related findings
+
+```bash
+grep -nEi "cron|/etc/cron.d|demo-backup|demo-backup.sh|writable" linpeas-after.txt | head -n 80
+```
+
+### Find “writable root-owned files” findings
+
+```bash
+grep -nEi "writable.*root|root.*writable" linpeas-after.txt | head -n 80
+```
+
+---
+
+## What LinPEAS is showing you (quick tour)
+
+Open the output file in a text editor:
+
+```bash
+nano linpeas-after.txt
+```
+
+As you scroll, look for sections like:
+
+- **System information**: kernel, distro, container/VM hints
+- **Users & groups**: who exists, who is in sudo/admin groups
+- **Sudo checks**: what commands a user can run with sudo, environment variables, etc.
+- **Cron jobs & timers**: scheduled tasks (like our `/etc/cron.d/demo-backup`)
+- **Interesting/writable files**: world-writable paths, weak permissions
+- **Credentials**: files containing `password=`, tokens, SSH keys, config files
+- **Network and processes**: services and ports that might matter
+
+---
+
+## Fix the misconfigurations (defender mode)
+
+### Fix the world-readable config file
+
+Restrict it to root only:
+
+```bash
+sudo chmod 600 /opt/demoapp/config.ini
+sudo chown root:root /opt/demoapp/config.ini
+ls -l /opt/demoapp/config.ini
+```
+
+### Fix the writable cron script
+
+Make it only writable by root:
+
+```bash
+sudo chmod 755 /usr/local/bin/demo-backup.sh
+sudo chown root:root /usr/local/bin/demo-backup.sh
+ls -l /usr/local/bin/demo-backup.sh
+```
+
+### Remove the demo cron job entirely
+
+```bash
+sudo rm -f /etc/cron.d/demo-backup
+```
+
+---
+
+## Re-run LinPEAS to verify fixes
+
+```bash
+cd ~/BnB/peass-ng
+./linpeas.sh | tee linpeas-fixed.txt
+```
+
+Now re-run the same filters and compare:
+
+```bash
+echo "=== After (insecure) ==="
+grep -nEi "demoapp|demo-backup|/etc/cron.d/demo-backup|SuperFakePassword|writable" linpeas-after.txt | head -n 80
+```
+```bash
+echo
+echo "=== Fixed ==="
+grep -nEi "demoapp|demo-backup|/etc/cron.d/demo-backup|SuperFakePassword|writable" linpeas-fixed.txt | head -n 80
+```
+
+You should see those “obvious” findings disappear or become less severe.
+
+---
+
+## Cleanup
+
+```bash
+sudo rm -rf /opt/demoapp
+sudo rm -f /usr/local/bin/demo-backup.sh
+sudo rm -f /var/log/demo-backup.log
+sudo rm -f /etc/cron.d/demo-backup
+```
+
+
+
+
+
 ---
 
 # Finished?
