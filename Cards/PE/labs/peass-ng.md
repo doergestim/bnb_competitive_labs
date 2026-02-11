@@ -19,30 +19,11 @@ https://github.com/peass-ng/PEASS-ng
   3. **A cron script that is writable by normal users** (a classic “this is bad” finding)
 - Fix the misconfigurations and re-run LinPEAS to confirm improvement
 
----
 
-## Baseline run (before we add “bad configs”)
-
-Run LinPEAS and save output to a file:
-
-```bash
-cd ~/BnB/peass-ng
-./linpeas.sh | tee linpeas-baseline.txt
-```
-
-Now filter for common “high-signal” keywords:
-
-```bash
-grep -nEi "interesting|warning|writable|cron|sudo|password|credential" linpeas-baseline.txt | head -n 40
-```
-
-> You’ll likely see some normal system findings (that’s expected). We’ll add a few **very obvious** misconfigs next so they stand out.
 
 ---
 
-## Create 3 simple lab misconfigurations (SAFE DEMO)
-
-**Important:** These are intentionally insecure. Do this only in a throwaway VM.
+## Create 3 simple lab misconfigurations
 
 ### Create a world-readable “app config” with fake credentials
 
@@ -114,12 +95,14 @@ ls -l /usr/local/bin/demo-backup.sh
 
 ---
 
-## Run LinPEAS again (after adding misconfigs)
+## Run LinPEAS
 
 ```bash
-cd ~/lab/peass
+cd ~/BnB/peass
 ./linpeas.sh | tee linpeas-after.txt
 ```
+
+You’ll likely see some normal system findings (that’s expected). Important are the few **very obvious** misconfigs that we added
 
 ### Find the “demoapp credentials” finding
 
