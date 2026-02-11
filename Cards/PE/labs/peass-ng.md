@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+<img width="1066" height="355" alt="image" src="https://github.com/user-attachments/assets/100a080a-228f-49d4-9399-2b9b3e33ef1a" />![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
 # PEASS-ng
 
@@ -56,6 +56,9 @@ Quick check as `ubuntu`:
 cat /opt/demoapp/config.ini
 ```
 
+<img width="333" height="82" alt="image" src="https://github.com/user-attachments/assets/54a49b96-5051-40b6-90d5-03e2766a6b4f" />
+
+
 ---
 
 ### Create a cron job that runs as root every minute
@@ -74,7 +77,7 @@ EOF'
 sudo chmod +x /usr/local/bin/demo-backup.sh
 ```
 
-Create a root cron entry:
+Create a **root cron entry**:
 
 ```bash
 sudo bash -c 'cat > /etc/cron.d/demo-backup << "EOF"
@@ -87,6 +90,9 @@ Wait a minute, then confirm it’s executing:
 ```bash
 sudo tail -n 5 /var/log/demo-backup.log
 ```
+
+<img width="272" height="22" alt="image" src="https://github.com/user-attachments/assets/a14f44e9-4c77-42ae-85a1-cdba03194e0d" />
+
 
 ---
 
@@ -101,6 +107,9 @@ sudo chmod 777 /usr/local/bin/demo-backup.sh
 ```bash
 ls -l /usr/local/bin/demo-backup.sh
 ```
+
+<img width="644" height="21" alt="image" src="https://github.com/user-attachments/assets/19f3d808-8261-480d-8e62-dc1517a64616" />
+
 
 > A root cron job + a writable script is a serious misconfiguration.
 ---
@@ -132,11 +141,27 @@ grep -nE "/opt/demoapp/config.ini|demoapp|SuperFakePassword" linpeas-after.txt
 grep -nEi "cron|/etc/cron.d|demo-backup|demo-backup.sh|writable" linpeas-after.txt | head -n 80
 ```
 
+<img width="1066" height="355" alt="image" src="https://github.com/user-attachments/assets/23dc6600-1076-41c9-a968-ccae1805835c" />
+
+
+- We can see with red on a yellow backround the REALLYY **bad stuff** - which is the cron job we just made
+
 ### Find “writable root-owned files” findings
 
 ```bash
 grep -nEi "writable.*root|root.*writable" linpeas-after.txt | head -n 80
 ```
+
+<img width="701" height="27" alt="image" src="https://github.com/user-attachments/assets/549cd7a4-42b7-4eb8-8190-55683038dee3" />
+
+We can see it found something, it's over at the **5543** line, let's see what it found
+
+```bash
+sed -n '5543,5600p' linpeas-after.txt
+```
+
+<img width="985" height="369" alt="image" src="https://github.com/user-attachments/assets/68681101-b838-4bcd-950f-92629788b020" />
+
 
 ---
 
@@ -206,6 +231,9 @@ sudo rm -f /etc/cron.d/demo-backup
 
 ```bash
 cd ~/BnB/peass-ng
+```
+
+```bash
 ./linpeas.sh | tee linpeas-fixed.txt
 ```
 
@@ -216,7 +244,6 @@ echo "=== After (insecure) ==="
 grep -nEi "demoapp|demo-backup|/etc/cron.d/demo-backup|SuperFakePassword|writable" linpeas-after.txt | head -n 80
 ```
 ```bash
-echo
 echo "=== Fixed ==="
 grep -nEi "demoapp|demo-backup|/etc/cron.d/demo-backup|SuperFakePassword|writable" linpeas-fixed.txt | head -n 80
 ```
@@ -233,10 +260,6 @@ sudo rm -f /usr/local/bin/demo-backup.sh
 sudo rm -f /var/log/demo-backup.log
 sudo rm -f /etc/cron.d/demo-backup
 ```
-
-
-
-
 
 ---
 
