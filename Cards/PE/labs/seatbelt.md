@@ -2,7 +2,7 @@
 
 # Seatbelt
 
-# Ubuntu VM
+# Windows VM
 
 ---
 
