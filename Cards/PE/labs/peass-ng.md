@@ -1,4 +1,4 @@
-<img width="1066" height="355" alt="image" src="https://github.com/user-attachments/assets/100a080a-228f-49d4-9399-2b9b3e33ef1a" />![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
 # PEASS-ng
 
