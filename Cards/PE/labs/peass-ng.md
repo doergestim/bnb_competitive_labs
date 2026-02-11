@@ -243,10 +243,17 @@ Now re-run the same filters and compare:
 echo "=== After (insecure) ==="
 grep -nEi "demoapp|demo-backup|/etc/cron.d/demo-backup|SuperFakePassword|writable" linpeas-after.txt | head -n 80
 ```
+
+<img width="1149" height="424" alt="image" src="https://github.com/user-attachments/assets/a4f87d19-3de5-4c9d-9631-e914d0ab4682" />
+
+
 ```bash
 echo "=== Fixed ==="
 grep -nEi "demoapp|demo-backup|/etc/cron.d/demo-backup|SuperFakePassword|writable" linpeas-fixed.txt | head -n 80
 ```
+
+<img width="1151" height="379" alt="image" src="https://github.com/user-attachments/assets/bc78fbbc-7961-4fd2-aaa9-29eaa073df03" />
+
 
 You should see those “obvious” findings disappear or become less severe.
 
