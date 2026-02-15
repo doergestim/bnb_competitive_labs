@@ -24,11 +24,11 @@
 
 ## C2 & Exfil
 - [HTTP As Exfil](/Cards/C2E/HTTP_As_Exfil.md)
-- [HTTPS As Exfil](/Cards/C2E/)
-- [Domain Name System As C2](/Cards/C2E/)
-- [Backround Intelligent Transfer Service As Exfil](/Cards/C2E/)
-- [Cloud Based Services As Exfil](/Cards/C2E/)
-- [Domain Fronting As C2](/Cards/C2E/)
+- [HTTPS As Exfil](/Cards/C2E/HTTPS_As_Exfil.md)
+- [Domain Name System As C2](/Cards/C2E/Domain_Name_System_As_C2.md)
+- [Backround Intelligent Transfer Service As Exfil](/Cards/C2E/Backround_Intelligent_Transfer_Service_As_Exfil.md)
+- [Cloud Based Services As Exfil](/Cards/C2E/Cloud_Based_Services_As_Exfil.md)
+- [Domain Fronting As C2](/Cards/C2E/Domain_Fronting_As_C2.md)
 
 ## Persistence
 - [Malicious Service](/Cards/PER/Malicious_Service.md)
