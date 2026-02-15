@@ -1,15 +1,15 @@
 <img width="300" height="414" alt="BNB_CARDS_v3_27" src="https://github.com/user-attachments/assets/07f5b65e-df39-461d-ae73-5c9a081e41a3" />
 
-
+# HTTP As Exfil
 
 
 
 
 
 ***                                                                 
-<b><i>Continuing the course? </br>[Next Card](/Cards/C2E/)</i></b>
+<b><i>Continuing the course? </br>[Next Card](/Cards/C2E/HTTPS_As_Exfil.md)</i></b>
 
-<b><i>Want to go back? </br>[Previous Card](/Cards/C2E/)</i></b>
+<b><i>Want to go back? </br>[Previous Card](/Cards/PE/Local_Privilege_Escalation.md)</i></b>
 
 <b><i>Looking for a different Card? </br>[Card Directory](/card_navigation.md)</i></b>
 
