@@ -9,8 +9,6 @@
 ***                                                                 
 <b><i>Continuing the course? </br>[Next Card](/Cards/C2E/HTTPS_As_Exfil.md)</i></b>
 
-<b><i>Want to go back? </br>[Previous Card](/Cards/PE/Local_Privilege_Escalation.md)</i></b>
-
 <b><i>Looking for a different Card? </br>[Card Directory](/card_navigation.md)</i></b>
 
 ***Finished with the Labs?***
