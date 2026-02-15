@@ -1,4 +1,4 @@
-<img width="1449" height="2000" alt="BNB_CARDS_v3_26" src="https://github.com/user-attachments/assets/1e154b5f-4055-4563-a254-8f2985fb9d57" />
+<img width="300" height="414" alt="BNB_CARDS_v3_26" src="https://github.com/user-attachments/assets/1e154b5f-4055-4563-a254-8f2985fb9d57" />
 
 
 
