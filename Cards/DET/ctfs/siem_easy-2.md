@@ -24,14 +24,14 @@ What most likely happened?
 
 ## Flags (Choose One)
 
-- **A)** Normal administrator login
-- **B)** Web server initiated suspicious external communication after login
+- **A)** Web server initiated suspicious external communication after login
+- **B)** Normal administrator login
 - **C)** Firewall update process
 - **D)** Internal vulnerability scan
 
 ---
 
-Correct Flag: **B**
+Correct Flag: **A**
 
 ---
 
