@@ -4,11 +4,7 @@
 # Security Informations And Event Management(SIEM) Log Analysis
 
 
-
-
-# SIEM Log Analysis
-
-Security Information and Event Management (SIEM) is the process of collecting and analyzing logs from many systems in one place so defenders can spot suspicious activity early.
+**Security Information and Event Management** (**SIEM**) is the process of collecting and analyzing logs from many systems in one place so defenders can spot suspicious activity early.
 
 Instead of checking logs on each server separately, a SIEM gathers events from endpoints, servers, firewalls, and applications, then helps analysts identify patterns that may indicate compromise.
 
