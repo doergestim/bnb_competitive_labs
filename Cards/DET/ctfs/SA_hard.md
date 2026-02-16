@@ -36,13 +36,13 @@ What is the clearest indicator of attacker persistence?
 ## Flags (Choose One)
 
 - **A)** Downloading a toolkit archive
-- **B)** Creating a new user with SSH key access
+- **B)** Opening an outbound SSH connection once
 - **C)** Extracting files with tar
-- **D)** Opening an outbound SSH connection once
+- **D)** Creating a new user with SSH key access
 
 ---
 
-Correct Flag: **B**
+Correct Flag: **D**
 
 ---
 
