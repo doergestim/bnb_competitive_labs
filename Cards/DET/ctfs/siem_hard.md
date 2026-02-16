@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+
 # Hard CTF – Stealthy Attack Timeline Reconstruction
 
 You are investigating a possible compromise using SIEM data from multiple sources.
@@ -37,4 +39,5 @@ Correct Flag: **C**
 
 # Finished?
 
-[Back to Card's Main Page](/Cards/IC/SIEM_Log_Analysis.md)
+[Back to Card's Main Page](/Cards/DET/Security_Informations_And_Event_Management_Log_Analysis.md)
+
