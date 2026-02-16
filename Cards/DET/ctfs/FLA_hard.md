@@ -25,13 +25,13 @@ What is the most likely sequence of events?
 ## Flags (Choose One)
 
 - **A)** Normal user browsing followed by software updates  
-- **B)** External access to web server, then pivot to internal host and outbound communication  
+- **B)** DNS cache refresh activity
 - **C)** Backup replication between servers  
-- **D)** DNS cache refresh activity
+- **D)** External access to web server, then pivot to internal host and outbound communication  
 
 ---
 
-Correct Flag: **B**
+Correct Flag: **D**
 
 ---
 
