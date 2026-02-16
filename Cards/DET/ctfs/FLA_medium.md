@@ -25,14 +25,14 @@ What should you suspect first?
 
 ## Flags (Choose One)
 
-- **A)** Routine file sharing activity  
+- **A)** Lateral movement attempting SMB access  
 - **B)** A vulnerability scan from IT  
-- **C)** Lateral movement attempting SMB access  
+- **C)** Routine file sharing activity  
 - **D)** Time synchronization traffic
 
 ---
 
-Correct Flag: **C**
+Correct Flag: **A**
 
 ---
 
