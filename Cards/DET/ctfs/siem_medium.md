@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+
 # Medium CTF – Multi-Source Investigation
 
 Your SIEM ingests logs from endpoint, DNS, and authentication sources.
@@ -24,13 +26,13 @@ What is the most likely scenario?
 ## Flags (Choose One)
 
 - **A)** Normal software update
-- **B)** Phishing attachment leading to malicious script execution
-- **C)** User manually ran a maintenance script
+- **B)** User manually ran a maintenance script
+- **C)** Phishing attachment leading to malicious script execution
 - **D)** SIEM false positive from DNS logs
 
 ---
 
-Correct Flag: **B**
+Correct Flag: **C**
 
 ---
 
@@ -38,4 +40,4 @@ Correct Flag: **B**
 
 [Next Question](siem_hard.md)
 
-[Back to Card's Main Page](/Cards/IC/SIEM_Log_Analysis.md)
+[Back to Card's Main Page](/Cards/DET/Security_Informations_And_Event_Management_Log_Analysis.md)
