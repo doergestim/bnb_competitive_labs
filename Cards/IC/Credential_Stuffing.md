@@ -12,7 +12,7 @@ Credential stuffing is an attack where someone takes **stolen username and passw
 
 The attack works because people reuse passwords. If one account is leaked, attackers test those same credentials everywhere else until something works.
 
-It’s mostly automated, fast, and noisy — but easy to miss if nobody is watching the right logs.
+It’s mostly automated, fast, and noisy - but easy to miss if nobody is watching the right logs.
 
 ---
 
@@ -27,7 +27,7 @@ The flow is usually simple:
 
 Common targets include web applications, SaaS portals, cloud dashboards, and admin logins.
 
-The attack does **not** require hacking the target directly — it relies on weak user behavior and poor monitoring.
+The attack does **not** require hacking the target directly - it relies on weak user behavior and poor monitoring.
 
 ---
 
@@ -101,7 +101,7 @@ Hands-on labs for tools commonly involved in credential testing or analysis:
 
 ---
 
-Credential stuffing is simple in concept but highly effective at scale. Understanding how it works — and how to recognize its patterns — is essential for both defenders and penetration testers.
+Credential stuffing is simple in concept but highly effective at scale. Understanding how it works - and how to recognize its patterns - is essential for both defenders and penetration testers.
 
 
 
