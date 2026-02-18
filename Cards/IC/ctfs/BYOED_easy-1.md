@@ -42,4 +42,4 @@ Correct Flag: **D**
 
 [Next Question](BYOED_easy-2.md)
 
-[Back to Card's Main Page](/Cards/IC/BYOED.md)
+[Back to Card's Main Page](/Cards/IC/Bring_Your_Own_Exploited_Device.md)
