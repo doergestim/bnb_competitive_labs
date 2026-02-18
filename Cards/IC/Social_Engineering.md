@@ -84,9 +84,6 @@ You will solve four challenges focused on social engineering scenarios:
 Hands-on labs focused on the tools and concepts shown in this card:
 
 - [Open-Source Intelligence (OSINT) Lab](labs/osint.md)
-- [Manipulation Techniques Lab](labs/manipulation.md)
-- [Urgency and Decision Pressure Lab](labs/urgency.md)
-- [Behavioral Detection Lab (UEBA + Logs)](labs/behavioral-detection.md)
 
 ---
 
