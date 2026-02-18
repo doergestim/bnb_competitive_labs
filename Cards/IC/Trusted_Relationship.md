@@ -74,9 +74,6 @@ You will complete four challenges focused on trusted relationship abuse:
 Hands-on labs based on the tools from this card:
 
 - [Gato-X Lab](labs/gato-x.md)
-- [Compromised Service Accounts Lab](labs/compromised-service-accounts.md)
-- [Public Breach Data Lab](labs/public-breach-data.md)
-- [SIEM Log Analysis Lab](labs/siem-log-analysis.md)
 
 ---
 
