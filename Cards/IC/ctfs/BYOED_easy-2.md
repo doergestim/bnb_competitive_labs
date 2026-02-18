@@ -39,4 +39,4 @@ Correct Flag: **C**
 
 [Next Question](BYOED_medium.md)
 
-[Back to Card's Main Page](/Cards/IC/BYOED.md)
+[Back to Card's Main Page](/Cards/IC/Bring_Your_Own_Exploited_Device.md)
