@@ -88,7 +88,6 @@ Hands-on labs using tools commonly seen in red team operations and detection wor
 - [Sliver Lab](labs/sliver.md)  
 - [Havoc Lab](labs/havoc.md)  
 - [Mythic Lab](labs/mythic.md)  
-- [HTTP Detection Lab](labs/http-detection.md)
 
 ---
 
