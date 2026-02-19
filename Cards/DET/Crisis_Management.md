@@ -72,15 +72,6 @@ Test your understanding of incident response and crisis scenarios:
 
 ---
 
-## Labs
-
-Hands-on practice with the core tools:
-
-- [Incident Response Plan (IRP) Lab](labs/irp.md)
-- [Disaster Recovery Plan (DRP) Lab](labs/drp.md)
-
----
-
 Crisis management is not glamorous, but it is what separates a recoverable incident from a catastrophic one. The defenders who respond well under pressure are almost always the ones who prepared before anything went wrong.
 
 
