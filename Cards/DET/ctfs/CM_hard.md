@@ -44,4 +44,4 @@ Correct Flag: **B**
 ---
 
 # Finished?
-[Back to Card's Main Page](/Cards/DM/Crisis_Management.md)
+[Back to Card's Main Page](/Cards/DET/Crisis_Management.md)
