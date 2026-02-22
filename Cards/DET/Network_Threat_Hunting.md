@@ -6,7 +6,7 @@
 
 # Network Threat Hunting
 
-Network threat hunting is the practice of **actively searching network traffic for signs of malicious behavior** instead of waiting for alerts to fire. It focuses on finding patterns that automated systems might miss — unusual communication, suspicious protocols, or data leaving the environment unexpectedly.
+Network threat hunting is the practice of **actively searching network traffic for signs of malicious behavior** instead of waiting for alerts to fire. It focuses on finding patterns that automated systems might miss - unusual communication, suspicious protocols, or data leaving the environment unexpectedly.
 
 The goal is simple: detect attackers early by understanding how normal traffic looks and spotting what does not belong.
 
@@ -55,7 +55,7 @@ A typical workflow looks like this:
 4. Validate whether behavior is malicious or normal
 5. Document findings and improve detections
 
-Good hunting combines curiosity, context, and repeatable analysis — not guesswork.
+Good hunting combines curiosity, context, and repeatable analysis - not guesswork.
 
 ---
 
