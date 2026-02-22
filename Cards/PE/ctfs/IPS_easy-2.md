@@ -37,4 +37,4 @@ Correct Flag: **D**
 
 # Finished?
 [Next Question](IPS_medium.md)  
-[Back to Card's Main Page](/Cards/IPS/internal-password-spray.md)
+[Back to Card's Main Page](/Cards/PE/Internal_Password_Spray.md)
