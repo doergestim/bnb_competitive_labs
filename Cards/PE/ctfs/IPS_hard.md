@@ -49,4 +49,4 @@ Correct Flag: **B**
 ---
 
 # Finished?
-[Back to Card's Main Page](/Cards/IPS/internal-password-spray.md)
+[Back to Card's Main Page](/Cards/PE/Internal_Password_Spray.md)
