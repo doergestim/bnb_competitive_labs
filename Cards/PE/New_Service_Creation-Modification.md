@@ -65,9 +65,7 @@ Hands-on practice with the tools from the card:
 
 - [PsExec Lab](labs/psexec.md)
 - [PowerShell Lab](labs/powershell.md)
-- [ServiceController Lab](labs/servicecontroller.md)
-- [Malware Analysis Lab](labs/malware.md)
-
+  
 ---
 
 Service-based persistence is one of those techniques that shows up constantly in real incident reports. It's not flashy, but it works - and it works because defenders often underestimate how much noise is already in their service list. Knowing how to create it means you know how to find it.
