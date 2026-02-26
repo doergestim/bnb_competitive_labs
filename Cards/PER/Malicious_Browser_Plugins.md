@@ -6,8 +6,6 @@
 
 # Malicious Browser Plugins
 
-# Malicious Browser Plugins
-
 Browser plugins - also called extensions - are small pieces of software that add functionality to your browser. They can do a lot of useful things, like blocking ads or managing passwords. But that same level of access is exactly what makes them dangerous when they are malicious.
 
 A malicious browser plugin is one that has been designed or tampered with to execute code on the victim's machine, steal data, or help an attacker maintain access to a compromised environment - all while looking completely harmless to the user.
