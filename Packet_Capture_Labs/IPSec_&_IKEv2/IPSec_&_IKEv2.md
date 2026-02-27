@@ -277,6 +277,8 @@ Click on any `ISAKMP` packet on UDP/4500. Switch to the **packet bytes pane** (b
 <IKEv2 header follows>
 ```
 
+PLACEHOLDER6
+
 This 4-byte zero prefix tells the receiver: *"This UDP/4500 packet contains an IKEv2 message, not ESP."*
 
 Without this marker, the receiver would see a UDP/4500 packet and try to interpret the payload as an ESP packet - it would look for an SPI in the first 4 bytes and fail.
@@ -310,6 +312,8 @@ Apply the filter:
 isakmp.exchangetype == 35
 ```
 
+PLACEHOLDER7
+
 You should see 2 pairs of packets: one from the initiator and one from the responder.
 
 ---
@@ -323,11 +327,10 @@ Internet Security Association and Key Management Protocol
 ├── Initiator SPI: <same value from Step 2.2>   <- Session continuity
 ├── Responder SPI: <value from Step 2.3>
 ├── Exchange type: IKE_AUTH (35)
-├── Flags: Initiator, Encryption (E)             <- 'E' flag = payload is encrypted
-├── Message ID: 1                                 <- Always 1 for IKE_AUTH
+├── Flags: Initiator,           
+├── Message ID: 0x00000001                       <- Always 1 for IKE_AUTH
 │
 └── Payload: Encrypted and Authenticated (SK)
-    └── <opaque - cannot read without private key>
 ```
 
 > **What's inside the SK payload (even though we can't see it):**
@@ -346,6 +349,8 @@ Remove the exchange type filter and apply:
 ```
 isakmp || esp
 ```
+
+PLACEHOLDER7
 
 Sort by time. After the second `IKE_AUTH` packet, you will see the **first ESP packet** appear. That ESP packet is your confirmation that:
 
