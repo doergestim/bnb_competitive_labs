@@ -113,7 +113,7 @@ isakmp
 
 You should now see approximately **16 ISAKMP packets**. These are the entire IKEv2 control-plane: the initial negotiation, a rekey, and some liveness checks.
 
-> [!NOTES]
+> [!NOTE]
 > In Wireshark, `isakmp` is the display filter keyword for **both** IKEv1 and IKEv2. The `Version` field inside each packet tells you which version you are looking at. Every packet in this lab is **IKEv2**.
 
 ---
@@ -270,7 +270,7 @@ This 4-byte zero prefix tells the receiver: *"This UDP/4500 packet contains an I
 
 Without this marker, the receiver would see a UDP/4500 packet and try to interpret the payload as an ESP packet - it would look for an SPI in the first 4 bytes and fail.
 
-> [!NOTES]
+> [!NOTE]
 > In a real enterprise environment you will almost always see IKEv2 on UDP/4500, because most corporate networks use NAT. Pure UDP/500 IKEv2 is only common in data centres with static IP site-to-site tunnels and no NAT in the path.
 
 ---
