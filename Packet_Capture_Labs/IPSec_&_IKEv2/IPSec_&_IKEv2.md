@@ -111,6 +111,8 @@ In the **display filter bar** at the top, type the following and press **Enter**
 isakmp
 ```
 
+PLACEHOLDER1
+
 You should now see approximately **16 ISAKMP packets**. These are the entire IKEv2 control-plane: the initial negotiation, a rekey, and some liveness checks.
 
 > [!NOTE]
@@ -134,7 +136,6 @@ Now apply `esp` as a filter. You will see approximately **118 ESP packets** - th
 
 > **Observation:** Even though the payload is encrypted, the packet **sizes** are still visible. Different ping sizes produce different ESP packet lengths. This is called **traffic analysis** - an important limitation of encryption-only approaches.
 
----
 ---
 
 # Part 2 - IKE_SA_INIT: The First Handshake
@@ -162,6 +163,8 @@ Apply this filter:
 isakmp && udp.port == 500
 ```
 
+PLACEHOLDER2
+
 You should see **exactly 2 packets**: one from the initiator (`10.0.0.10`) and one from the responder (`10.0.0.20`). Everything from `IKE_AUTH` onwards has moved to UDP/4500.
 
 ---
@@ -169,6 +172,8 @@ You should see **exactly 2 packets**: one from the initiator (`10.0.0.10`) and o
 ## Step 2.2 - Examine the Initiator's IKE_SA_INIT
 
 Click on the **first packet** (source `10.0.0.10`). In the **packet detail pane** (middle pane), expand `Internet Security Association and Key Management Protocol`.
+
+PLACEHOLDER3
 
 Work through these fields:
 
@@ -200,6 +205,9 @@ Internet Security Association and Key Management Protocol
 
 > **Write down the Initiator SPI.** This 8-byte value is the unique identifier for this IKE session. You will see it in every single IKEv2 packet for the lifetime of this SA.
 
+> [!IMPORTANT]
+> For this lab it is **e6d252e6ef7b3688**
+
 ---
 
 ## Step 2.3 - Examine the Responder's Reply
@@ -208,8 +216,8 @@ Click on the **second packet** (source `10.0.0.20`). Compare it to the first:
 
 | Field | Initiator Packet | Responder Packet |
 |---|---|---|
-| Initiator SPI | `<value>` | Same value - must match |
-| Responder SPI | `0000000000000000` | **Now populated** - responder chose its value |
+| Initiator SPI | `e6d252e6ef7b3688` | Same value - must match |
+| Responder SPI | `e8702e1d74b29138` | **Now populated** - responder chose its value |
 | SA Payload | Multiple proposals | **One proposal** - responder selected |
 | KE Payload | Initiator's DH public key | **Responder's DH public key** |
 | Nonce | Ni | **Nr** - responder's nonce |
@@ -227,9 +235,10 @@ Payload: Notify (N) - NAT_DETECTION_SOURCE_IP
 Payload: Notify (N) - NAT_DETECTION_DESTINATION_IP
 ```
 
+PLACEHOLDER4
+
 These are hashes of `IP + Port`. Both peers send them and compare what they receive against what they expect. If the hashes don't match, a NAT device is rewriting addresses in the path. When NAT is detected, both peers automatically switch all traffic to UDP/4500.
 
----
 ---
 
 # Part 3 - NAT-Traversal: Why Everything Moved to Port 4500
@@ -252,6 +261,8 @@ Apply this filter:
 ```
 isakmp && udp.port == 4500
 ```
+
+PLACEHOLDER5
 
 All remaining IKEv2 packets live here: `IKE_AUTH`, `CREATE_CHILD_SA`, and `INFORMATIONAL`.
 
