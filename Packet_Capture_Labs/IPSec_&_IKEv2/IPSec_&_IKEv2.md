@@ -1,5 +1,4 @@
 # IPSec & IKEv2
-![ESP Output 9](https://raw.githubusercontent.com/doergestim/bnb_competitive_labs/main/Packet_Capture_Labs/IPSec_%26_IKEv2/attachments/ESP_output_9.png)
 ---
 
 ## Learning Objectives
@@ -111,7 +110,7 @@ In the **display filter bar** at the top, type the following and press **Enter**
 isakmp
 ```
 
-PLACEHOLDER1
+![ISAKMP Output](attachments/isakmp_output_1.png)
 
 You should now see approximately **16 ISAKMP packets**. These are the entire IKEv2 control-plane: the initial negotiation, a rekey, and some liveness checks.
 
@@ -163,7 +162,7 @@ Apply this filter:
 isakmp && udp.port == 500
 ```
 
-PLACEHOLDER2
+![ISAKMP UDP 500](attachments/isakmp_and_udpPort500_2.png)
 
 You should see **exactly 2 packets**: one from the initiator (`10.0.0.10`) and one from the responder (`10.0.0.20`). Everything from `IKE_AUTH` onwards has moved to UDP/4500.
 
@@ -173,7 +172,7 @@ You should see **exactly 2 packets**: one from the initiator (`10.0.0.10`) and o
 
 Click on the **first packet** (source `10.0.0.10`). In the **packet detail pane** (middle pane), expand `Internet Security Association and Key Management Protocol`.
 
-PLACEHOLDER3
+![IKE Initiator Details](attachments/IKEInitiator_details_3.png)
 
 Work through these fields:
 
@@ -235,7 +234,7 @@ Payload: Notify (N) - NAT_DETECTION_SOURCE_IP
 Payload: Notify (N) - NAT_DETECTION_DESTINATION_IP
 ```
 
-PLACEHOLDER4
+![NAT Detection](attachments/NAT_Detection_4.png)
 
 These are hashes of `IP + Port`. Both peers send them and compare what they receive against what they expect. If the hashes don't match, a NAT device is rewriting addresses in the path. When NAT is detected, both peers automatically switch all traffic to UDP/4500.
 
@@ -262,7 +261,7 @@ Apply this filter:
 isakmp && udp.port == 4500
 ```
 
-PLACEHOLDER5
+![ISAKMP UDP 4500](attachments/isakmp_and_udpPort4500_5.png)
 
 All remaining IKEv2 packets live here: `IKE_AUTH`, `CREATE_CHILD_SA`, and `INFORMATIONAL`.
 
@@ -277,7 +276,7 @@ Click on any `ISAKMP` packet on UDP/4500. Switch to the **packet bytes pane** (b
 <IKEv2 header follows>
 ```
 
-PLACEHOLDER6
+![Non ESP Marker](attachments/Non_ESP_Marker_6.png)
 
 This 4-byte zero prefix tells the receiver: *"This UDP/4500 packet contains an IKEv2 message, not ESP."*
 
@@ -312,7 +311,7 @@ Apply the filter:
 isakmp.exchangetype == 35
 ```
 
-PLACEHOLDER7
+![ISAKMP Exchange Type 35](attachments/isakmp_exchType35_7.png)
 
 You should see 2 pairs of packets: one from the initiator and one from the responder.
 
@@ -350,7 +349,7 @@ Remove the exchange type filter and apply:
 isakmp || esp
 ```
 
-PLACEHOLDER8
+![First ESP](attachments/first_ESP_8.png)
 
 Sort by time. After the second `IKE_AUTH` packet, you will see the **first ESP packet** appear. That ESP packet is your confirmation that:
 
@@ -395,7 +394,7 @@ Apply the filter:
 esp
 ```
 
-PLACEHOLDER8
+![ESP Output](attachments/ESP_output_9.png)
 
 Click on the **first ESP packet** (source `10.0.0.10`). In the detail pane:
 
@@ -405,7 +404,7 @@ Encapsulating Security Payload
 ├── Sequence number: 1      <- Starts at 1, increments every packet
 ```
 
-PLACEHOLDER9
+![ESP SecPayload](attachments/ESP_secPayload_10.png)
 
 ---
 
@@ -470,7 +469,7 @@ Apply the filter:
 isakmp.exchangetype == 36
 ```
 
-PLACEHOLDER10
+![Create Child SA Search](attachments/create_child_SA_search_11.png)
 
 You should see 2 pair packets (initiator + responder).
 
@@ -489,7 +488,7 @@ Internet Security Association and Key Management Protocol
     └── <contains new SA proposals + optionally a new KE payload for PFS>
 ```
 
-PLACEHOLDER11
+![Create Child SA Packet Details](attachments/create_child_SA_packetDetails_12.png)
 
 > **Note the Message ID.** IKEv2 message IDs increment monotonically within an IKE SA session. The `CREATE_CHILD_SA` carries a higher Message ID than `IKE_AUTH`, confirming it happens later in the same session.
 
@@ -518,7 +517,7 @@ After rekey:    SPI=0x<new_value>, seq=2
 
 - For this lab, it is located here:
 
-PLACEHOLDER12
+![Rekey](attachments/rekey_13.png)
 
 > **Perfect Forward Secrecy (PFS):** If the `CREATE_CHILD_SA` encrypted payload contains a `KE` (Key Exchange) payload, the peers performed a new Diffie-Hellman exchange for the rekey. This means the new session keys are mathematically independent of all previous keys - even if a past key is compromised, the new session remains secure.
 
@@ -548,7 +547,7 @@ Apply the filter:
 isakmp.exchangetype == 37
 ```
 
-PLACEHOLDER13
+![Informational Exchanges](attachments/informational_exchanges_14.png)
 
 You should see at least 2 packets (a request/response pair). In this capture, INFORMATIONAL exchanges appear at the start (from the previous session teardown) and after the rekey.
 
