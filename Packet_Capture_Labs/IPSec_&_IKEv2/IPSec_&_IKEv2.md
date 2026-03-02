@@ -1,5 +1,5 @@
 # IPSec & IKEv2
-
+![ESP Output 9](https://raw.githubusercontent.com/doergestim/bnb_competitive_labs/main/Packet_Capture_Labs/IPSec_%26_IKEv2/attachments/ESP_output_9.png)
 ---
 
 ## Learning Objectives
