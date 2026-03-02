@@ -48,7 +48,7 @@
 **Q7. How many ESP packets were sent using the original Child SA SPIs before the first rekey?**
 > Filter: `esp` -> count all packets using SPIs from Q5/Q6. They stop at timestamp ~12:39:42 when CREATE_CHILD_SA fires. After the rekey, SPIs change and seq resets to 1.
 
-`30`
+`32`
 
 ---
 
