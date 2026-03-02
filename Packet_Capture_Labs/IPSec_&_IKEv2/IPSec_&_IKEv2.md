@@ -395,14 +395,17 @@ Apply the filter:
 esp
 ```
 
+PLACEHOLDER8
+
 Click on the **first ESP packet** (source `10.0.0.10`). In the detail pane:
 
 ```
 Encapsulating Security Payload
 ├── SPI: 0xc5ccbae4         <- Outbound SPI for left->right direction
 ├── Sequence number: 1      <- Starts at 1, increments every packet
-└── Payload (encrypted)     <- Inner IP + ICMP - completely hidden
 ```
+
+PLACEHOLDER9
 
 ---
 
@@ -414,7 +417,6 @@ Click on the **very next packet** (source `10.0.0.20`, same timestamp group). Ob
 Encapsulating Security Payload
 ├── SPI: 0xcd800c00         <- Different SPI - right->left direction
 ├── Sequence number: 1
-└── Payload (encrypted)
 ```
 
 > **Key Concept - Unidirectional SPIs:** SPIs are **per-direction**. The left->right stream uses one SPI, the right->left stream uses a different SPI. The receiver uses `destination IP + SPI` to look up the correct decryption key. This is why you always see two different SPI values in a bidirectional ESP flow.
@@ -468,22 +470,26 @@ Apply the filter:
 isakmp.exchangetype == 36
 ```
 
-You should see 2 packets (initiator + responder).
+PLACEHOLDER10
+
+You should see 2 pair packets (initiator + responder).
 
 ---
 
 ## Step 6.2 - Examine the CREATE_CHILD_SA Header
 
-Click on the initiator's `CREATE_CHILD_SA` packet:
+Click on the first initiator's `CREATE_CHILD_SA` packet:
 
 ```
 Internet Security Association and Key Management Protocol
 ├── Initiator SPI: <same as before - same IKE SA>
 ├── Exchange type: CREATE_CHILD_SA (36)
-├── Message ID: <higher than IKE_AUTH - e.g. 2, 3, or 4>
+├── Message ID: 0x00000002         -       <higher than IKE_AUTH - e.g. 2, 3, or 4>
 └── Payload: Encrypted and Authenticated (SK)
     └── <contains new SA proposals + optionally a new KE payload for PFS>
 ```
+
+PLACEHOLDER11
 
 > **Note the Message ID.** IKEv2 message IDs increment monotonically within an IKE SA session. The `CREATE_CHILD_SA` carries a higher Message ID than `IKE_AUTH`, confirming it happens later in the same session.
 
@@ -504,11 +510,15 @@ Find the point in time that corresponds to just after the `CREATE_CHILD_SA` exch
 3. **Sequence number resets to 1** - new SA starts fresh
 
 ```
-Before rekey:   SPI=0xc5ccbae4, seq=22
-Before rekey:   SPI=0xc5ccbae4, seq=23
+Before rekey:   SPI=0xc5ccbae4, seq=43
+Before rekey:   SPI=0xc5ccbae4, seq=44
 After rekey:    SPI=0x<new_value>, seq=1     <- New SPI, sequence resets
 After rekey:    SPI=0x<new_value>, seq=2
 ```
+
+- For this lab, it is located here:
+
+PLACEHOLDER12
 
 > **Perfect Forward Secrecy (PFS):** If the `CREATE_CHILD_SA` encrypted payload contains a `KE` (Key Exchange) payload, the peers performed a new Diffie-Hellman exchange for the rekey. This means the new session keys are mathematically independent of all previous keys - even if a past key is compromised, the new session remains secure.
 
@@ -538,6 +548,8 @@ Apply the filter:
 isakmp.exchangetype == 37
 ```
 
+PLACEHOLDER13
+
 You should see at least 2 packets (a request/response pair). In this capture, INFORMATIONAL exchanges appear at the start (from the previous session teardown) and after the rekey.
 
 ---
@@ -549,7 +561,7 @@ Click on an INFORMATIONAL packet. Note:
 ```
 Internet Security Association and Key Management Protocol
 ├── Exchange type: INFORMATIONAL (37)
-├── Flags: Initiator, Encryption (E)
+├── Flags: Initiator
 ├── Message ID: <incrementing value>
 └── Payload: Encrypted and Authenticated (SK)
     └── <may be empty for DPD, or contain Delete/Notify payloads>
