@@ -350,7 +350,7 @@ Remove the exchange type filter and apply:
 isakmp || esp
 ```
 
-PLACEHOLDER7
+PLACEHOLDER8
 
 Sort by time. After the second `IKE_AUTH` packet, you will see the **first ESP packet** appear. That ESP packet is your confirmation that:
 
