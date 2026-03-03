@@ -70,11 +70,11 @@ wg
 
 4. Open **Statistics -> Protocol Hierarchy**. Observe that 100% of the UDP payload is classified as `WireGuard`. There is no TLS, HTTP, SSH, or any other application-layer protocol visible - this is the defining characteristic of a working VPN tunnel.
 
-Placeholder2
+![protocol_hierarchy_2](attachments/protocol_hierarchy_2.png)
 
 5. Open **Statistics -> Conversations -> UDP**. There is exactly one UDP conversation (`172.16.42.10:51820 <--> 172.16.42.20:51820`), carrying all 620 packets. WireGuard never opens additional ports or connections regardless of how many inner flows exist.
 
-Placeholder3
+![udp_conversations_3](attachments/udp_conversations_3.png)
 
 ---
 
@@ -111,7 +111,7 @@ Offset  Size  Field
 wg.type == 1
 ```
 
-Placeholder4
+![WireGuard_type1_4](attachments/WireGuard_type1_4.png)
 
 **Six packets** match - one per session (three sessions, each re-initiating once). Note the timestamp clusters: `t≈0 s`, `t≈120 s` (Rekey #1), `t≈300 s` (Rekey #2).
 
@@ -123,7 +123,7 @@ Placeholder4
    - **Encrypted Timestamp**: 28 bytes - 12-byte TAI64N + 16-byte tag.
    - **MAC1** / **MAC2**: 16 bytes each. MAC2 is all zeros - no DoS cookie was requested, confirming the peers are not under load.
 
-Placeholder5
+![FirstInitiator_5](attachments/FirstInitiator_5.png)
 
 3. Note what you **cannot** determine from this packet:
    - The initiator's actual static public key (encrypted)
@@ -163,19 +163,19 @@ After the response is sent, **both sides have independently derived the same pai
 wg.type == 2
 ```
 
-Placeholder6
+![WireGuard_type2_6](attachments/WireGuard_type2_6.png)
 
 Six packets match, each paired with one initiation.
 
 2. Click the first response. Expand **WireGuard** and confirm:
  
-Placeholder7
+![FirstResponder_7](attachments/FirstResponder_7.png)
 
    - **Receiver Index** equals the **Sender Index** from the first initiation - this is how the initiator recognises the response is for its session.
    - **Sender Index** is a new value chosen by the responder.
    - **Encrypted Empty**: 16 bytes - Poly1305 tag over empty plaintext. This proves the responder holds the correct shared key material without transmitting any of it.
 
-Placeholder8
+![ResponseEncryptedTag_8](attachments/ResponseEncryptedTag_8.png)
 
 
 3. Note the round-trip time: the response arrives ~2 ms after the initiation (local veth link). This is the only observable handshake latency metric without decryption.
@@ -222,18 +222,18 @@ wg.type == 4
 ```
 **592 packets** match
 
-Placeholder9
+![WireGuard_type4_9](attachments/WireGuard_type4_9.png)
 
 2. Click any transport packet. Expand **WireGuard**:
    - **Receiver Index**: compare to the index values from Part 3 - you can identify which session this packet belongs to without decrypting it
    - **Counter**: starts at 0 per session, increments monotonically. A reset mid-session indicates a rekey; a gap indicates packet loss
    - **Encrypted Packet**: opaque ciphertext. The field length minus 16 bytes (tag) gives the padded inner size
 
-Placeholder10
+![TransportDataDetails_10](attachments/TransportDataDetails_10.png)
 
 3. Attempt to identify the inner protocol - you cannot. Right-click the packet -> **Follow -> UDP Stream** - only binary noise is visible.
 
-Placeholder11
+![binaryNoise_11](attachments/binaryNoise_11.png)
 
 4. Observe the counter sequence in one direction:
 ```
@@ -274,11 +274,11 @@ wg.type == 4 && udp.length == 40 && ip.src == 172.16.42.10
 ```
 Use **View -> Time Display Format -> Seconds Since Previous Captured Packet** to measure intervals. Keepalives should appear approximately every 25 seconds during silence windows.
 
-Placeholder12
+![ViewChange_12](attachments/ViewChange_12.png)
 
 4. Identify the handshake confirmation keepalive: immediately after each response (`wireguard.type == 2`), the initiator sends a Type 4 packet with counter 0. This is not a PersistentKeepalive - it is the message that confirms the handshake to the responder and transitions the session to active.
 
-Placeholder13
+![keepalives_13](attachments/keepalives_13.png)
 
 ---
 
