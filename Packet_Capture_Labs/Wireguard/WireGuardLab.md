@@ -154,20 +154,29 @@ Offset  Size  Field
         92 bytes total
 ```
 
-After the response is sent, **both sides have independently derived the same pair of ChaCha20-Poly1305 keys** - one per direction - without any key material ever appearing on the wire.
+After the response is sent, **both sides have independently derived the same pair of ChaCha20-Poly1305 keys** - one per direction - without any key material ever appearing on the wire
 
 ### Steps
 
 1. Filter to response packets:
 ```
-   wireguard.type == 2
+wg.type == 2
 ```
-   Six packets match, each paired with one initiation.
+
+Placeholder6
+
+Six packets match, each paired with one initiation.
 
 2. Click the first response. Expand **WireGuard** and confirm:
+ 
+Placeholder7
+
    - **Receiver Index** equals the **Sender Index** from the first initiation - this is how the initiator recognises the response is for its session.
    - **Sender Index** is a new value chosen by the responder.
-   - **Encrypted Nothing**: 16 bytes - Poly1305 tag over empty plaintext. This proves the responder holds the correct shared key material without transmitting any of it.
+   - **Encrypted Empty**: 16 bytes - Poly1305 tag over empty plaintext. This proves the responder holds the correct shared key material without transmitting any of it.
+
+Placeholder8
+
 
 3. Note the round-trip time: the response arrives ~2 ms after the initiation (local veth link). This is the only observable handshake latency metric without decryption.
 
@@ -209,24 +218,28 @@ The inner packet is an ICMP echo (20 IP + 8 ICMP + 56 data = 84 bytes), padded t
 
 1. Filter to transport data:
 ```
-   wireguard.type == 4
+wg.type == 4
 ```
-   **592 packets** match.
+**592 packets** match
+
+Placeholder9
 
 2. Click any transport packet. Expand **WireGuard**:
-   - **Receiver Index**: compare to the index values from Part 3 - you can identify which session this packet belongs to without decrypting it.
-   - **Counter**: starts at 0 per session, increments monotonically. A reset mid-session indicates a rekey; a gap indicates packet loss.
-   - **Encrypted Packet**: opaque ciphertext. The field length minus 16 bytes (tag) gives the padded inner size.
+   - **Receiver Index**: compare to the index values from Part 3 - you can identify which session this packet belongs to without decrypting it
+   - **Counter**: starts at 0 per session, increments monotonically. A reset mid-session indicates a rekey; a gap indicates packet loss
+   - **Encrypted Packet**: opaque ciphertext. The field length minus 16 bytes (tag) gives the padded inner size
 
-3. Attempt to identify the inner protocol - you cannot. Right-click the encrypted payload -> **Follow -> UDP Stream** - only binary noise is visible.
+Placeholder10
 
-4. Add a `udp.length` column (**Edit -> Preferences -> Columns**) and scan all 592 transport packets. Every row shows `136` (8 UDP header + 128 WireGuard payload). The complete uniformity confirms only one inner packet type was tunnelled. In a real capture, size variation would reveal mixed traffic patterns.
+3. Attempt to identify the inner protocol - you cannot. Right-click the packet -> **Follow -> UDP Stream** - only binary noise is visible.
 
-5. Observe the counter sequence in one direction:
+Placeholder11
+
+4. Observe the counter sequence in one direction:
 ```
-   wireguard.type == 4 && ip.src == 172.16.42.10
+wg.type == 4 && ip.src == 172.16.42.10
 ```
-   Counters increment without gaps until each rekey, where they reset to 0.
+Counters increment without gaps until each rekey, where they reset to 0.
 
 ---
 
@@ -247,9 +260,9 @@ From the outside, a keepalive is **indistinguishable** from real data carrying a
 
 1. Filter keepalives by payload size:
 ```
-   wireguard.type == 4 && udp.length == 40
+wg.type == 4 && udp.length == 40
 ```
-   **16 packets** match, distributed across the two keepalive observation windows in the capture.
+**16 packets** match, distributed across the two keepalive observation windows in the capture.
 
 2. Click a keepalive. Expand **WireGuard**:
    - **Counter**: non-zero - keepalives consume counter values like real packets.
@@ -257,11 +270,15 @@ From the outside, a keepalive is **indistinguishable** from real data carrying a
 
 3. Check keepalive timing against the `PersistentKeepalive=25` setting. Filter one direction:
 ```
-   wireguard.type == 4 && udp.length == 40 && ip.src == 172.16.42.10
+wg.type == 4 && udp.length == 40 && ip.src == 172.16.42.10
 ```
-   Use **View -> Time Display Format -> Seconds Since Beginning of Capture** to measure intervals. Keepalives should appear approximately every 25 seconds during silence windows.
+Use **View -> Time Display Format -> Seconds Since Previous Captured Packet** to measure intervals. Keepalives should appear approximately every 25 seconds during silence windows.
+
+Placeholder12
 
 4. Identify the handshake confirmation keepalive: immediately after each response (`wireguard.type == 2`), the initiator sends a Type 4 packet with counter 0. This is not a PersistentKeepalive - it is the message that confirms the handshake to the responder and transitions the session to active.
+
+Placeholder13
 
 ---
 
@@ -273,7 +290,7 @@ WireGuard automatically initiates a full new handshake under two conditions:
 
 | Condition | Constant | Value |
 |-----------|----------|-------|
-| Time since last handshake | `REKEY_AFTER_TIME` | 180 s |
+| Time since last handshake | `REKEY_AFTER_TIME` | 120 s |
 | Packets sent | `REKEY_AFTER_MESSAGES` | 2⁶⁰ packets |
 
 The rekey is a complete Noise_IKpsk2 exchange - new ephemeral keys, new session indices, new symmetric keys. For a brief overlap window both old and new sessions remain valid, ensuring zero packet loss. The `receiver_index` in each transport packet tells the peer which key set to apply.
@@ -284,19 +301,19 @@ This capture contains **two rekeys**, producing three sessions and six total han
 
 1. View all handshake messages:
 ```
-   wireguard.type == 1 || wireguard.type == 2
+wg.type == 1 || wg.type == 2
 ```
-   Twelve packets: three Init + Response pairs.
+Twelve packets: three Init + Response pairs.
 
-2. Compare the **Ephemeral** field across all three initiations. All three 32-byte Curve25519 keys are different - fresh keys per handshake is forward secrecy in action. A reused ephemeral key would allow reconstruction of session keys from a compromised static key.
+2. Compare the **Ephemeral** field across all three initiations. All three 32-byte Curve25519 keys are different - fresh keys per handshake is forward secrecy in action. A reused ephemeral key would allow reconstruction of session keys from a compromised static key
 
-3. Compare the **Sender Index** values across initiations. All three are different random values. An adversary cannot link Session 2 or 3 to Session 1 via index correlation.
+3. Compare the **Sender Index** values across initiations. All three are different random values. An adversary cannot link Session 2 or 3 to Session 1 via index correlation
 
 4. After each rekey, confirm transport switches to the new `receiver_index`. Record the responder's Sender Index from Session 2's Response, then:
 ```
-   wireguard.type == 4 && wireguard.receiver_index == <session2_resp_index>
+wireguard.type == 4 && wireguard.receiver_index == <session2_resp_index>
 ```
-   Only packets between Rekey #1 and Rekey #2 should match.
+Only packets between Rekey #1 and Rekey #2 should match.
 
 5. Confirm counters reset to 0 after each rekey by sorting by time and expanding the Counter field around each rekey boundary.
 
@@ -314,13 +331,13 @@ This Part synthesises what a passive observer can and cannot determine. In a CTF
 |-----------|----------------|-----------------|
 | Both endpoints' IP addresses | IP header | `ip.addr == 172.16.42.10` |
 | Both endpoints' UDP ports | UDP header | `udp.port == 51820` |
-| WireGuard message type | First byte of UDP payload | `wireguard.type` |
-| Session indices | Handshake fields | `wireguard.sender_index` |
+| WireGuard message type | First byte of UDP payload | `wg.type` |
+| Session indices | Handshake fields | `wg.sender_index` |
 | Ephemeral public keys | Handshake Init/Response | expand WireGuard layer |
 | Packet sizes | UDP length field | `udp.length` |
 | Packet timing / inter-arrival | Frame timestamps | Statistics -> I/O Graph |
 | Handshake RTT | Response ts − Init ts | - |
-| Number of rekeys | Count of `wireguard.type == 1` | - |
+| Number of rekeys | Count of `wg.type == 1` | - |
 | Rekey interval | Time between Init packets | - |
 | Keepalive interval | Gap between `udp.length==40` type-4 packets | `udp.length == 40` |
 | Traffic volume per direction | Statistics -> Conversations | - |
@@ -356,23 +373,23 @@ This Part synthesises what a passive observer can and cannot determine. In a CTF
 
 | Goal | Display Filter |
 |------|----------------|
-| All WireGuard traffic | `wireguard` |
-| Handshake Initiation | `wireguard.type == 1` |
-| Handshake Response | `wireguard.type == 2` |
-| Cookie Reply | `wireguard.type == 3` |
-| Transport Data | `wireguard.type == 4` |
-| Keepalives only | `wireguard.type == 4 && udp.length == 40` |
-| Non-keepalive transport | `wireguard.type == 4 && udp.length != 40` |
-| Handshake messages only | `wireguard.type == 1 \|\| wireguard.type == 2` |
+| All WireGuard traffic | `wg` |
+| Handshake Initiation | `wg.type == 1` |
+| Handshake Response | `wg.type == 2` |
+| Cookie Reply | `wg.type == 3` |
+| Transport Data | `wg.type == 4` |
+| Keepalives only | `wg.type == 4 && udp.length == 40` |
+| Non-keepalive transport | `wg.type == 4 && udp.length != 40` |
+| Handshake messages only | `wg.type == 1 \|\| wg.type == 2` |
 | Initiator -> Responder | `ip.src == 172.16.42.10` |
 | Responder -> Initiator | `ip.src == 172.16.42.20` |
-| Traffic after Rekey #1 | `wireguard.type == 4 && frame.time_relative > 120` |
-| Session by index | `wireguard.receiver_index == <value>` |
-| MAC2 non-zero (DoS cookie active) | `wireguard.mac2 != 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00` |
+| Traffic after Rekey #1 | `wg.type == 4 && frame.time_relative > 120` |
+| Session by index | `wg.receiver_index == <value>` |
+| MAC2 non-zero (DoS cookie active) | `wg.mac2 != 00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00` |
 
 ---
 
-## Appendix A - Noise_IKpsk2 Handshake Flow
+## Noise_IKpsk2 Handshake Flow
 ```
 Initiator (172.16.42.10)              Responder (172.16.42.20)
          |                                      |
@@ -409,38 +426,4 @@ Initiator (172.16.42.10)              Responder (172.16.42.20)
          |       (two rekeys in this capture)   |
 ```
 
----
 
-## Appendix B - Key WireGuard Timing Constants
-
-| Constant | Value | Meaning |
-|----------|-------|---------|
-| `REKEY_AFTER_TIME` | 180 s | Initiate rekey after this many seconds |
-| `REJECT_AFTER_TIME` | 180 s | Reject session keys older than this |
-| `REKEY_TIMEOUT` | 5 s | Retry handshake if no response |
-| `KEEPALIVE_TIMEOUT` | 10 s | Send passive keepalive after this idle period |
-| `REKEY_AFTER_MESSAGES` | 2⁶⁰ | Initiate rekey after this many packets |
-| `REJECT_AFTER_MESSAGES` | 2⁶⁴ − 2¹³ | Hard-reject session after this many packets |
-
----
-
-## Appendix C - Inner Packet Size Estimation
-
-Because WireGuard pads plaintext to a 16-byte boundary before encrypting, you can estimate the inner packet size from `udp.length`:
-```
-udp_payload   = udp.length − 8
-wg_header     = 16
-encrypted_len = udp_payload − wg_header
-padded_inner  = encrypted_len − 16       (subtract Poly1305 tag)
-inner_range   = [padded_inner − 15 , padded_inner]
-```
-
-For this capture (`udp.length = 136`):
-```
-udp_payload   = 128
-encrypted_len = 112
-padded_inner  = 96
-inner_range   = [81 , 96] bytes
-```
-
-An ICMP echo with 56-byte data is 84 bytes (20 IP + 8 ICMP + 56 data), which falls inside [81, 96]. This bounds the inner packet but does not prove the protocol - any inner packet between 81 and 96 bytes produces the same observable size.
