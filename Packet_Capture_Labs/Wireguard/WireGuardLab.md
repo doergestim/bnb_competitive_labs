@@ -61,7 +61,7 @@ udp.port == 51820
 ```
 All 620 packets should appear. Note that every packet uses the same five-tuple - WireGuard multiplexes all message types over one UDP flow.
 
-Placeholder1
+![UDP_port51820_1](attachments/UDP_port51820_1.png)
 
 3. Apply the WireGuard-specific filter to confirm the dissector is active:
 ```
