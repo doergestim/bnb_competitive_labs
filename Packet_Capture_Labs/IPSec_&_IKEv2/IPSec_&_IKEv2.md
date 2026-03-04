@@ -162,8 +162,6 @@ Apply this filter:
 isakmp && udp.port == 500
 ```
 
-![ISAKMP UDP 500](attachments/isakmp_and_udpPort500_2.png)
-
 You should see **exactly 2 packets**: one from the initiator (`10.0.0.10`) and one from the responder (`10.0.0.20`). Everything from `IKE_AUTH` onwards has moved to UDP/4500.
 
 ---
