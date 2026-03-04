@@ -59,11 +59,12 @@ In this capture you will see 81 packets spanning ~2.4 seconds. Six of those pack
 
 In `Statistics -> Protocol Hierarchy` note the split between TCP, UDP, ICMP, and ARP at the top level.
 
-Placeholder1
+
+![Protocol Hierarchy](attachments/Protocol_Hierarchy_1.png)
 
 3. Use the **I/O Graph** (`Statistics -> I/O Graph`) to observe the packet rate over time, make sure you select the **Interval** to be **100ms**!!! You should see small bursts at t≈0.2, t≈0.8, and t≈1.4 seconds - each corresponding to a knock - and a larger sustained cluster between t≈1.4–2.2 seconds for the SSH session.
 
-Placeholder2
+![IO Graph](attachments/IO_Graph_2.png)
 
 4. Apply this filter to see only the traffic sent to the server `192.0.2.55`:
 
@@ -179,7 +180,7 @@ Packet **56** (t=1.479900 s): attacker SYN to port 22 with seq=0xBAD00030. Immed
    - A full 3-way handshake on port 22 for `10.42.0.7`
    - A one-sided SYN->RST exchange on port 22 for `198.51.100.12`
 
-Placeholder3
+![Flow](attachments/flow_3.png)
 
 6. Apply the combined "before and after" filter to see both the last knock and the SSH open in one view:
 
