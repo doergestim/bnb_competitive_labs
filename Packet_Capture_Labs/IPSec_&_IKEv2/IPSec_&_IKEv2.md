@@ -170,8 +170,6 @@ You should see **exactly 2 packets**: one from the initiator (`10.0.0.10`) and o
 
 Click on the **first packet** (source `10.0.0.10`). In the **packet detail pane** (middle pane), expand `Internet Security Association and Key Management Protocol`.
 
-![IKE Initiator Details](attachments/IKEInitiator_details_3.png)
-
 Work through these fields:
 
 ```
@@ -259,8 +257,6 @@ Apply this filter:
 isakmp && udp.port == 4500
 ```
 
-![ISAKMP UDP 4500](attachments/isakmp_and_udpPort4500_5.png)
-
 All remaining IKEv2 packets live here: `IKE_AUTH`, `CREATE_CHILD_SA`, and `INFORMATIONAL`.
 
 ---
@@ -309,8 +305,6 @@ Apply the filter:
 isakmp.exchangetype == 35
 ```
 
-![ISAKMP Exchange Type 35](attachments/isakmp_exchType35_7.png)
-
 You should see 2 pairs of packets: one from the initiator and one from the responder.
 
 ---
@@ -346,8 +340,6 @@ Remove the exchange type filter and apply:
 ```
 isakmp || esp
 ```
-
-![First ESP](attachments/first_ESP_8.png)
 
 Sort by time. After the second `IKE_AUTH` packet, you will see the **first ESP packet** appear. That ESP packet is your confirmation that:
 
@@ -392,7 +384,7 @@ Apply the filter:
 esp
 ```
 
-![ESP Output](attachments/ESP_output_9.png)
+
 
 Click on the **first ESP packet** (source `10.0.0.10`). In the detail pane:
 
@@ -402,7 +394,6 @@ Encapsulating Security Payload
 ├── Sequence number: 1      <- Starts at 1, increments every packet
 ```
 
-![ESP SecPayload](attachments/ESP_secPayload_10.png)
 
 ---
 
@@ -467,7 +458,7 @@ Apply the filter:
 isakmp.exchangetype == 36
 ```
 
-![Create Child SA Search](attachments/create_child_SA_search_11.png)
+
 
 You should see 2 pair packets (initiator + responder).
 
@@ -486,7 +477,7 @@ Internet Security Association and Key Management Protocol
     └── <contains new SA proposals + optionally a new KE payload for PFS>
 ```
 
-![Create Child SA Packet Details](attachments/create_child_SA_packetDetails_12.png)
+
 
 > **Note the Message ID.** IKEv2 message IDs increment monotonically within an IKE SA session. The `CREATE_CHILD_SA` carries a higher Message ID than `IKE_AUTH`, confirming it happens later in the same session.
 
@@ -545,7 +536,7 @@ Apply the filter:
 isakmp.exchangetype == 37
 ```
 
-![Informational Exchanges](attachments/informational_exchanges_14.png)
+
 
 You should see at least 2 packets (a request/response pair). In this capture, INFORMATIONAL exchanges appear at the start (from the previous session teardown) and after the rekey.
 
