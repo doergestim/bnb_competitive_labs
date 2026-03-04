@@ -61,7 +61,7 @@ udp.port == 51820
 ```
 All 620 packets should appear. Note that every packet uses the same five-tuple - WireGuard multiplexes all message types over one UDP flow.
 
-![UDP_port51820_1](attachments/UDP_port51820_1.png)
+
 
 3. Apply the WireGuard-specific filter to confirm the dissector is active:
 ```
@@ -70,11 +70,11 @@ wg
 
 4. Open **Statistics -> Protocol Hierarchy**. Observe that 100% of the UDP payload is classified as `WireGuard`. There is no TLS, HTTP, SSH, or any other application-layer protocol visible - this is the defining characteristic of a working VPN tunnel.
 
-![protocol_hierarchy_2](attachments/protocol_hierarchy_2.png)
+
 
 5. Open **Statistics -> Conversations -> UDP**. There is exactly one UDP conversation (`172.16.42.10:51820 <--> 172.16.42.20:51820`), carrying all 620 packets. WireGuard never opens additional ports or connections regardless of how many inner flows exist.
 
-![udp_conversations_3](attachments/udp_conversations_3.png)
+
 
 ---
 
@@ -111,7 +111,7 @@ Offset  Size  Field
 wg.type == 1
 ```
 
-![WireGuard_type1_4](attachments/WireGuard_type1_4.png)
+
 
 **Six packets** match - one per session (three sessions, each re-initiating once). Note the timestamp clusters: `t≈0 s`, `t≈120 s` (Rekey #1), `t≈300 s` (Rekey #2).
 
@@ -163,7 +163,7 @@ After the response is sent, **both sides have independently derived the same pai
 wg.type == 2
 ```
 
-![WireGuard_type2_6](attachments/WireGuard_type2_6.png)
+
 
 Six packets match, each paired with one initiation.
 
@@ -222,14 +222,14 @@ wg.type == 4
 ```
 **592 packets** match
 
-![WireGuard_type4_9](attachments/WireGuard_type4_9.png)
+
 
 2. Click any transport packet. Expand **WireGuard**:
    - **Receiver Index**: compare to the index values from Part 3 - you can identify which session this packet belongs to without decrypting it
    - **Counter**: starts at 0 per session, increments monotonically. A reset mid-session indicates a rekey; a gap indicates packet loss
    - **Encrypted Packet**: opaque ciphertext. The field length minus 16 bytes (tag) gives the padded inner size
 
-![TransportDataDetails_10](attachments/TransportDataDetails_10.png)
+
 
 3. Attempt to identify the inner protocol - you cannot. Right-click the packet -> **Follow -> UDP Stream** - only binary noise is visible.
 
@@ -278,7 +278,7 @@ Use **View -> Time Display Format -> Seconds Since Previous Captured Packet** to
 
 4. Identify the handshake confirmation keepalive: immediately after each response (`wireguard.type == 2`), the initiator sends a Type 4 packet with counter 0. This is not a PersistentKeepalive - it is the message that confirms the handshake to the responder and transitions the session to active.
 
-![keepalives_13](attachments/keepalives_13.png)
+
 
 ---
 
