@@ -144,18 +144,18 @@ ip.id == 0x4141
 
 You will see **two rows**: the first IP fragment (Protocol = IPv4, labelled *Fragmented IP protocol*) and Wireshark's reassembled TCP SYN row (Protocol = TCP) derived from the second fragment. Wireshark automatically merges the two raw fragments and presents the last fragment's frame as the reassembled packet - so both fragments are accounted for in just two display rows. The **RST|ACK** reply from the victim carries a *different* IP ID (assigned by the victim's own IP stack) and will **not** appear under this filter; use the separate filter in step 4 to find it.
 
-2. Click the first row (Protocol = IPv4, *Fragmented IP protocol*). Expand **Transmission Control Protocol** - Wireshark will show partial or un-decodable TCP because the fragment is only 8 bytes. The **Flags** field reads `0x00` or cannot be decoded. This is exactly what a stateless IDS sees
+2. Click the first row **(Protocol = IPv4, Fragmented IP protocol)**. There is no TCP layer - Wireshark cannot decode transport headers from an 8-byte fragment alone. Expand Data instead and observe the 8 raw bytes: src_port (2 B) + dst_port (2 B) + sequence_number (4 B). This is all a stateless IDS can see from this fragment - TCP flags, window size, and checksum are entirely absent.
 
 3. Click the second row (Protocol = TCP, *[SYN]*). This is the reassembled view. Expand **Internet Protocol Version 4**:
-   - **Fragment Offset: 1** → byte 8. This fragment contributed the rest of the TCP header
+   - **Fragment Offset: 1** -> byte 8. This fragment contributed the rest of the TCP header
    - Expand **Transmission Control Protocol**: the full SYN flags are now visible, including `Flags: 0x002 (SYN)`
-   - At the bottom of the packet tree Wireshark shows **IPv4 Fragments** listing both contributing frames
 
-4. To find the RST|ACK reply from the victim, apply:
-   ```
-   tcp.flags == 0x014 and ip.src == 192.168.20.10 and tcp.dstport == 44444
-   ```
-   Click it and verify **Acknowledgment Number (raw): 0xDEAD1235** = TINY_ISN + 1 = 3,735,344,692 + 1
+4. To find the **RST|ACK** reply from the victim, apply:
+```
+tcp.flags == 0x014 and ip.src == 192.168.20.10 and tcp.dstport == 44444
+```
+
+Click it and verify **Acknowledgment Number (raw): 0xDEAD1235** = TINY_ISN + 1 = 3,735,344,692 + 1
 
 **Overlapping Fragments (IP ID 0x4242)**
 
@@ -183,7 +183,7 @@ ip.id == 0x4343
 
 Observe the **Time** column: the packet with **Fragment Offset: 2** (byte 16) has an *earlier* timestamp than the packet with **Fragment Offset: 0**
 
-10. Verify: offset=2 fragment → MF=0 (final), data = `world!\r\n` + padding. offset=0 fragment → MF=1, data = `Hello, frag data`. The receiver cannot begin reassembly until offset=0 arrives, so it must buffer the high-offset fragment while waiting.
+10. Verify: offset=2 fragment -> MF=0 (final), data = `world!\r\n` + padding. offset=0 fragment -> MF=1, data = `Hello, frag data`. The receiver cannot begin reassembly until offset=0 arrives, so it must buffer the high-offset fragment while waiting.
 
 **Fragment Storm / Duplicate MF Chain (IP ID 0x4444)**
 
