@@ -209,33 +209,53 @@ The hidden HTTP payload attack (IP ID 0x4545) is the most complete demonstration
 
 ### Steps
 
-1. To isolate the hidden-payload attack, apply: 
+1. To isolate the hidden-payload attack, apply:
 
 ```
 ip.id == 0x4545
 ```
 
-2. Click **Fragment 1** (offset=0, len=24, MF=1). In **Internet Protocol Version 4** note **Total Length: 44** (20 IP + 24 data). Expand **Data** - you see 24 raw bytes: the 20-byte TCP header plus the first 4 bytes of the HTTP request (`GET `). No IDS string-match on `cat%20/etc/passwd` can fire here.
+You will see two rows:
 
-3. Click **Fragment 2** (offset=3, len=92, MF=0). **Total Length: 112** (20 + 92). This fragment carries the rest of the HTTP GET including the malicious path. The IDS inspecting this in isolation sees raw bytes at an offset of 24 into an unknown datagram - no TCP context, no port-number decoding.
+- **Row 1** (Protocol = IPv4): the raw first fragment - `off=0, ID=4545, [Reassembled in #59]`
 
-4. To see the reassembled payload: click Fragment 2, scroll to the bottom of the packet tree and click **Reassembled IPv4**. The **Data** field shows the complete TCP segment. Right-click the data bytes -> **Copy -> …as Printable Text**. You should read:
 
-```
-GET /cmd.php?exec=cat%20/etc/passwd HTTP/1.1
-Host: 192.168.20.10
-User-Agent: fragroute/1.0
-```
+- **Row 2** (Protocol = HTTP): Wireshark's fully reassembled view, Info column already shows `GET /cmd.php?exec=cat%20/etc/passwd HTTP/1.1`
 
-5. Apply: 
+
+2. Click **Row 1** (the raw IPv4 fragment). In **Internet Protocol Version 4** note:
+
+- **Total Length: 44** = 20 (IP header) + 24 (this fragment's data)
+
+- **More Fragments: Set, Fragment Offset: 0**
+
+- **Expand Data** - 24 raw bytes: the 20-byte TCP header plus the first 4 bytes of the HTTP request (GET ). No IDS string-match on cat%20/etc/passwd can fire against this fragment alone.
+
+
+3. Click **Row 2** (the HTTP row, frame 59). This is the reassembled view. In **Internet Protocol Version 4** note:
+
+- **Fragment Offset: 3** -> byte 24 - this is the second raw fragment contributing its 92-byte payload
+
+- At the bottom of the packet tree Wireshark shows **IPv4 fragments** listing both contributing frames
+
+- Expand **Hypertext Transfer Protocol** - the full decoded HTTP GET is visible including `Request URI: /cmd.php?exec=cat%20/etc/passwd`. This is what a deep-inspection engine performing reassembly would catch.
+
+
+4. To confirm what a stateless IDS cannot see: apply
 
 ```
 ip and not (ip.flags.mf == 1) and not (ip.frag_offset > 0) and ip.src == 192.168.20.99
 ```
 
-This asks: what did the attacker send that was *not* fragmented? Only the legitimate HTTP GET from Part 2 appears. The malicious request is completely absent from the unfragmented view - the exact IDS blind spot Fragroute exploits.
+The HTTP GET to `/cmd.php` is entirely absent from this view. Only the legitimate unfragmented GET from Section 2 appears - the malicious request is invisible to any sensor that does not perform reassembly.
 
-6. To simulate a deep-inspection engine: apply `ip.id == 0x4545` and examine the reassembled frame. The strings `cmd.php` and `etc/passwd` are now visible in the bytes pane - a modern IPS with reassembly capability would catch this.
+5. To simulate a deep-inspection engine: apply:
+
+```
+ip.id == 0x4545
+```
+
+Examine the reassembled frame. The strings `cmd.php` and `etc/passwd` are now visible in the bytes pane - a modern IPS with reassembly capability would catch this
 
 ---
 
