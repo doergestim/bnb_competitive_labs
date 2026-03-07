@@ -112,7 +112,9 @@ ip.id == 0x4646
 
 5. **Offset math verification:** Last byte = (6 × 8) + 8 − 1 = **55**, covering bytes 0–55 = 56 bytes total
 
-6. Wireshark reassembles the fragments automatically. Click the *third* fragment and look at the bottom of the packet tree for **Reassembled IPv4 in frame #XX**. Click that reference to see the full ICMP echo with payload `FRAGMENTED ICMP DEMO PAYLOAD BYTES HERE 12345678`.
+6. Wireshark reassembles the fragments automatically. Click the *third* fragment and look at the bottom of the packet tree for **3 IPv4 Fragments**:
+
+Placeholder1
 
 ---
 
