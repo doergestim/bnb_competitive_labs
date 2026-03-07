@@ -30,11 +30,13 @@ Fragroute is a network tool that intercepts outgoing packets and re-fragments th
 
 Apply the display filter `ip` to see only IPv4 packets (hides ARP). Observe the **Info** column - entries labelled *IP Fragment* are mixed in with normal protocol traffic.
 
-2. To isolate all fragmented IP datagrams. Confirm the **Source** column shows only `192.168.20.99` (the attacker) for the attack fragments, apply:
+2. To isolate all fragmented IP datagrams, apply:
 
 ```
 ip.flags.mf == 1 or ip.frag_offset > 0
 ```
+
+Confirm the **Source** column shows only `192.168.20.99` (the attacker) for the attack fragments
 
 3. Note the five distinct IP Identification values used in the attack: `0x4141`, `0x4242`, `0x4343`, `0x4444`, `0x4545` (TCP), and `0x4646` (ICMP). These values are unnaturally sequential - a real detection indicator.
 
