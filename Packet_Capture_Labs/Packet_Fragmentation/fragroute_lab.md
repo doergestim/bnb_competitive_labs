@@ -46,9 +46,7 @@ Confirm the **Source** column shows only `192.168.20.99` (the attacker) for the 
 ip and not (ip.flags.mf == 1) and not (ip.frag_offset > 0)
 ```
 
-Read the count in the **Status Bar**. You should see **79** unfragmented IPv4 packets - the legitimate background traffic a passive observer would also see.
-
-5. In **Statistics -> Protocol Hierarchy** confirm that IP-fragmented traffic accounts for a noticeable share of total packets despite being invisible to the TCP/UDP/ICMP decoders at the fragment level.
+Read the count in the **Status Bar**. You should see **79** unfragmented IPv4 packets - the legitimate background traffic a passive observer would also see
 
 ---
 
@@ -66,10 +64,10 @@ Before launching Fragroute the attacker conducted a normal, unfragmented HTTP tr
 tcp.port == 54321
 ```
 
-You should see a complete 10-packet exchange: **SYN** -> **SYN-ACK** -> **ACK** -> **GET** -> **ACK** -> **200 OK** -> **ACK** -> **FIN** -> **FIN-ACK** -> **ACK**
+You should see a complete 10-packet exchange: **SYN** -> **SYN-ACK** -> **ACK** -> **GET** -> **ACK** -> **200 OK** -> **ACK** -> **FIN-ACK** -> **FIN-ACK** -> **ACK**
 
 2. Click the SYN packet. Expand **Internet Protocol Version 4** in the packet detail tree. Note:
-   - **Flags: 0x4000** - only the DF bit is set; MF=0 and fragment offset=0.
+   - **Flags: 0x2** - only the DF bit is set; MF=0 and fragment offset=0.
    - **Identification** - every packet in this stream has a unique, incrementing IP ID.
 
 3. Click the HTTP GET packet. Expand **Transmission Control Protocol**. Verify:
