@@ -197,8 +197,6 @@ Count rows: **7 packets** - 6 ordered fragments (offsets 0–5) plus one duplica
 
 12. Sort by **Time** and confirm all 7 arrive within about 6 ms - a burst rate that is a strong detection indicator.
 
-13. Select all 7 packets (Shift+click). In the **Status Bar** observe the total bytes. The duplicate means two fragments compete for bytes 16–23 of the reassembled datagram; the outcome depends on the OS reassembly policy.
-
 ---
 
 ## Part 5 - IDS/Firewall Evasion Mechanics
