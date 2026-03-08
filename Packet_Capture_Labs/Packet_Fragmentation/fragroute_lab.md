@@ -114,7 +114,7 @@ ip.id == 0x4646
 
 6. Wireshark reassembles the fragments automatically. Click the *third* fragment and look at the bottom of the packet tree for **3 IPv4 Fragments**:
 
-Placeholder1
+![ICMP Reassembled](attachments/icmp_reassembled_1.png)
 
 ---
 
