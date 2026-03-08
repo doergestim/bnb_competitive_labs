@@ -1,4 +1,4 @@
-# ARP Cache Poisoning - Wireshark CTF
+# ARP Cache Poisoning CTF
 
 **Capture file:** `arp_poison_ctf.pcap`  
 
