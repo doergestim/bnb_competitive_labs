@@ -47,7 +47,7 @@ Wireshark note: the reassembled ICMP row at the bottom of the filter results wil
 
 **Q5.** Apply `ip.id == 0xFACE`. How many individual packets (including any duplicates) make up this fragment storm chain? Count the rows directly in the packet list.
 
-> Apply `ip.id == 0xFACE`. Count every row returned by this filter - Wireshark displays one row per raw packet. You will see five sequentially-offset fragments (offsets 0, 1, 2, 3, 4) plus one additional packet at offset 1 with different payload content (`CONFLICT` vs the original `CTFDATA2`). That seventh row is the duplicate. The last of the five ordered fragments (offset=4) has **More Fragments: Not Set** (MF=0), marking it as the intended final fragment. To verify the duplicate: click each offset=1 row in turn and compare the raw **Data** bytes in the packet bytes pane - they will differ.
+> Apply `ip.id == 0xFACE`. Count every row returned by this filter - Wireshark displays one row per raw packet. You will see five sequentially-offset fragments (offsets 0, 1, 2, 3, 4) plus one additional packet at offset 1 with different payload content (`CONFLICT` vs the original `CTFDATA2`). That sixth row is the duplicate. The last of the five ordered fragments (offset=4) has **More Fragments: Not Set** (MF=0), marking it as the intended final fragment. To verify the duplicate: click each offset=1 row in turn and compare the raw **Data** bytes in the packet bytes pane - they will differ.
 
 **6**
 
