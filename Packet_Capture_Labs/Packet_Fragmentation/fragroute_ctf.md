@@ -8,7 +8,7 @@
 
 **Q1.** What is the IP address of the host conducting the fragmentation attack?
 
-Apply `ip.flags.mf == 1 or ip.frag_offset > 0` to display all fragmented packets. Examine the **Source** column. You will see three distinct source IPs producing fragments: the attacker and two noise hosts running red-herring fragmentation. The attacker's IP appears repeatedly across six different IP Identification values (`0xBEEF` through `0xB00B`) in rapid succession - a pattern no legitimate host produces. The noise sources (10.30.40.20 and 10.30.40.21) each appear only once with a single IP ID. Cross-check by applying `ip.src == 10.30.40.77 and (ip.flags.mf == 1 or ip.frag_offset > 0)` to confirm all six attack chains share this source.
+>Apply `ip.flags.mf == 1 or ip.frag_offset > 0` to display all fragmented packets. Examine the **Source** column. You will see three distinct source IPs producing fragments: the attacker and two noise hosts running red-herring fragmentation. The attacker's IP appears repeatedly across six different IP Identification values (`0xBEEF` through `0xB00B`) in rapid succession - a pattern no legitimate host produces. >The noise sources (10.30.40.20 and 10.30.40.21) each appear only once with a single IP ID. Cross-check by applying `ip.src == 10.30.40.77 and (ip.flags.mf == 1 or ip.frag_offset > 0)` to confirm all six attack chains share this source.
 
 **10.30.40.77**
 
