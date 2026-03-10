@@ -2,9 +2,6 @@
 
 # Nuclei
 
-<img width="1918" height="1044" alt="Screenshot From 2025-07-17 12-03-47" src="https://github.com/user-attachments/assets/240a1d75-34c8-4c8a-9d2c-282268cec1a9" />
-
-
 ## Lab Goal
 
 This lab introduces **Nuclei**, a fast vulnerability scanner based on templates.
