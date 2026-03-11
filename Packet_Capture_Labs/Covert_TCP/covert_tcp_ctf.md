@@ -15,7 +15,7 @@
 > **Step 2** - Sort by frame number (click the **No.** column header, ascending). The rows
 > appear in order 1 through 9 of the covert message.
 >
-> **Step 3** - In the `ip.id` column (add it via right-click → Apply as Column on the
+> **Step 3** - In the `ip.id` column (add it via right-click -> Apply as Column on the
 > Identification field of any packet if not already visible), read the value for the **3rd
 > row**: `0x0050`.
 >
@@ -189,13 +189,9 @@
 > Sort ascending by frame number. Note the **Time** column value for the **last (9th) row**.
 >
 > **Step 3** - Subtract: last data packet timestamp minus SYN timestamp.
-> SYN is at t = 5.000000 s. Last data packet (9th, encoding 'T') is at t = 14.000000 s.
-> Delta = 14.000000 − 5.000000 = **9.000000 seconds**.
->
-> **Step 4** - To verify in Wireshark without mental arithmetic: click the SYN frame,
-> then **Edit → Mark Packet**. Click the last data frame. In **View → Time Display Format**
-> select **Seconds Since Previously Marked Packet** - the time column for the last data
-> packet will display `9.000000`.
+> SYN is at t = 49000000 s. Last data packet (9th, encoding 'T') is at t = 13.900000 s.
+> Delta = 13.900000 − 4.900000 = **9.000000 seconds**.
+
 
 `9.000000`
 
