@@ -8,7 +8,7 @@
 > (172.16.50.99) uses destination port 8080, not 80. Filter to TCP/80 traffic from
 > 172.16.50.5 only, and restrict to PSH+ACK (data-carrying) segments:
 > ```
-> ip.src == 172.16.50.5 and tcp.dport == 80 and tcp.flags.push == 1
+> ip.src == 172.16.50.5 and tcp.dstport == 80 and tcp.flags.push == 1
 > ```
 > This returns **9 rows** - the nine covert data packets.
 >
@@ -30,7 +30,7 @@
 
 > **Step 1** - Apply the data-packet filter from Q1:
 > ```
-> ip.src == 172.16.50.5 and tcp.dport == 80 and tcp.flags.push == 1
+> ip.src == 172.16.50.5 and tcp.dstport == 80 and tcp.flags.push == 1
 > ```
 > Confirm **9 rows** are returned.
 >
@@ -100,7 +100,7 @@
 
 > **Step 1** - Apply:
 > ```
-> ip.src == 172.16.50.5 and tcp.dport == 80 and tcp.flags.push == 1
+> ip.src == 172.16.50.5 and tcp.dstport == 80 and tcp.flags.push == 1
 > ```
 >
 > **Step 2** - Read the row count shown in the Wireshark status bar at the bottom of the
@@ -137,7 +137,7 @@
 > **Step 1** - Identify the decoy stream. It originates from 172.16.50.99 (the
 > red-herring host, MAC de:ad:fe:ed:00:99) and targets port 8080, not port 80. Apply:
 > ```
-> ip.src == 172.16.50.99 and tcp.dport == 8080 and tcp.flags.push == 1
+> ip.src == 172.16.50.99 and tcp.dstport == 8080 and tcp.flags.push == 1
 > ```
 > This returns **7 rows** - the seven decoy data packets encoding FAKEMSG.
 >
@@ -157,7 +157,7 @@
 
 > **Step 1** - Filter to FIN packets from the covert sender:
 > ```
-> ip.src == 172.16.50.5 and tcp.dport == 80 and tcp.flags.fin == 1
+> ip.src == 172.16.50.5 and tcp.dstport == 80 and tcp.flags.fin == 1
 > ```
 > One row is returned.
 >
@@ -184,7 +184,7 @@
 >
 > **Step 2** - Find the last covert data packet. Apply:
 > ```
-> ip.src == 172.16.50.5 and tcp.dport == 80 and tcp.flags.push == 1
+> ip.src == 172.16.50.5 and tcp.dstport == 80 and tcp.flags.push == 1
 > ```
 > Sort ascending by frame number. Note the **Time** column value for the **last (9th) row**.
 >
@@ -205,7 +205,7 @@
 
 > **Step 1** - Apply:
 > ```
-> ip.src == 172.16.50.5 and tcp.dport == 80 and tcp.flags.push == 1
+> ip.src == 172.16.50.5 and tcp.dstport == 80 and tcp.flags.push == 1
 > ```
 > Confirm **9 rows** returned. Sort ascending by frame number.
 >
