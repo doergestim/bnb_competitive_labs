@@ -20,7 +20,7 @@ Take a moment to scroll through the packet list. You will see a mix of traffic t
 
 ---
 
-## Step 4 - Filter for SYN Packets to Measure the Beacon Interval
+## Step 3 - Filter for SYN Packets to Measure the Beacon Interval
 
 - Click the **Display Filter** bar at the top of the Wireshark window and type the following filter, then press **Enter**:
 
@@ -36,7 +36,7 @@ tcp.flags.syn == 1 && tcp.flags.ack == 0
 
 ---
 
-## Step 5 - Isolate All Traffic Between the Implant and the C2 Controller
+## Step 4 - Isolate All Traffic Between the Implant and the C2 Controller
 
 - Clear the previous filter and type the following, then press **Enter**:
 
@@ -50,7 +50,7 @@ ip.addr == 192.168.56.1
 
 ---
 
-## Step 6 - Identify the vsagent User-Agent String
+## Step 5 - Identify the vsagent User-Agent String
 
 - With the `ip.addr == 192.168.56.1` filter still active, look for any packet flagged as **HTTP** in the Protocol column. Click on one of the `GET /beacon` packets to select it.
 
@@ -70,7 +70,7 @@ http.user_agent == "vsagent/1.0"
 
 ---
 
-## Step 7 - Isolate All HTTP GET Beacons
+## Step 6 - Isolate All HTTP GET Beacons
 
 - Apply the following display filter:
 
@@ -82,7 +82,7 @@ http.request.method == "GET" && http.request.uri == "/beacon"
 
 ---
 
-## Step 8 - Find the C2 Command Delivery
+## Step 7 - Find the C2 Command Delivery
 
 - Apply the following display filter to show only HTTP responses from the C2 server:
 
@@ -96,17 +96,11 @@ http.response && ip.src == 192.168.56.1
 
 - That trailing `=` padding is one of the most reliable visual indicators of **Base64** encoding: because Base64 encodes three bytes at a time, any plaintext whose length is not a multiple of three requires `=` or `==` padding to fill the final group
 
-- You can also use the following filter to jump straight to the tasked responses:
-
-```
-http contains "cmd=" && http.response
-```
-
-- Right-click the body field containing `cmd=<base64>` in the Packet Details pane -> **Copy** -> **Value** to copy just the base64 string for decoding in Step 11
+- Right-click the body field containing `cmd=<base64>` in the Packet Details pane -> **Copy** -> **as ASCII Text** to copy the **cmd=...** string for decoding in Step 11
 
 ---
 
-## Step 9 - Find the Exfiltration POST
+## Step 8 - Find the Exfiltration POST
 
 - Apply the following display filter:
 
@@ -122,7 +116,7 @@ http.request.method == "POST"
 
 ---
 
-## Step 10 - Examine the Full Beacon Cycle with Follow TCP Stream
+## Step 9 - Examine the Full Beacon Cycle with Follow TCP Stream
 
 - Clear the display filter. Right-click on any one of the C2 `GET /beacon` packets and select **Follow** -> **TCP Stream**
 
@@ -134,7 +128,7 @@ http.request.method == "POST"
 
 ---
 
-## Step 11 - Decode the C2 Command with Python
+## Step 10 - Decode the C2 Command with Python
 
 - Switch back to the terminal. Take the Base64 string you found after `cmd=` in Step 8 and substitute it below
 
@@ -148,7 +142,7 @@ python3 -c "import base64; print(base64.b64decode('<paste_base64_here>').decode(
 
 ---
 
-## Step 12 - Decode the Exfiltrated Output with Python
+## Step 11 - Decode the Exfiltrated Output with Python
 
 - Take the Base64 string you found after `output=` in Step 9 and substitute it below
 
@@ -160,7 +154,7 @@ python3 -c "import base64; print(base64.b64decode('<paste_base64_here>').decode(
 
 ---
 
-## Step 13 - Use Wireshark Statistics to Confirm the Beacon Pattern
+## Step 12 - Use Wireshark Statistics to Confirm the Beacon Pattern
 
 - In the Wireshark menu bar, click **Statistics** -> **Conversations**.
 
