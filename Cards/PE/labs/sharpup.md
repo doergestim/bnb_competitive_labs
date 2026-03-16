@@ -177,7 +177,23 @@ Now, after finishing these tasks, you can take a look at the rest of the **sharp
 notepad sharpup-output.txt
 ```
 
+![image](/FilesForLabs/images/sharpUp5.png)
+
 Anayze the list of different vulnerabilities found by **SharpUp**.
+Scroll through the output and review the findings. SharpUp reports potential privilege escalation issues in several categories, including:
+
+* Modifiable Service Binaries
+
+* Services with Modifiable Registry Keys
+
+* Unquoted Service Paths
+
+* Modifiable Scheduled Tasks
+
+* Registry Autorun Entries
+
+* Modifiable Folders in PATH
+
 ---
 
 # Finished?
