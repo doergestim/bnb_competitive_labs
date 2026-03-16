@@ -53,7 +53,7 @@ dir
 
 You should see .zip and .exe files in the directory:
 
-![Zrzut ekranu 20260313 202550png](file://C:\Users\Bartek\Pictures\Screenshots\Zrzut%20ekranu%202026-03-13%20202550.png?msec=1773404889261)
+![image](/FilesForLabs/images/sharpUp1.png)
 
 ---
 
@@ -100,7 +100,7 @@ reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Run"
 
 You should see:
 
-![](file://C:\Users\Bartek\AppData\Roaming\marktext\images\2026-03-14-18-20-18-image.png?msec=1773483618981)
+![image](/FilesForLabs/images/sharpUp2.png)
 
 ---
 
@@ -138,7 +138,7 @@ sc.exe qc SharpUpLabService
 
 Expected output:
 
-![](file://C:\Users\Bartek\AppData\Roaming\marktext\images\2026-03-13-20-36-32-image.png?msec=1773405392926)
+![image](/FilesForLabs/images/sharpUp3.png)
 
 ---
 
@@ -165,7 +165,7 @@ Select-String -Path sharpup-output.txt -Pattern "VulnAutorunApp|autorunapp.exe|S
 
 You should find:
 
-![](file://C:\Users\Bartek\AppData\Roaming\marktext\images\2026-03-14-18-30-33-image.png?msec=1773484233360)
+![image](/FilesForLabs/images/sharpUp4.png)
 
 ---
 
