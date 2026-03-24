@@ -117,7 +117,7 @@ ls -l /usr/local/bin/demo-backup.sh
 ## Run LinPEAS
 
 ```bash
-cd ~/BnB/peass
+cd ~/BnB/peass-ng
 ```
 
 ```bash
