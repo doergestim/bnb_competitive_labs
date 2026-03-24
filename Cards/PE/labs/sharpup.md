@@ -57,7 +57,7 @@ You should see .zip and .exe files in the directory:
 
 ---
 
-# Create Misconfiguration 1 — Autorun entry pointing to a writable path
+# Create Misconfiguration 1 - Autorun entry pointing to a writable path
 
 This misconfiguration creates a **startup program entry** in the Windows registry that points to an executable located in a directory writable by normal users.  
 If the executable can be modified by non‑administrative users, it may allow **privilege escalation or persistence**.
@@ -104,7 +104,7 @@ You should see:
 
 ---
 
-# Create Misconfiguration 2 — Writable service binary
+# Create Misconfiguration 2 - Writable service binary
 
 Create a test service directory.
 
