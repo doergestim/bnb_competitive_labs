@@ -39,7 +39,7 @@
 - net use
 - NetExec
 - PEASS-ng
-- PlumGound
+- PlumHound
 - PowerShell
 - PsExec
 - Responder
