@@ -48,6 +48,7 @@
 - Seatbelt
 - ServiceController
 - SharpUp
+- Snaffler
 
 # C2E
 - Gcat
