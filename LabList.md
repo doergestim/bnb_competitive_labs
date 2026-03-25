@@ -31,7 +31,7 @@
 - Hashcat
 - Impacket
 - Inveigh
-- Kertbrute
+- Kerbrute
 - LOLBins
 - Malware
 - Mimikatz
