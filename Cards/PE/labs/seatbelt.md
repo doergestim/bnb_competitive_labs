@@ -55,6 +55,8 @@ dir
 
 You should see .zip and .exe files in the directory:
 
+<img width="670" height="257" alt="seatbelt1" src="https://github.com/user-attachments/assets/5f6ae62b-ddbe-48fb-8c41-00a1a30a1c0a" />
+
 ---
 
 # Create Lab Artifact
@@ -82,6 +84,8 @@ This command shows recent logon events from the last 30 days, which can reveal:
 - User activity
 - Login patterns
 - Potential lateral movement
+
+<img width="1201" height="593" alt="seatbelt2" src="https://github.com/user-attachments/assets/915ee1dc-8911-4eeb-a446-9056d544087e" />
 
 ---
 
