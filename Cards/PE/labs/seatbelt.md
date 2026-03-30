@@ -84,7 +84,7 @@ This command shows recent logon events from the last 30 days, which can reveal:
 <img width="1201" height="593" alt="seatbelt2" src="https://github.com/user-attachments/assets/915ee1dc-8911-4eeb-a446-9056d544087e" />
 
 > [!WARNING]
-> Your output might be different depending on your activity on the vm.
+> Your output might be different depending on your activity on the VM.
 
 ## 2. User-focused checks
 
