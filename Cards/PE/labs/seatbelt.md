@@ -144,6 +144,10 @@ Search for keyword:
 Select-String *.txt -Pattern "SECRET-KEY-12345"
 ```
 
+<img width="1200" height="117" alt="seatbelt4" src="https://github.com/user-attachments/assets/1c7ebf42-7297-49a7-8b2d-ca85bd0e9baa" />
+
+The key is present in the system-output file.
+
 ---
 
 # Finished?
