@@ -4,8 +4,6 @@
 
 # Windows VM
 
----
-
 ## In this lab we will
 
 - Download **Seatbelt**
@@ -13,8 +11,6 @@
 - Check logon events in the past 30 days
 - Run specific Seatbelt enumeration groups
 - Analyze the results
-
----
 
 ## Seatbelt
 
@@ -26,8 +22,6 @@ Seatbelt organizes its findings into structured sections and supports running ei
 
 It is commonly used by penetration testers and red teamers to quickly understand a system and identify areas that may require further investigation.
 
----
-
 # Setup
 
 ## Go to the Lab Directory
@@ -38,8 +32,6 @@ Open **PowerShell as Administrator**.
 mkdir C:\SeatbeltLab -ErrorAction SilentlyContinue
 cd C:\SeatbeltLab
 ```
-
----
 
 ## Download Seatbelt
 
