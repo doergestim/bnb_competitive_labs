@@ -57,8 +57,6 @@ You should see .zip and .exe files in the directory:
 
 <img width="670" height="257" alt="seatbelt1" src="https://github.com/user-attachments/assets/5f6ae62b-ddbe-48fb-8c41-00a1a30a1c0a" />
 
----
-
 # Create Lab Artifact
 
 ## Artifact — Suspicious environment variable
@@ -68,8 +66,6 @@ Create a custom environment variable containing sensitive data.
 ```powershell
 setx API_KEY "SECRET-KEY-12345"
 ```
-
----
 
 # Run Seatbelt
 
@@ -87,15 +83,11 @@ This command shows recent logon events from the last 30 days, which can reveal:
 
 <img width="1201" height="593" alt="seatbelt2" src="https://github.com/user-attachments/assets/915ee1dc-8911-4eeb-a446-9056d544087e" />
 
----
-
 ## 2. User-focused checks
 
 ```powershell
 .\Seatbelt.exe -group=user -outputfile="user-output.txt"
 ```
-
----
 
 ## 3. System-focused checks
 
@@ -103,15 +95,11 @@ This command shows recent logon events from the last 30 days, which can reveal:
 .\Seatbelt.exe -group=system -outputfile="system-output.txt"
 ```
 
----
-
 ## 4. File / interesting data checks
 
 ```powershell
 .\Seatbelt.exe -group=misc -outputfile="misc-output.txt"
 ```
-
----
 
 # Analyze the Output
 
@@ -138,7 +126,6 @@ Seatbelt output is divided into sections. Important ones include:
 
 - **User Data Locations**  
   Highlights directories where user-specific data is stored (e.g., Desktop, Documents, AppData). These locations often contain files that may expose credentials, tokens, or personal information.
----
 
 # Identify the Artifact
 
