@@ -114,6 +114,10 @@ notepad system-output.txt
 notepad misc-output.txt
 ```
 
+Example part of the `misc-output.txt` file:
+
+<img width="1896" height="812" alt="seatbelt3" src="https://github.com/user-attachments/assets/b5363de5-dc90-45ff-b6b3-15c9e47a8645" />
+
 ## What to look for
 
 Seatbelt output is divided into sections. Important ones include:
@@ -139,6 +143,10 @@ Search for keyword:
 ```powershell
 Select-String *.txt -Pattern "SECRET-KEY-12345"
 ```
+
+The key is present in the `system-output.txt` file.
+
+<img width="1200" height="117" alt="seatbelt4" src="https://github.com/user-attachments/assets/1c7ebf42-7297-49a7-8b2d-ca85bd0e9baa" />
 
 ---
 
