@@ -114,6 +114,10 @@ notepad system-output.txt
 notepad misc-output.txt
 ```
 
+Example part of the `misc-output.txt` file:
+
+<img width="1896" height="812" alt="seatbelt3" src="https://github.com/user-attachments/assets/b5363de5-dc90-45ff-b6b3-15c9e47a8645" />
+
 ## What to look for
 
 Seatbelt output is divided into sections. Important ones include:
