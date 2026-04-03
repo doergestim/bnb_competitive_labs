@@ -59,7 +59,7 @@ You should see .zip and .exe files in the directory:
 
 # Create Lab Artifact
 
-## Artifact — Suspicious environment variable
+## Artifact - Suspicious environment variable
 
 Create a custom environment variable containing sensitive data.
 
