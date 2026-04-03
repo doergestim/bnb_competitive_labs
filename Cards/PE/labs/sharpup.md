@@ -23,8 +23,8 @@ The goal is to understand **how SharpUp detects privilege‑escalation issues**.
 Open **PowerShell as Administrator** and input all of the following commands there.
 
 ```powershell
-mkdir C:\SharpUpLab -ErrorAction SilentlyContinue
-cd C:\SharpUpLab
+mkdir C:\Users\Administrator\Desktop\Labs\SharpUpLab -ErrorAction SilentlyContinue
+cd C:\Users\Administrator\Desktop\Labs\SharpUpLab
 ```
 
 ---
@@ -65,7 +65,11 @@ If the executable can be modified by non‑administrative users, it may allow **
 Create a directory that normal users will be able to modify.
 
 ```powershell
-mkdir C:\SharpUpLab\AutorunApp -ErrorAction SilentlyContinue
+cd C:\Users\Administrator\Desktop\Labs\SharpUpLab
+```
+
+```powershell
+mkdir AutorunApp
 ```
 
 Grant **Users** modify permissions.
