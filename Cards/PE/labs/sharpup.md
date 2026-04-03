@@ -75,13 +75,13 @@ mkdir AutorunApp
 Grant **Users** modify permissions.
 
 ```powershell
-icacls "C:\SharpUpLab\AutorunApp" /grant "Users:(OI)(CI)M"
+icacls .\AutorunApp\ /grant "Users:(OI)(CI)M"
 ```
 
 Create a simple dummy executable file.
 
 ```powershell
-Set-Content C:\SharpUpLab\AutorunApp\autorunapp.exe "test"
+Set-Content .\AutorunApp\autorunapp.exe "test"
 ```
 
 Create the Autorun registry entry
