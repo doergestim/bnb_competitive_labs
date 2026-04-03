@@ -92,7 +92,7 @@ Add the application to the Windows **Run** key so it executes at login.
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" `
  /v VulnAutorunApp `
  /t REG_SZ `
- /d "C:\SharpUpLab\AutorunApp\autorunapp.exe" `
+ /d "C:\Users\Administrator\Desktop\Labs\SharpUpLab\AutorunApp\autorunapp.exe" `
  /f
 ```
 
@@ -104,7 +104,8 @@ reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Run"
 
 You should see:
 
-![image](/FilesForLabs/images/sharpUp2.png)
+<img width="1044" height="110" alt="2026-04-03_18-10" src="https://github.com/user-attachments/assets/acd745fb-c5f0-48fd-912b-0332d54862ee" />
+
 
 ---
 
@@ -113,25 +114,25 @@ You should see:
 Create a test service directory.
 
 ```powershell
-mkdir C:\SharpUpLab\Service
+mkdir Service
 ```
 
 Create a dummy service executable file.
 
 ```powershell
-echo test > C:\SharpUpLab\Service\labservice.exe
+echo test > .\Service\labservice.exe
 ```
 
 Grant normal users modify permissions:
 
 ```powershell
-icacls "C:\SharpUpLab\Service\labservice.exe" /grant "Users:(M)"
+icacls .\Service\labservice.exe /grant "Users:(M)"
 ```
 
 Create a Windows service pointing to this binary.
 
 ```powershell
-sc.exe create SharpUpLabService binPath= "C:\SharpUpLab\Service\labservice.exe" start= auto
+sc.exe create SharpUpLabService binPath= "C:\Users\Administrator\Desktop\Labs\SharpUpLab\Service\labservice.exe" start= auto
 ```
 
 Verify the service:
