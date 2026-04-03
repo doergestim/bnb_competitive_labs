@@ -29,8 +29,8 @@ It is commonly used by penetration testers and red teamers to quickly understand
 Open **PowerShell as Administrator**.
 
 ```powershell
-mkdir C:\SeatbeltLab -ErrorAction SilentlyContinue
-cd C:\SeatbeltLab
+mkdir C:\Users\Administrator\Desktop\Labs\SeatbeltLab -ErrorAction SilentlyContinue
+cd C:\Users\Administrator\Desktop\Labs\SeatbeltLab
 ```
 
 ## Download Seatbelt
