@@ -143,7 +143,8 @@ sc.exe qc SharpUpLabService
 
 Expected output:
 
-![image](/FilesForLabs/images/sharpUp3.png)
+<img width="914" height="273" alt="2026-04-03_18-15" src="https://github.com/user-attachments/assets/26bcb677-944a-4d27-bf00-46389ecd6d29" />
+
 
 ---
 
@@ -170,7 +171,8 @@ Select-String -Path sharpup-output.txt -Pattern "VulnAutorunApp|autorunapp.exe|S
 
 You should find:
 
-![image](/FilesForLabs/images/sharpUp4.png)
+<img width="1100" height="201" alt="2026-04-03_18-20" src="https://github.com/user-attachments/assets/2c2d296a-f03b-44ab-b8b8-98b7a2e3ee26" />
+
 
 ---
 
@@ -182,7 +184,9 @@ Now, after finishing these tasks, you can take a look at the rest of the **sharp
 notepad sharpup-output.txt
 ```
 
-![image](/FilesForLabs/images/sharpUp5.png)
+<img width="1498" height="1004" alt="2026-04-03_18-22" src="https://github.com/user-attachments/assets/b492ff80-2386-4e43-a6d3-1d4341d0c3bd" />
+
+
 
 Anayze the list of different vulnerabilities found by **SharpUp**.
 Scroll through the output and review the findings. SharpUp reports potential privilege escalation issues in several categories, including:
