@@ -81,7 +81,8 @@ This command shows recent logon events from the last 30 days, which can reveal:
 - Login patterns
 - Potential lateral movement
 
-<img width="1201" height="593" alt="seatbelt2" src="https://github.com/user-attachments/assets/915ee1dc-8911-4eeb-a446-9056d544087e" />
+![2026-04-03_17-48](https://github.com/user-attachments/assets/6c650603-0c54-403a-82f8-88fadee9b3f4)
+
 
 > [!WARNING]
 > Your output might be different depending on your activity on the VM.
@@ -146,7 +147,8 @@ Select-String *.txt -Pattern "SECRET-KEY-12345"
 
 The key is present in the `system-output.txt` file.
 
-<img width="1200" height="117" alt="seatbelt4" src="https://github.com/user-attachments/assets/1c7ebf42-7297-49a7-8b2d-ca85bd0e9baa" />
+<img width="1026" height="83" alt="2026-04-03_17-53" src="https://github.com/user-attachments/assets/5063d0c7-a81d-45ec-a029-56000e115735" />
+
 
 ---
 
