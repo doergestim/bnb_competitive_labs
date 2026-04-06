@@ -20,7 +20,7 @@ In this lab you will:
 
 ---
 
-# Start GoPhish
+# Step 1 - Start GoPhish
 
 ```
 cd ~/BnB/gophish
@@ -42,12 +42,12 @@ Starting admin server at http://0.0.0.0:3333
 
 ---
 
-# Step 4 – Access the Admin Panel
+# Step 2 – Access the Admin Panel
 
 Open a browser and go to:
 
 ```
-http://localhost:3333
+https://localhost:3333
 ```
 
 <img width="563" height="536" alt="image" src="https://github.com/user-attachments/assets/949def60-dbea-431b-affd-1ad2c58d330e" />
@@ -68,7 +68,7 @@ Copy the password from the terminal and log in
 
 ---
 
-# Step 5 – Create a Sending Profile
+# Step 3 – Create a Sending Profile
 
 1. Click **Sending Profiles** in the **left** tab
 
@@ -89,7 +89,7 @@ Copy the password from the terminal and log in
 
 ---
 
-# Step 6 – Create a Landing Page (Credential Capture)
+# Step 4 – Create a Landing Page (Credential Capture)
 
 1. Click **Landing Pages**
 
@@ -121,7 +121,7 @@ Copy the password from the terminal and log in
 
 ---
 
-# Step 7 – Create an Email Template
+# Step 5 – Create an Email Template
 
 1. Click **Email Templates**
 
@@ -144,7 +144,7 @@ Copy the password from the terminal and log in
 
 ---
 
-# Step 8 – Create a User Group
+# Step 6 – Create a User Group
 
 1. Click **Users & Groups**
 
@@ -167,7 +167,7 @@ Copy the password from the terminal and log in
 
 ---
 
-# Step 9 - Run MailHog
+# Step 7 - Run MailHog in the Terminal
 
 ```bash
 MailHog
@@ -176,7 +176,7 @@ MailHog
 <img width="550" height="124" alt="image" src="https://github.com/user-attachments/assets/bcdf9d65-2312-4e3c-b30d-38d4fe31305e" />
 
 
-# Step 10 – Launch a Phishing Campaign
+# Step 8 – Launch a Phishing Campaign
 
 1. Click **Campaigns**
 
@@ -191,7 +191,7 @@ MailHog
    - Email Template: `Password Reset`
    - Landing Page: `Fake Login`
    - Sending Profile: `Local SMTP`
-   - Users Group: `Test Users`
+   - Groups: `Test Users`
 5. Click **Launch Campaign**
 
 ---
