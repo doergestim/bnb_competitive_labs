@@ -82,7 +82,7 @@ Test what you've learned by solving these challenges:
 
 Hands-on walkthroughs for each tool:
 
-- [SharpStay Lab](labs/sharpstay.md)
+- [SharpStay Lab](labs/sharpstayPER.md)
 - [SharPersist Lab](labs/sharpersist.md)
 - [StayKit Lab](labs/staykit.md)
 - [PsExec Lab](labs/psexec.md)
