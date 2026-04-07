@@ -6,7 +6,6 @@
 
 ## In this lab we will
 
-- Download **Seatbelt**
 - Create interesting system artifact
 - Check logon events in the past 30 days
 - Run specific Seatbelt enumeration groups
