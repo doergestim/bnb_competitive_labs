@@ -63,6 +63,7 @@ msf > search -h
 We’ll treat `127.0.0.1` as our “target”.
 
 ### Create a workspace (keeps your lab results separate)
+If connected to the DB:
 ```text
 msf > workspace -a msf_beginner_lab
 ```
