@@ -53,5 +53,5 @@
 - [Isolation](/Cards/DET/Isolation.md)
 - [Crisis Management](/Cards/DET/Crisis_Management.md)
 - [Memory Analysis](/Cards/DET/Memory_Analysis.md)
-- [Cloud Event Logs Analysis](/Cards/DET/Cloud_Event_Logs_Analysis.md)
+- [Cloud Event Log Analysis](/Cards/DET/Cloud_Event_Log_Analysis.md)
 - [Permissions Audit](/Cards/DET/Permissions_Audit.md)
