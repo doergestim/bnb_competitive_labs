@@ -22,40 +22,7 @@ Seatbelt organizes its findings into structured sections and supports running ei
 
 It is commonly used by penetration testers and red teamers to quickly understand a system and identify areas that may require further investigation.
 
-# Setup
 
-## Go to the Lab Directory
-
-Open **PowerShell as Administrator**.
-
-```powershell
-mkdir C:\Users\Administrator\Desktop\Labs\SeatbeltLab -ErrorAction SilentlyContinue
-cd C:\Users\Administrator\Desktop\Labs\SeatbeltLab
-```
-
-## Download Seatbelt
-
-```powershell
-Invoke-WebRequest `
-  -Uri "https://github.com/doergestim/bnb_competitive_labs/raw/main/FilesForLabs/Seatbelt.zip" `
-  -OutFile Seatbelt.zip
-```
-
-Extract:
-
-```powershell
-Expand-Archive Seatbelt.zip -DestinationPath .
-```
-
-Verify:
-
-```powershell
-dir
-```
-
-You should see .zip and .exe files in the directory:
-
-<img width="670" height="257" alt="seatbelt1" src="https://github.com/user-attachments/assets/5f6ae62b-ddbe-48fb-8c41-00a1a30a1c0a" />
 
 # Create Lab Artifact
 
