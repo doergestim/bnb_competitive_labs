@@ -6,7 +6,6 @@
 
 ## In this lab we will
 
-- Download **SharpUp** using PowerShell
 - Create **two realistic privilege‑escalation misconfigurations**
 - Run **SharpUp** to audit the system
 - Save the output to a file
@@ -16,46 +15,6 @@ The goal is to understand **how SharpUp detects privilege‑escalation issues**.
 
 ---
 
-# Setup
-
-## Create the lab directory
-
-Open **PowerShell as Administrator** and input all of the following commands there.
-
-```powershell
-mkdir C:\Users\Administrator\Desktop\Labs\SharpUpLab -ErrorAction SilentlyContinue
-cd C:\Users\Administrator\Desktop\Labs\SharpUpLab
-```
-
----
-
-# Download SharpUp
-
-Download the lab archive directly from GitHub.
-
-```powershell
-Invoke-WebRequest `
-  -Uri "https://github.com/doergestim/bnb_competitive_labs/raw/main/FilesForLabs/Sharp.zip" `
-  -OutFile Sharp.zip
-```
-
-Extract the archive:
-
-```powershell
-Expand-Archive Sharp.zip -DestinationPath .
-```
-
-Verify:
-
-```powershell
-dir
-```
-
-You should see .zip and .exe files in the directory:
-
-![image](/FilesForLabs/images/sharpUp1.png)
-
----
 
 # Create Misconfiguration 1 - Autorun entry pointing to a writable path
 
