@@ -157,49 +157,25 @@ sudo sh -c 'cat /root/.set/reports/*.xml'
 
 ## QR Code Attack Generator
 
-SET can generate a malicious QR code that redirects a victim to a URL of your choice (like a phishing page or payload)
+QR code attacks redirect victims to a malicious URL - like your credential harvester page - without them seeing a suspicious link. Attackers use these on flyers, emails, and posters.
 
-### Launch the toolkit again
+SET has a built-in QR code generator but it requires Metasploit to be installed. We will use `qrencode` directly instead, which does the exact same thing.
 
-```bash
-sudo setoolkit
-```
-
-```
-set> 1
-```
-
-```
-set:attackvectors> 9
-```
-
-> If option 9 is not visible, scroll down - menu options vary slightly by SET version
-
-### Select QR Code Attack
-
-```
-set:qrcode> 1
-```
-
-SET will ask for the URL to embed:
-
-```
-set:qrcode> Enter the URL you want the QR code to go to: http://127.0.0.1
-```
-
-SET will generate a QR code image saved to your machine:
+- Generate a QR code pointing to your harvester page:
 
 ```bash
-ls /root/.set/qrcode*
+qrencode -o ~/qrcode.png "http://10.10.77.7"
 ```
 
-Open it to see the generated QR code:
+- View the generated QR code:
 
 ```bash
-eog /root/.set/qrcode.png
+eog ~/qrcode.png
 ```
 
-> **What this demonstrates:** Attackers print or share these QR codes in public (flyers, emails, posters) to redirect victims to phishing pages - bypassing URL suspicion entirely since people do not "read" a QR code
+You will see a QR code image. Scan it with your phone - it will take you straight to `http://10.10.77.7`, which is your cloned login page.
+
+> **What this demonstrates:** Attackers print or share these QR codes in public (flyers, emails, fake posters, business cards) to redirect victims to phishing pages - bypassing URL suspicion entirely since people do not "read" a QR code before scanning it.
 
 ---
 
