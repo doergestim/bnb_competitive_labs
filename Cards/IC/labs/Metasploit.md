@@ -42,7 +42,7 @@ msfconsole
 ### Confirm database connection inside msfconsole
 Inside `msfconsole`, run:
 ```text
-msf > db_status
+db_status
 ```
 
 If it says connected, great. If not, you can still continue (scans will work, but saving results may be limited)
@@ -50,10 +50,10 @@ If it says connected, great. If not, you can still continue (scans will work, bu
 ### Helpful navigation commands
 Try these inside `msfconsole`:
 ```text
-msf > help
-msf > version
-msf > show -h
-msf > search -h
+help
+version
+show -h
+search -h
 ```
 
 ---
@@ -65,11 +65,11 @@ We’ll treat `127.0.0.1` as our “target”.
 ### Create a workspace (keeps your lab results separate)
 If connected to the DB:
 ```text
-msf > workspace -a msf_beginner_lab
+workspace -a msf_beginner_lab
 ```
 
 ```text
-msf > workspace
+workspace
 ```
 
 <img width="363" height="120" alt="image" src="https://github.com/user-attachments/assets/324e654f-e486-4702-a5bb-b10f224ec560" />
@@ -78,7 +78,7 @@ msf > workspace
 ### Port scan with Metasploit
 Use a TCP port scanner module:
 ```text
-msf > search portscan tcp
+search portscan tcp
 ```
 
 <img width="974" height="320" alt="image" src="https://github.com/user-attachments/assets/f4d988a7-5956-4904-99ab-e100b5de37d2" />
@@ -86,27 +86,27 @@ msf > search portscan tcp
 
 Pick this common module:
 ```text
-msf > use auxiliary/scanner/portscan/tcp
+use auxiliary/scanner/portscan/tcp
 ```
 
 Show options:
 ```text
-msf auxiliary(scanner/portscan/tcp) > show options
+show options
 ```
 
 <img width="1319" height="373" alt="image" src="https://github.com/user-attachments/assets/21115925-aefb-47e3-a6bc-dd2535df3d3e" />
 
 Set the target and ports:
 ```text
-msf auxiliary(scanner/portscan/tcp) > set RHOSTS 127.0.0.1
+set RHOSTS 127.0.0.1
 ```
 
 ```text
-msf auxiliary(scanner/portscan/tcp) > set PORTS 21,22,80,443,2121
+set PORTS 21,22,80,443,2121
 ```
 
 ```text
-msf auxiliary(scanner/portscan/tcp) > run
+run
 ```
 
 You should see `2121` open
@@ -117,11 +117,11 @@ You should see `2121` open
 ### View discovered hosts/services (database)
 If DB is connected:
 ```text
-msf auxiliary(scanner/portscan/tcp) > hosts
+hosts
 ```
 
 ```text
-msf auxiliary(scanner/portscan/tcp) > services
+services
 ```
 
 <img width="668" height="333" alt="image" src="https://github.com/user-attachments/assets/5ff89440-a1ae-436d-b466-6d3f5f6cd302" />
@@ -134,11 +134,11 @@ Metasploit has scanner modules that grab banners and versions
 
 ### Use the FTP version scanner
 ```text
-msf auxiliary(scanner/portscan/tcp) > use auxiliary/scanner/ftp/ftp_version
+use auxiliary/scanner/ftp/ftp_version
 ```
 
 ```text
-msf auxiliary(scanner/ftp/ftp_version) > show options
+show options
 ```
 
 <img width="1318" height="333" alt="image" src="https://github.com/user-attachments/assets/b701d74e-8fbc-403e-8515-c1eeafe5c8b4" />
@@ -146,15 +146,15 @@ msf auxiliary(scanner/ftp/ftp_version) > show options
 
 Set target and port:
 ```text
-msf auxiliary(scanner/ftp/ftp_version) > set RHOSTS 127.0.0.1
+set RHOSTS 127.0.0.1
 ```
 
 ```text
-msf auxiliary(scanner/ftp/ftp_version) > set RPORT 2121
+set RPORT 2121
 ```
 
 ```text
-msf auxiliary(scanner/ftp/ftp_version) > run
+run
 ```
 
 <img width="697" height="165" alt="image" src="https://github.com/user-attachments/assets/a0f06e54-5a88-423a-904b-7bfffba26bd5" />
@@ -162,7 +162,7 @@ msf auxiliary(scanner/ftp/ftp_version) > run
 
 Check services again:
 ```text
-msf auxiliary(scanner/ftp/ftp_version) > services -p 2121
+services -p 2121
 ```
 
 Notice how the **info** column has updated
@@ -187,11 +187,11 @@ EOF
 ### Run the FTP login scanner in Metasploit
 Back in `msfconsole`:
 ```text
-msf auxiliary(scanner/ftp/ftp_version) > use auxiliary/scanner/ftp/ftp_login
+use auxiliary/scanner/ftp/ftp_login
 ```
 
 ```text
-msf auxiliary(scanner/ftp/ftp_login) > show options
+show options
 ```
 
 
@@ -199,26 +199,26 @@ msf auxiliary(scanner/ftp/ftp_login) > show options
 
 Set the target and port:
 ```text
-msf auxiliary(scanner/ftp/ftp_login) > set RHOSTS 127.0.0.1
+set RHOSTS 127.0.0.1
 ```
 
 ```text
-msf auxiliary(scanner/ftp/ftp_login) > set RPORT 2121
+set RPORT 2121
 ```
 
 Set the username:
 ```text
-msf auxiliary(scanner/ftp/ftp_login) > set USERNAME student
+set USERNAME student
 ```
 
 Point Metasploit to the password list:
 ```text
-msf auxiliary(scanner/ftp/ftp_login) > set PASS_FILE /home/ubuntu/BnB/metasploit/passwords.txt
+set PASS_FILE /home/ubuntu/BnB/metasploit/passwords.txt
 ```
 
 Run it:
 ```text
-msf auxiliary(scanner/ftp/ftp_login) > run
+run
 ```
 
 <img width="817" height="142" alt="image" src="https://github.com/user-attachments/assets/d6caac57-ea9d-45f2-8dbe-9ae2d7c8aa87" />
@@ -227,7 +227,7 @@ Successful login for `student:Password123!`!!!
 
 ### See stored credentials (if DB is connected)
 ```text
-msf auxiliary(scanner/ftp/ftp_login) > creds
+creds
 ```
 
 <img width="1119" height="150" alt="image" src="https://github.com/user-attachments/assets/ee8742d5-45a9-4a3b-a83d-d02ce0c1325a" />
