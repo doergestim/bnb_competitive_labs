@@ -240,30 +240,6 @@ cat /root/.set/set.log
 
 You will see timestamped entries for every action taken - cloning, credential captures, payload generation, and more. This is the attacker's trail - in a real investigation, forensic analysts look for exactly these artifacts
 
----
-
-## Understanding the Defender's View
-
-Now let's think like a **defender**. What would you see on the network during a credential harvester attack?
-
-Open a new terminal and run a packet capture **before** visiting the fake site:
-
-```bash
-sudo apt install -y tcpdump
-sudo tcpdump -i lo -w /tmp/set_capture.pcap port 80
-```
-
-Now revisit `http://127.0.0.1`, fill in fake credentials, then stop the capture with `CTRL+C`
-
-Open the capture:
-
-```bash
-sudo apt install -y tshark
-tshark -r /tmp/set_capture.pcap -Y "http.request.method == POST" -T fields -e http.file_data
-```
-
-You will see the raw POST body containing the credentials - **in plain text** - exactly as a network analyst or IDS would detect it on an unencrypted connection
-
 
 
 
