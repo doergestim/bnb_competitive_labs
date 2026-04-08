@@ -173,7 +173,11 @@ qrencode -o ~/qrcode.png "http://10.10.77.7"
 eog ~/qrcode.png
 ```
 
+<img width="1100" height="497" alt="2026-04-09_00-13" src="https://github.com/user-attachments/assets/4c637931-4a16-4cc7-8827-8633b2181788" />
+
 You will see a QR code image. Scan it with your phone - it will take you straight to `http://10.10.77.7`, which is your cloned login page.
+
+
 
 > **What this demonstrates:** Attackers print or share these QR codes in public (flyers, emails, fake posters, business cards) to redirect victims to phishing pages - bypassing URL suspicion entirely since people do not "read" a QR code before scanning it.
 
