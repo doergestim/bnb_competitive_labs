@@ -101,7 +101,7 @@ nuclei -u http://localhost:3000 -severity info
 
 Run scan and save output:
 ```bash
-nuclei -u http://localhost:3000 severity info -o results.txt
+nuclei -u http://localhost:3000 -severity info -o results.txt
 ```
 
 View results:
