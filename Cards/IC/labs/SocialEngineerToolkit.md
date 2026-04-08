@@ -159,7 +159,11 @@ sudo sh -c 'cat /root/.set/reports/*.xml'
 
 SET can generate a malicious QR code that redirects a victim to a URL of your choice (like a phishing page or payload)
 
-### Step 1 - Go back to the main menu
+### Launch the toolkit again
+
+```bash
+sudo setoolkit
+```
 
 ```
 set> 1
