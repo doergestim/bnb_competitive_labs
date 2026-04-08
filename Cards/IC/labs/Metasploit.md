@@ -2,6 +2,7 @@
 
 # Metasploit
 
+# Ubuntu VM
 
 ## In this lab we will
 - Install Metasploit Framework (simple, standard install)
