@@ -14,12 +14,29 @@ CredMaster is built around **plugins** that target different authentication serv
 
 ---
 
+### Spin up the Mock-up server meant for the Password Spray
+
+Open up a terminal
+
+```bash
+cd ~/BnB/credMaster
+```
+
+```bash
+python3 mock_auth_server.py
+```
+
+<img width="705" height="116" alt="2026-04-09_12-40" src="https://github.com/user-attachments/assets/afa7dfc5-4373-4d75-9027-6c1c7700250f" />
+
+
 ## Write a CredMaster Plugin for Our Server
 
 CredMaster uses **plugins** (one per service type) that define how to format and send login requests. We will write a minimal one that talks to our local Flask server.
 
+Open another terminal
+
 ```bash
-nano ~/CredMaster/plugins/localtest.py
+nano ~/BnB/credMaster/CredMaster/plugins/localtest.py
 ```
 
 Paste in:
@@ -70,11 +87,17 @@ You now have three terminals running:
 In Terminal 3, run the spray:
 
 ```bash
-cd ~/CredMaster
+cd ~/BnB/credMaster/CredMaster
+```
 
+```bash
+source venv/bin/activate
+```
+
+```bash
 python3 credmaster.py \
   --plugin localtest \
-  -u /tmp/users.txt \
+  -u /usr/share/seclists/Usernames/Names/names.txt \
   -p /usr/share/seclists/Passwords/Common-Credentials/top-passwords-shortlist.txt \
   --nofire \
   --delay 1 \
