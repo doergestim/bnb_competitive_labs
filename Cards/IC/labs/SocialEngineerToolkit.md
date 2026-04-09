@@ -216,3 +216,7 @@ Type `99` or press `CTRL+C` to exit without sending anything
 # Finished?
 
 [Back to Card's Main Page](/Cards/IC/Phishing.md)
+
+
+
+> Created by Turcu-Stiolica Alexandru
