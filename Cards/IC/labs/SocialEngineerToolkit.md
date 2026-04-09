@@ -189,16 +189,14 @@ Go back to the main menu:
 
 ```
 set> 1
-set:attackvectors> 1
+
+set> 1
 ```
 
 You will see options like:
 
-```
-   1) Perform a Mass Email Attack
-   2) Create a FileFormat Payload
-   3) Create a Social-Engineering Template
-```
+<img width="848" height="390" alt="2026-04-09_11-17" src="https://github.com/user-attachments/assets/0532cd25-3616-4b27-8f27-3de13598ad54" />
+
 
 - Option **1** lets you send a phishing email with an attached payload to a target
 - Option **2** lets you embed payloads in `.pdf`, `.docx`, `.xlsx` files
@@ -207,30 +205,6 @@ You will see options like:
 **This is how real attackers operate.** A crafted email + a weaponized attachment = a convincing spear phishing campaign that bypasses most user awareness
 
 Type `99` or press `CTRL+C` to exit without sending anything
-
----
-
-## Checking SET Logs
-
-SET logs everything it does. Let's look at what was recorded during our session:
-
-```bash
-ls /root/.set/
-```
-
-```bash
-cat /root/.set/set.log
-```
-
-You will see timestamped entries for every action taken - cloning, credential captures, payload generation, and more. This is the attacker's trail - in a real investigation, forensic analysts look for exactly these artifacts
-
-
-
-
-
-
-
-
 
 
 
