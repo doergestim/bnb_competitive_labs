@@ -54,8 +54,34 @@ Before running the spray we need to create an **AWS Account**, go here and make 
 
 <img width="785" height="135" alt="2026-04-09_13-24" src="https://github.com/user-attachments/assets/edb3cf0a-f47a-41d1-b92c-b1303fac1051" />
 
+Afert you have made an account, go here: https://us-east-1.console.aws.amazon.com/iam/home?region=eu-north-1#/users and create a new user
 
-In Terminal 3, run the spray:
+<img width="581" height="240" alt="2026-04-09_14-13" src="https://github.com/user-attachments/assets/98b39c9e-d0f3-4d59-a557-2e0f0015eb10" />
+
+
+<img width="742" height="340" alt="2026-04-09_14-14" src="https://github.com/user-attachments/assets/16c022dc-ea0d-4d09-a68c-895847e037ee" />
+
+<img width="1438" height="688" alt="2026-04-09_14-15" src="https://github.com/user-attachments/assets/ae4f4352-0fc6-4676-8444-d1c749c5c49b" />
+
+After creating the user with the settings from above, you should see this:
+
+<img width="705" height="283" alt="2026-04-09_14-17" src="https://github.com/user-attachments/assets/4ec235cb-b54b-4b6f-8681-7f89cf3193c7" />
+
+Click on the user and then click `Create access key`
+
+<img width="1615" height="815" alt="2026-04-09_14-19" src="https://github.com/user-attachments/assets/159e0f4b-7187-4f76-ba92-8152b6287d75" />
+
+Select `Command Line Interface (CLI)` and click though the confirmation
+
+<img width="1213" height="778" alt="2026-04-09_14-20" src="https://github.com/user-attachments/assets/3873d292-319d-4854-953b-dad487f0477f" />
+
+Now this is REALLY IMPORTANT, save the **Access Key** and the **Secret access key**
+
+<img width="1155" height="526" alt="2026-04-09_14-21" src="https://github.com/user-attachments/assets/80458a46-8a6b-446b-af9c-83564e7bc372" />
+
+
+
+In Terminal 3, run the spray with your AWS Keys:
 
 ```bash
 cd ~/BnB/credMaster/CredMaster
