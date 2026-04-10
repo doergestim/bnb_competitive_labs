@@ -174,10 +174,10 @@ The pattern is unmistakable from the defender's view: the **same IP cycling thro
 After the run completes, check what CredMaster saved:
 
 ```bash
-cat ~/CredMaster/found_credentials.txt
+cat ~/BnB/credMaster/CredMaster/credmaster-success.txt
 ```
 
-You should see all 15 compromised accounts listed - every user who had `Password1` as their password.
+You should see all 15 compromised accounts listed
 
 View the complete log:
 
