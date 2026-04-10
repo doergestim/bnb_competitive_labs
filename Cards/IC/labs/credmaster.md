@@ -92,7 +92,7 @@ source venv/bin/activate
 ```
 
 ```bash
-(venv) ubuntu@ip-10-10-118-227:~/BnB/credMaster/CredMaster$ python3 credmaster.py \
+python3 credmaster.py \
   --plugin httppost \
   -u /usr/share/seclists/Usernames/Names/names.txt \
   -p /usr/share/seclists/Passwords/Common-Credentials/top-passwords-shortlist.txt \
