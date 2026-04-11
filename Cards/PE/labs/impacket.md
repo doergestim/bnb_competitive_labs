@@ -247,7 +247,7 @@ get from_impacket.txt
 exit
 ```
 
-<img width="1014" height="180" alt="2026-02-10_15-47" src="https://github.com/user-attachments/assets/8cf635af-7ad8-456e-8cb8-94e33b89ceeb" />
+<img width="843" height="166" alt="smb_impk" src="https://github.com/user-attachments/assets/2abcd829-9d96-4f5c-ad53-e10c1c5785b0" />
 
 
 Back on the host:
