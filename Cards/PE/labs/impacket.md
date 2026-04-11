@@ -51,9 +51,7 @@ which smbserver.py
 
 If `which` prints paths, you're good
 
-<img width="438" height="24" alt="image" src="https://github.com/user-attachments/assets/3982365c-6e30-4f4f-8375-e97956be2871" />
-
-<img width="438" height="24" alt="image" src="https://github.com/user-attachments/assets/0906da01-0b94-4ecf-9f04-7a87727c037a" />
+<img width="489" height="69" alt="which_files" src="https://github.com/user-attachments/assets/698c3551-581b-4092-a9ec-01d3e0ef6890" />
 
 
 ---
@@ -99,7 +97,7 @@ nc -vz 127.0.0.1 1445
 
 You should see a "**succeeded**" message
 
-<img width="479" height="22" alt="image" src="https://github.com/user-attachments/assets/719fe026-da67-4ce9-a047-1299ac4b566e" />
+<img width="509" height="32" alt="service_test" src="https://github.com/user-attachments/assets/456fc75b-2dce-4e55-b42e-48fcbd7ac407" />
 
 
 ---
@@ -121,7 +119,7 @@ ls
 
 You should see `hello.txt`
 
-<img width="677" height="183" alt="2026-02-10_15-38" src="https://github.com/user-attachments/assets/9cfabf35-c6f1-4c06-a761-b8f3082a41f2" />
+<img width="695" height="150" alt="smb_list" src="https://github.com/user-attachments/assets/44241513-8582-49ca-b7c6-c6c0f7a7db26" />
 
 
 ### Download a file from the SMB target
@@ -130,7 +128,7 @@ You should see `hello.txt`
 get hello.txt
 ```
 
-<img width="882" height="25" alt="image" src="https://github.com/user-attachments/assets/b2d296cd-4ff1-493b-b03b-3d5a23fd7321" />
+<img width="716" height="34" alt="smb_get_file" src="https://github.com/user-attachments/assets/c887a98d-600a-4c59-9c6c-af7358232867" />
 
 
 Exit the SMB shell:
@@ -149,7 +147,7 @@ ls -l
 cat hello.txt
 ```
 
-<img width="563" height="45" alt="image" src="https://github.com/user-attachments/assets/136e6af8-9b09-470d-8194-a82596d24c3c" />
+<img width="451" height="34" alt="cat_hello" src="https://github.com/user-attachments/assets/0054025b-cde7-40ed-a4c5-8cf137443a1e" />
 
 
 ### Upload a file to the SMB target
@@ -167,10 +165,6 @@ smbclient //127.0.0.1/SHARE -p 1445 -U student
 ```
 
 Inside:
-
-```text
-use share
-```
 
 ```text
 put upload.txt
