@@ -88,9 +88,13 @@ CloudFormation creates the user, but for security reasons, it won't generate the
   - You are now in the IAM console. Go to the *Security credentials* tab:
     <img width="1505" height="562" alt="image" src="https://github.com/user-attachments/assets/06710257-e697-420e-861f-4645417f8ac1" />
   - Scroll down to *Access keys* and click *Create access key*:
+    <img width="1600" height="409" alt="image" src="https://github.com/user-attachments/assets/648dcc59-23dc-4c3a-b996-fb77b52ab905" />
   - Select *Command Line Interface (CLI), acknowledge the warning, and click **Next*:
-  
-  - *CRITICAL:* Copy the *Access Key ID* and *Secret Access Key*. Paste them into a temporary notepad; you will need them for the aws configure step in the terminal.
+    <img width="1104" height="843" alt="image" src="https://github.com/user-attachments/assets/65558d6e-7c4c-4282-8c20-e0e67c89efec" />
+  - Enter **"ScoutSuite-Lab Audit"** when asked to set a description. This is good practice, especially for administrators that are dealing with multiple keys:
+    <img width="1457" height="366" alt="image" src="https://github.com/user-attachments/assets/c378d061-3b94-47be-a691-7b1eedceaa64" />
+  - *CRITICAL:* Copy the *Access Key ID* and *Secret Access Key*. Paste them into a notepad; you will need them for the aws configure step in the terminal. It is recommended that you also download the **.csv** file that contains both passwords
+    <img width="1645" height="663" alt="image" src="https://github.com/user-attachments/assets/032d7e19-8812-4711-93e5-05ac35622278" />
 
 -----
 
