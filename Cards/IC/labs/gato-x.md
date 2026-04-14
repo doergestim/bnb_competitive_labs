@@ -215,7 +215,7 @@ The `↪ Checkout` line is the smoking gun: the repo is checking out the PR subm
 Gato-X can also search GitHub for **publicly known** vulnerable workflow patterns. This is a **read-only search** - we are not exploiting anything, just identifying
 
 ```bash
-gato-x search --token $GITHUB_TOKEN --query "pull_request_target"
+gato-x search --query "pull_request_target"
 ```
 
 ---
