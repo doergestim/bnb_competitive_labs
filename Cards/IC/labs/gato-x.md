@@ -48,7 +48,7 @@ Gato-X needs a token to talk to the GitHub API. We will create one with the mini
 Save your token somewhere safe for this session:
 
 ```bash
-export GITHUB_TOKEN="ghp_YourTokenHere"
+export GH_TOKEN="ghp_YourTokenHere"
 ```
 
 > **Security note:** Never commit a token to a repo. Never share it. Revoke it after the lab at [https://github.com/settings/tokens](https://github.com/settings/tokens).
@@ -127,6 +127,18 @@ Save and exit (`Ctrl+O`, `Enter`, `Ctrl+X` in nano).
 ### Push it to GitHub
 
 ```bash
+git config --global user.email "your-github-email@example.com"
+```
+
+```bash
+git config --global user.name "your-github-username"
+```
+
+```bash
+git remote set-url origin https://YOUR_USERNAME:$GITHUB_TOKEN@github.com/YOUR_USERNAME/gato-x-vulnerable-test.git
+```
+
+```bash
 git add .github/workflows/vulnerable.yml
 git commit -m "Add vulnerable workflow for lab"
 git push origin main
@@ -143,10 +155,8 @@ Now we use Gato-X to scan our own repository and find the vulnerability we just 
 This scans all repos under your account:
 
 ```bash
-gato-x enumerate --token $GITHUB_TOKEN --target YOUR_USERNAME
+gato-x enumerate --self-enumeration
 ```
-
-Replace `YOUR_USERNAME` with your GitHub username.
 
 Watch the output. Gato-X will:
 1. Authenticate using your token
@@ -154,54 +164,49 @@ Watch the output. Gato-X will:
 3. Check each repository's workflow files for misconfigurations
 4. Report any findings
 
+<img width="1209" height="419" alt="Screenshot From 2026-04-14 14-45-11" src="https://github.com/user-attachments/assets/a738a2aa-9f1d-44d2-8f6b-021bfa1ddd6e" />
+
+
 ### Enumerate a specific repository
 
 You can also target just one repo directly:
 
 ```bash
-gato-x enumerate --token $GITHUB_TOKEN --target YOUR_USERNAME/gato-x-vulnerable-test
+gato-x enumerate --repository YOUR_USERNAME/gato-x-vulnerable-test
 ```
 
 ---
 
 ## Read the Output
 
-You should see output that looks something like this:
+### The Finding Block
 
-```
-[!] Potentially vulnerable workflow detected!
-    Repository : YOUR_USERNAME/gato-x-vulnerable-test
-    Workflow   : vulnerable.yml
-    Trigger    : pull_request_target
-    Issue      : Workflow checks out PR head code and executes it
-    Severity   : HIGH - attacker-controlled code runs in privileged context
-```
-
-Let's break down what this means as an analyst:
-
-| Field | What It Means |
-|---|---|
-| **Repository** | The repo that has the problem |
-| **Workflow** | The specific `.yml` file that is misconfigured |
-| **Trigger** | `pull_request_target` - runs with base repo privileges |
-| **Issue** | PR head code is being executed directly |
-| **Severity** | HIGH - an outside attacker can run code and access secrets |
+| Field | Value in Our Output | What It Means |
+|---|---|---|
+| **Report Type** | `PwnRequestResult` | Gato-X classified this as a Pwn Request - a vulnerability where a privileged workflow runs attacker-controlled code |
+| **Triggers** | `pull_request_target` | This event fires with base repo privileges, meaning it has access to secrets - unlike the standard `pull_request` |
+| **Confidence** | `Unknown` | Gato-X found the dangerous pattern but cannot fully confirm exploitability without manual review (e.g. there might be permission checks in the workflow) |
+| **Complexity** | `No Interaction` | An attacker only needs to open a PR - no admin or maintainer action is required to trigger the vulnerability |
+| **Explanation** | See output | The workflow can be exploited with no user interaction required from the repo owner |
 
 ---
 
-## Save the Output to a File
+### The Graph Trace
 
-In a real engagement you always save your output. Use the output flag:
-
-```bash
-gato-x enumerate --token $GITHUB_TOKEN --target YOUR_USERNAME --output results.txt
+```
+-> WorkflowNode  ->  JobNode  ->  StepNode
+   ↪ Checkout: ${{ github.event.pull_request.head.sha }}
 ```
 
-View the saved results:
+This is Gato-X showing you the **exact path** of the vulnerability through the workflow:
 
-```bash
-cat results.txt
-```
+1. **WorkflowNode** - the trigger (`pull_request_target`) fires with privileged context
+2. **JobNode** - the `build` job runs on `ubuntu-latest` inside that privileged context
+3. **StepNode** - the step explicitly checks out the attacker's code via `${{ github.event.pull_request.head.sha }}`
+
+The `↪ Checkout` line is the smoking gun: the repo is checking out the PR submitter's exact commit hash and will run it with access to the base repo's secrets.
+
+**Sink: Not Detected** means Gato-X did not find a direct secret print or exfiltration call in the workflow itself - but that does not make it safe. An attacker's `build.sh` script (which this workflow runs) could contain anything.
 
 ---
 
@@ -264,12 +269,13 @@ git push origin main
 ### Re-scan to confirm the fix
 
 ```bash
-gato-x enumerate --token $GITHUB_TOKEN --target YOUR_USERNAME/gato-x-vulnerable-test
+gato-x enumerate --repository YOUR_USERNAME/gato-x-vulnerable-test
 ```
 
 Gato-X should no longer report the vulnerability.
 
 
+<img width="1165" height="515" alt="2026-04-14_14-52" src="https://github.com/user-attachments/assets/f8cff1d5-0d2d-43ae-b149-1cda79ba4bdb" />
 
 
 
