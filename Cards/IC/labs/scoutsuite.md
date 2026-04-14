@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)}
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 # ScoutSuite 
 ----- 
 # For the Ubuntu VM
@@ -44,35 +44,54 @@ If you want to learn a bit about this tool check the [Scout Suite Documentation]
   - access to 30+ AWS services
     
 >[!TIP] 
-> Scout Suite is designed to perform security audits on AWS. It leverages APIs to scan for misconfigurations-such as open security groups, unencrypted S3 buckets and overly permissive IAM roles.
+> Scout Suite is designed to perform security audits on AWS. It leverages APIs to scan for misconfigurations - such as open security groups, unencrypted S3 buckets and overly permissive IAM roles.
 
 -----
-### Phase 2: Creating the Target Environment (AWS Console)
+### Phase 2: Creating the Target Environment (Automated via CloudFormation)
 
-Note: Before using our tools, we need to act as an administrator and intentionally misconfigure a few services in the AWS Web Console to give our scanner something to find.
+Before we start the audit, we need a "broken" environment. Instead of manual setup, we use *Infrastructure as Code (IaC)* to deploy our targets:
 
-  - *1. Create a Vulnerable EC2 Instance:*
+  * *EC2 (Elastic Compute Cloud):* Virtual servers in the cloud. We make it vulnerable by opening *Port 22 (SSH)* to the entire internet ($0.0.0.0/0$), allowing anyone to attempt a brute-force attack.
+  * *S3 (Simple Storage Service):* Cloud object storage. We make it vulnerable by *disabling public access blocks*, effectively making our "private" files accessible via a simple URL.
+  * *IAM (Identity and Access Management):* Controls who can do what. We create a user with *high privileges* but *no Multi-Factor Authentication (MFA)*, a major security red flag.
+  * *AWS CloudFormation:* An AWS service that allows us to deploy resources using a single script. We use it here for *speed, consistency, and easy cleanup* after the lab.
 
-      - Go to EC2 -\> Launch Instance. Choose the t2.micro (Free Tier).
-      - Under *Network Settings*, create a new Security Group named Vulnerable-SG.
-      - Add an Inbound Rule: Type SSH, Port 22, Source Anywhere (0.0.0.0/0). Launch the instance.
+-----
 
-  - *2. Create an Exposed S3 Bucket:*
+#### 1\. Deploy the Vulnerable Stack
 
-      - Go to S3 -\> Create Bucket. Name it uniquely (e.g., sec-lab-exposed-data-[yourname]).
-      - *Uncheck* "Block all public access" and acknowledge the warning.
-      - Once created, upload a fake text file (e.g., passwords.txt).
+  - Download or create a file named lab.yaml with the script provided ![here]().
+  - Navigate to *CloudFormation* in the AWS Console:
+    <img width="1615" height="891" alt="image" src="https://github.com/user-attachments/assets/36197982-992f-4fe6-bfeb-7503213a6b9a" />
+  - Click *Create stack* -\> *With new resources (standard)*.
+    <img width="1787" height="427" alt="image" src="https://github.com/user-attachments/assets/173e5f3b-53e1-45af-aab8-415d8af85a54" />
+  - Select *Upload a template file, choose your lab.yaml, and click **Next**.
+    <img width="1777" height="768" alt="image" src="https://github.com/user-attachments/assets/c0f83a6b-b9b6-4080-bc6b-b3824e32e594" />
+  - Give the stack a name (e.g., ScoutSuite-Lab) and keep clicking *Next* until you hit *Submit*:
+    <img width="1775" height="645" alt="image" src="https://github.com/user-attachments/assets/eb975d21-104e-4a9a-8063-306e8a551ac7" />
+  - In the **"Stack Failure options"** section, leave **"Roll back all stack resources"** selected. 
+    <img width="1684" height="830" alt="image" src="https://github.com/user-attachments/assets/6522a40b-6c6b-459e-9141-d562f19320f1" />
+  - Scroll down to select *I acknowledge that AWS CloudFormation might create IAM resources with custom names: 
+    <img width="1366" height="748" alt="image" src="https://github.com/user-attachments/assets/f0b2f535-18a5-4592-a7aa-41060ca6dbe5" />
 
-  - *3. Create the Audit User & Generate Keys (IAM):*
+Wait until the status shows *CREATE\_COMPLETE*.
 
-      - Go to IAM -\> Users -\> Create User. Name it scout-auditor.
-      - Attach policies directly: Search for and check ReadOnlyAccess and SecurityAudit.
-      - Once created, click on the user -\> Security credentials -\> *Create access key*. Select "Command Line Interface (CLI)".
-      - *SAVE the Access Key ID and Secret Access Key\!* You will need them in the terminal.
+
+#### 2\. Generate Audit Keys (The Manual Step)
+
+CloudFormation creates the user, but for security reasons, it won't generate the secret keys for you. You must do this manually:
+
+  - Navigate to *IAM* -\> *Users*.
+  - Click on the newly created user: scout-auditor.
+  - Go to the *Security credentials* tab.
+  - Scroll down to *Access keys* and click *Create access key*.
+  - Select *Command Line Interface (CLI), acknowledge the warning, and click **Next*.
+  - *CRITICAL:* Copy the *Access Key ID* and *Secret Access Key*. Paste them into a temporary notepad; you will need them for the aws configure step in the terminal.
 
 \<img width="800" height="300" alt="image" src="[PLACEHOLDER\_FOR\_IAM\_KEYS\_SCREENSHOT]" /\>
 
 -----
+
 
 ### Phase 3: Local VM Setup & Virtual Environment
 
