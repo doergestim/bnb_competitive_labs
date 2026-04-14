@@ -95,7 +95,7 @@ CloudFormation creates the user, but for security reasons, it won't generate the
     <img width="1457" height="366" alt="image" src="https://github.com/user-attachments/assets/c378d061-3b94-47be-a691-7b1eedceaa64" />
   - *CRITICAL:* Copy the *Access Key ID* and *Secret Access Key*. Paste them into a notepad; you will need them for the aws configure step in the terminal. It is recommended that you also download the **.csv** file that contains both passwords
     <img width="1645" height="663" alt="image" src="https://github.com/user-attachments/assets/032d7e19-8812-4711-93e5-05ac35622278" />
-
+  - Oonce you have stored the passwords, click **"done"**.
 -----
 
 
