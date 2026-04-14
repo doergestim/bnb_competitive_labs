@@ -89,10 +89,8 @@ CloudFormation creates the user, but for security reasons, it won't generate the
     <img width="1505" height="562" alt="image" src="https://github.com/user-attachments/assets/06710257-e697-420e-861f-4645417f8ac1" />
   - Scroll down to *Access keys* and click *Create access key*:
   - Select *Command Line Interface (CLI), acknowledge the warning, and click **Next*:
-    
+  
   - *CRITICAL:* Copy the *Access Key ID* and *Secret Access Key*. Paste them into a temporary notepad; you will need them for the aws configure step in the terminal.
-
-\<img width="800" height="300" alt="image" src="[PLACEHOLDER\_FOR\_IAM\_KEYS\_SCREENSHOT]" /\>
 
 -----
 
