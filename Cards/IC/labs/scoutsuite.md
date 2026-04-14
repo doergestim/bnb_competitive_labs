@@ -69,23 +69,27 @@ Before we start the audit, we need a "broken" environment. Instead of manual set
     <img width="1777" height="768" alt="image" src="https://github.com/user-attachments/assets/c0f83a6b-b9b6-4080-bc6b-b3824e32e594" />
   - Give the stack a name (e.g., ScoutSuite-Lab) and keep clicking *Next* until you hit *Submit*:
     <img width="1775" height="645" alt="image" src="https://github.com/user-attachments/assets/eb975d21-104e-4a9a-8063-306e8a551ac7" />
-  - In the **"Stack Failure options"** section, leave **"Roll back all stack resources"** selected. 
+  - In the **"Stack Failure options"** section, leave **"Roll back all stack resources"** selected:
     <img width="1684" height="830" alt="image" src="https://github.com/user-attachments/assets/6522a40b-6c6b-459e-9141-d562f19320f1" />
   - Scroll down to select *I acknowledge that AWS CloudFormation might create IAM resources with custom names: 
     <img width="1366" height="748" alt="image" src="https://github.com/user-attachments/assets/f0b2f535-18a5-4592-a7aa-41060ca6dbe5" />
-
-Wait until the status shows *CREATE\_COMPLETE*.
+  - Scroll down and click **Submit**:
+    <img width="1361" height="885" alt="image" src="https://github.com/user-attachments/assets/f9616562-51ea-4254-b57d-898713065aea" />
+  - Wait until the status shows **"CREATE\_COMPLETE"**:
+    <img width="1787" height="846" alt="image" src="https://github.com/user-attachments/assets/f81732fa-21b9-45f6-a2c6-eb99ddbc6468" />
 
 
 #### 2\. Generate Audit Keys (The Manual Step)
 
 CloudFormation creates the user, but for security reasons, it won't generate the secret keys for you. You must do this manually:
 
-  - Navigate to *IAM* -\> *Users*.
-  - Click on the newly created user: scout-auditor.
-  - Go to the *Security credentials* tab.
-  - Scroll down to *Access keys* and click *Create access key*.
-  - Select *Command Line Interface (CLI), acknowledge the warning, and click **Next*.
+  - Click on the **"resources"** tab and then on the **Scout Auditor Physical ID**:
+    <img width="1540" height="749" alt="image" src="https://github.com/user-attachments/assets/d93fde73-2b77-40a5-87da-7768ec6fc980" />
+  - You are now in the IAM console. Go to the *Security credentials* tab:
+    <img width="1505" height="562" alt="image" src="https://github.com/user-attachments/assets/06710257-e697-420e-861f-4645417f8ac1" />
+  - Scroll down to *Access keys* and click *Create access key*:
+  - Select *Command Line Interface (CLI), acknowledge the warning, and click **Next*:
+    
   - *CRITICAL:* Copy the *Access Key ID* and *Secret Access Key*. Paste them into a temporary notepad; you will need them for the aws configure step in the terminal.
 
 \<img width="800" height="300" alt="image" src="[PLACEHOLDER\_FOR\_IAM\_KEYS\_SCREENSHOT]" /\>
