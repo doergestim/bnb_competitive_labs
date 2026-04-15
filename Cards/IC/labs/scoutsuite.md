@@ -33,7 +33,8 @@ If you want to learn a bit about this tool check the [Scout Suite Documentation]
 
 - Fill the Billing information. Amazon will only hold **$1** for 3-5 days to verify your account.
   
-<img width="734" height="955" alt="image" src="https://github.com/user-attachments/assets/1820f380-21bb-411f-9d9c-7c2fa0a047f7" />
+<img width="727" height="951" alt="image" src="https://github.com/user-attachments/assets/aa27be6f-680e-4480-b187-28d962c66f64" />
+
 
 - Verify your phone number: 
 
@@ -99,87 +100,84 @@ CloudFormation creates the user, but for security reasons, it won't generate the
 -----
 
 
-### Phase 3: Local VM Setup & Virtual Environment
+### Phase 3: Environment Setup & Performing the AWS Security Audit
 
-Now we move to the Ubuntu terminal to set up our isolated Python environment for Scout Suite.
+Now, we need to activate our tools, authenticate with the cloud, and run the audit.
 
-  - First, create a new directory for the lab and move into it.
-
-<!-- end list -->
+- Navigate to the Workspace & Activate the Environment 
 
 ```bash
-mkdir -p /home/ubuntu/SOC_Analyst_Labs/ScoutSuite_Lab
-cd /home/ubuntu/SOC_Analyst_Labs/ScoutSuite_Lab
+cd ~/BnB/ScoutSuite
 ```
 
-  - Create a Python Virtual Environment named scout-env. This acts as an isolated container for the tool's dependencies.
 
-<!-- end list -->
-
+- Activate the virtual environment
+  
 ```bash
-python3 -m venv scout-env
+source venv/bin/activate
 ```
 
-  - Activate the virtual environment. You should see (scout-env) appear at the beginning of your terminal prompt.
+<img width="1026" height="158" alt="image" src="https://github.com/user-attachments/assets/9e636795-ba14-439e-99d2-b498312f9af0" />
 
-<!-- end list -->
 
-```bash
-source scout-env/bin/activate
-```
+- Install Scout Suite with the environment active:
 
-\<img width="600" height="100" alt="image" src="[PLACEHOLDER\_FOR\_VENV\_ACTIVATION\_SCREENSHOT]" /\>
-
-  - With the environment active, install Scout Suite using pip.
-
-<!-- end list -->
 
 ```bash
 pip install scoutsuite
 ```
 
------
+> *Good Practice - Verify the Installation:*
+> Let's make sure the tool was installed correctly before moving forward.
 
-### Phase 4: Authentication and Execution
+```bash
+scout --version
+```
 
-  - We must authenticate our local VM with the AWS Cloud using the credentials generated in Phase 2. Run the configuration command and input your Access Key ID, Secret Access Key, and set the default region (e.g., us-east-1).
-
-<!-- end list -->
+- Authentication (AWS CLI)
+    We must authenticate our local VM with the AWS Cloud using the credentials generated in Phase 2. Run the configuration command and input your Access Key ID, Secret Access Key, and the default region.
 
 ```bash
 aws configure
 ```
 
-\<img width="600" height="200" alt="image" src="[PLACEHOLDER\_FOR\_AWS\_CONFIGURE\_SCREENSHOT]" /\>
+Fill in the prompts exactly as you saved them (press Enter after each):
 
-  - Before launching the scanner, let's verify that our API connection works and we are logged in as scout-auditor.
+  * *AWS Access Key ID:* [Your Access Key from the CSV]
+  * *AWS Secret Access Key:* [Your Secret Key from the CSV]
+  * *Default region name:* eu-north-1 (or your specific region)
+  * *Default output format:* json
 
-<!-- end list -->
+<img width="600" height="200" alt="image" src="[PLACEHOLDER\_FOR\_AWS\_CONFIGURE\_SCREENSHOT]" /\>
+
+- Test the Connection
+    Before launching a complex scanner, it is crucial to verify that our terminal is successfully communicating with AWS and that we are recognized as the scout-auditor.
+
 
 ```bash
 aws sts get-caller-identity
 ```
 
-\<img width="600" height="150" alt="image" src="[PLACEHOLDER\_FOR\_CALLER\_IDENTITY\_SCREENSHOT]" /\>
+<img width="600" height="150" alt="image" src="[PLACEHOLDER\_FOR\_CALLER\_IDENTITY\_SCREENSHOT]" /\>
 
-  - It's time to run the security audit. We will specify aws as our target cloud provider. Scout Suite will now fetch configuration data across all active services.
+- Execute the Security Audit
+    It's time to run the scanner. We will specify aws as our target cloud provider. Scout Suite will now fetch configuration data across the active services.
 
-<!-- end list -->
 
 ```bash
 scout aws
 ```
 
-\<img width="921" height="500" alt="image" src="[PLACEHOLDER\_FOR\_SCOUT\_AWS\_EXECUTION\_SCREENSHOT]" /\>
+<img width="921" height="500" alt="image" src="[PLACEHOLDER\_FOR\_SCOUT\_AWS\_EXECUTION\_SCREENSHOT]" /\>
 
-  - Once the scan is complete, an interactive HTML report is generated in the scoutsuite-report directory. Verify its creation.
+- Analyze the HTML Report
+    Once the scan is complete, an interactive HTML report is generated locally. Verify its creation and open it to see your results.
 
-<!-- end list -->
 
+```bash
 ls -lh scoutsuite-report
 ```
 
-  - Finally, open the generated .html file in your web browser.
-  - *Your Task:* Analyze the dashboard and locate the intentionally vulnerable EC2 instance (Port 22 open) and the publicly exposed S3 Bucket.
+  * *Your Task:* Use the Ubuntu File Manager to navigate to /home/ubuntu/BnB/ScoutSuite/scoutsuite-report/ and double-click the generated .html file to open it in the web browser. Analyze the dashboard and locate the intentionally vulnerable EC2 instance (Port 22 open) and the publicly exposed S3 Bucket\!
 
 \<img width="921" height="600" alt="image" src="[PLACEHOLDER\_FOR\_HTML\_DASHBOARD\_SCREENSHOT]" /\>
