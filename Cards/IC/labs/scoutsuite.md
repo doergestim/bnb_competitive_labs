@@ -178,7 +178,7 @@ scout aws
 - **Analyze the HTML Report:**
     Once the scan is complete, an interactive HTML report is generated locally. It should open in your browser automatically. 
 
-<img width="1846" height="1048" alt="image" src="https://github.com/user-attachments/assets/a3c02467-3732-456c-8ddb-7345a3f7b3e5" />
+<img width="1849" height="1045" alt="image" src="https://github.com/user-attachments/assets/56d14f53-1e14-4507-b6ba-3ef2918decba" />
 
 
 ```bash
@@ -190,6 +190,34 @@ ls -lh scoutsuite-report
  - How many critical vulnerabilities ScoutSuite found for each service
  - The total number of checks and the number of passed tests / failed tests for each service
 
-  >[]
+> Naturally, just knowing what is vulnerable is not enough. ScoutSuite provides for each warning a detailed description of the problem and recommended remediation steps.
 
-  <br></br>
+
+- We will first check the **EC2** instance. Click on it to see the exact warnings *ScoutSuite* triggered:
+
+<img width="653" height="724" alt="image" src="https://github.com/user-attachments/assets/691749a2-fcfd-4f17-8fe0-69eeb39679c0" />
+
+- Here we can see every warning and test ScoutSuite ran. As expected, the **dangerous vulnerability** we set up in *Phase 2* (open port) is at the top of the list: 
+ <img width="1387" height="891" alt="image" src="https://github.com/user-attachments/assets/5e60a587-7ccc-41be-bb68-7d50d62fccd2" />
+
+- To see a detailed description and the recommended remediation steps, click on the **+** symbol:
+<img width="1347" height="327" alt="image" src="https://github.com/user-attachments/assets/62df7a45-daca-4e02-9cf2-13c39089b8d7" />
+<img width="1349" height="552" alt="image" src="https://github.com/user-attachments/assets/d96b589c-7848-41dd-a95c-439fe96eed82" />
+
+- Now let's check the **IAM** service. Go back a page and slect **IAM**: 
+<img width="1406" height="765" alt="image" src="https://github.com/user-attachments/assets/fe50c0e5-877f-4eda-8fb5-10d7b90a6d30" />
+
+- As expected, all warnings are password / MFA related. In a real situation, this could be a simple configuration error, yet it is a critical vulnerability.
+<img width="1343" height="704" alt="image" src="https://github.com/user-attachments/assets/851fe1d1-2cd1-43aa-a3f3-28b24de1020a" />
+
+- Now to check the **S3 bucket**, go back a page, scroll down and click on **S3**: 
+<img width="1366" height="850" alt="image" src="https://github.com/user-attachments/assets/da8dbafe-fcbc-4cbe-8e6c-ced7ad71d49b" />
+
+>[!TIP]
+> The **"Bucket Access Logging Disabled"** warning means that if someone manages to steal information from the *S3 Bucket* **you will not have any logs or proof of the illicit data retrieval**.
+> Activating *Bucket Access Logging*, like most of those configurations, is done through the *AWS service console*, and provides a way to check bucket request history.
+
+
+
+
+<br></br>
