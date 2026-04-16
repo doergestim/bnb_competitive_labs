@@ -110,7 +110,6 @@ Now, we need to activate our tools, authenticate with the cloud, and run the aud
 cd ~/BnB/ScoutSuite
 ```
 
-
 - Activate the virtual environment
   
 ```bash
@@ -133,10 +132,12 @@ pip install scoutsuite
 ```bash
 scout --version
 ```
+<img width="808" height="53" alt="image" src="https://github.com/user-attachments/assets/4e381838-3cbb-4ec1-bd34-aa21cd73019a" />
+
 
 - Authentication (AWS CLI)
-    We must authenticate our local VM with the AWS Cloud using the credentials generated in Phase 2. Run the configuration command and input your Access Key ID, Secret Access Key, and the default region.
-
+    We must authenticate our local VM with the AWS Cloud using the credentials generated in Phase 2.
+  
 ```bash
 aws configure
 ```
@@ -147,8 +148,8 @@ Fill in the prompts exactly as you saved them (press Enter after each):
   * *AWS Secret Access Key:* [Your Secret Key from the CSV]
   * *Default region name:* eu-north-1 (or your specific region)
   * *Default output format:* json
-
-<img width="600" height="200" alt="image" src="[PLACEHOLDER\_FOR\_AWS\_CONFIGURE\_SCREENSHOT]" /\>
+    
+<img width="1386" height="196" alt="image" src="https://github.com/user-attachments/assets/f17e183f-41f3-47e2-85a4-ee7e8394dc38" />
 
 - Test the Connection
     Before launching a complex scanner, it is crucial to verify that our terminal is successfully communicating with AWS and that we are recognized as the scout-auditor.
@@ -158,7 +159,8 @@ Fill in the prompts exactly as you saved them (press Enter after each):
 aws sts get-caller-identity
 ```
 
-<img width="600" height="150" alt="image" src="[PLACEHOLDER\_FOR\_CALLER\_IDENTITY\_SCREENSHOT]" /\>
+<img width="927" height="151" alt="image" src="https://github.com/user-attachments/assets/2f350238-ce16-4851-8d04-e8e50c44473e" />
+
 
 - Execute the Security Audit
     It's time to run the scanner. We will specify aws as our target cloud provider. Scout Suite will now fetch configuration data across the active services.
@@ -168,16 +170,26 @@ aws sts get-caller-identity
 scout aws
 ```
 
-<img width="921" height="500" alt="image" src="[PLACEHOLDER\_FOR\_SCOUT\_AWS\_EXECUTION\_SCREENSHOT]" /\>
+<img width="1841" height="887" alt="image" src="https://github.com/user-attachments/assets/28dc80b0-9598-415d-811e-f8b90b766276" />
 
-- Analyze the HTML Report
-    Once the scan is complete, an interactive HTML report is generated locally. Verify its creation and open it to see your results.
+>[!TIP]
+> The **"This AWS Access Key Id needs a subscription for the service"** error is expected, we only have a few services set up on this account
+
+- **Analyze the HTML Report:**
+    Once the scan is complete, an interactive HTML report is generated locally. It should open in your browser automatically. 
+
+<img width="1846" height="1048" alt="image" src="https://github.com/user-attachments/assets/a3c02467-3732-456c-8ddb-7345a3f7b3e5" />
 
 
 ```bash
 ls -lh scoutsuite-report
 ```
 
-  * *Your Task:* Use the Ubuntu File Manager to navigate to /home/ubuntu/BnB/ScoutSuite/scoutsuite-report/ and double-click the generated .html file to open it in the web browser. Analyze the dashboard and locate the intentionally vulnerable EC2 instance (Port 22 open) and the publicly exposed S3 Bucket\!
+### *Scoutsuite* allows us to see: 
+ - Every service running on the AWS account;
+ - How many critical vulnerabilities ScoutSuite found for each service
+ - The total number of checks and the number of passed tests / failed tests for each service
 
-\<img width="921" height="600" alt="image" src="[PLACEHOLDER\_FOR\_HTML\_DASHBOARD\_SCREENSHOT]" /\>
+  >[]
+
+  <br></br>
