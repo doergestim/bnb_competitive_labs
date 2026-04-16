@@ -218,6 +218,11 @@ ls -lh scoutsuite-report
 > Activating *Bucket Access Logging*, like most of those configurations, is done through the *AWS service console*, and provides a way to check bucket request history.
 
 
-
+## Lab Conclusion: AWS Security Auditing with ScoutSuite
+- The primary value of ScoutSuite lies in its ability to consolidate thousands of complex AWS settings into a single, actionable HTML report. This transforms raw configuration data into a prioritized roadmap for security remediation, allowing administrators to close critical security gaps before they are exploited.
 
 <br></br>
+
+# Finished?
+
+[Back to Card's Main Page](/Cards/IC/Unauthorized_Cloud_Access.md)
