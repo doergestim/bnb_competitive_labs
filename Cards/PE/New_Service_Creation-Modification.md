@@ -64,7 +64,6 @@ Four challenges to test what you've learned:
 Hands-on practice with the tools from the card:
 
 - [PsExec Lab](labs/psexec.md)
-- [PowerShell Lab](labs/powershell.md)
   
 ---
 
