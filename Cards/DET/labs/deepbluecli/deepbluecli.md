@@ -6,19 +6,25 @@ DeepBlueCLI is a free tool by **Eric Conrad** that demonstrates some amazing det
 
 Let's get started by opening **Windows Powershell**.
 
-![](attachments/OpeningPowershell.png)
+<img width="74" height="91" alt="Screenshot From 2026-02-07 17-59-15" src="https://github.com/user-attachments/assets/49dc1b10-56f2-411a-b27e-37668bbb805a" />
 
 Next, we need to navigate to the **IntroLabs** directory:
 
-<pre>cd \IntroLabs</pre>
+```ps
+cd \IntroLabs
+```
 
 Then, continue into the **DeepBlueCLI-master** directory:
 
-<pre>cd .\DeepBlueCLI-master</pre>
+```ps
+cd .\DeepBlueCLI
+```
 
 Run the following command:
 
-<pre>Set-ExecutionPolicy Unrestricted</pre>
+```ps
+Set-ExecutionPolicy Unrestricted
+```
 
 Most likely, you will be prompted to confirm the change.
 
@@ -30,7 +36,9 @@ It is very common for attackers to add additional users on to a system they have
 
 Now, let’s run a check in the **.evtx** files for adding a new user:
 
-<pre>.\DeepBlue.ps1 .\evtx\new-user-security.evtx</pre>
+```ps
+.\DeepBlue.ps1 .\evtx\new-user-security.evtx
+```
 
 You should see the following:
 
@@ -42,25 +50,34 @@ This is the exact behavior that **UEBA** should be able to detect.
 
 Let's look at an event log with a password spray attack.  This is very much part of what a full **UEBA** solution does:
 
-<pre>.\DeepBlue.ps1 .\evtx\smb-password-guessing-security.evtx</pre>
+```ps
+.\DeepBlue.ps1 .\evtx\smb-password-guessing-security.evtx
+```
 
 ![](attachments/deepblue_passwordguessing.png)
 
 Same thing with detecting a password spraying attack:
 
-<pre>.\DeepBlue.ps1 .\evtx\password-spray.evtx</pre>
+```ps
+.\DeepBlue.ps1 .\evtx\password-spray.evtx
+```
 
 ![](attachments/deepblue_passwordspray.png)
 
 For fun, let’s look at how **DeepBlueCLI** detects various encoding tactics that attackers use to obfuscate their attacks.  It is very common for attackers to use a number of encoding techniques to bypass signature detection.  However, it is not something that normally happens with standard scripts.
 
-<pre>.\DeepBlue.ps1 .\evtx\Powershell-Invoke-Obfuscation-encoding-menu.evtx</pre>
+```ps
+.\DeepBlue.ps1 .\evtx\Powershell-Invoke-Obfuscation-encoding-menu.evtx
+```
 
 ![](attachments/deepblue_powershell-invokeobfuscation.png)
 
+
+
 ---
-[Back to the Server Analysis Card](/Cards/DET/Server_Analysis.md)
 
-[Back to the User And Entity Behavious Analytics Card](/Cards/DET/UEBA_Analytics.md)
+# Finished?
 
-[Back to the Endpoint Analysis Card](/Cards/DET/Endpoint_Analysis.md)
+[Back to Card's Main Page](/Cards/DET/UEBA_Analytics.md)
+
+
