@@ -70,7 +70,7 @@ Four challenges, each one tied to a real UEBA scenario:
 One lab per tool. Each one is hands-on and self-contained:
 
 - [LogonTracer Lab](labs/logontracer.md)
-- [DeepBlueCLI Lab](labs/deepbluecli.md)
+- [DeepBlueCLI Lab](labs/deepbluecli/deepbluecli.md)
 - [OpenUBA Lab](labs/openuba.md)
 - [Hayabusa Lab](labs/hayabusa.md)
 
