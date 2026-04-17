@@ -92,6 +92,9 @@ Some examples of useful rules are
 [Back to Card's Main Page](/Cards/DET/Endpoint_Security_Protection_Analysis.md)
 
 
+> Created By Turcu Știolică Alexandru - Black Hills Information Security
+
+
 
 
 
