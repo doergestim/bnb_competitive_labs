@@ -55,9 +55,7 @@ Quick check as `ubuntu`:
 ```bash
 cat /opt/demoapp/config.ini
 ```
-
-<img width="333" height="82" alt="image" src="https://github.com/user-attachments/assets/54a49b96-5051-40b6-90d5-03e2766a6b4f" />
-
+<img width="332" height="96" alt="image" src="https://github.com/user-attachments/assets/d4008389-7e10-4562-bd69-27db5b737674" />
 
 ---
 
@@ -90,9 +88,7 @@ Wait a minute, then confirm it’s executing:
 ```bash
 sudo tail -n 5 /var/log/demo-backup.log
 ```
-
-<img width="272" height="22" alt="image" src="https://github.com/user-attachments/assets/a14f44e9-4c77-42ae-85a1-cdba03194e0d" />
-
+<img width="723" height="50" alt="image" src="https://github.com/user-attachments/assets/e1eb7cad-1222-4cb5-a06f-d261759f6e88" />
 
 ---
 
@@ -108,7 +104,7 @@ sudo chmod 777 /usr/local/bin/demo-backup.sh
 ls -l /usr/local/bin/demo-backup.sh
 ```
 
-<img width="644" height="21" alt="image" src="https://github.com/user-attachments/assets/19f3d808-8261-480d-8e62-dc1517a64616" />
+<img width="746" height="27" alt="image" src="https://github.com/user-attachments/assets/28562af8-e441-47d3-ae55-b5e998c88f80" />
 
 
 > A root cron job + a writable script is a serious misconfiguration.
@@ -141,7 +137,8 @@ grep -nE "/opt/demoapp/config.ini|demoapp|SuperFakePassword" linpeas-after.txt
 grep -nEi "cron|/etc/cron.d|demo-backup|demo-backup.sh|writable" linpeas-after.txt | head -n 80
 ```
 
-<img width="1066" height="355" alt="image" src="https://github.com/user-attachments/assets/23dc6600-1076-41c9-a968-ccae1805835c" />
+<img width="1151" height="405" alt="image" src="https://github.com/user-attachments/assets/d0dec09b-a0a2-4084-b140-16a1fa7caea1" />
+
 
 
 - We can see with red on a yellow backround the REALLYY **bad stuff** - which is the cron job we just made
@@ -151,16 +148,15 @@ grep -nEi "cron|/etc/cron.d|demo-backup|demo-backup.sh|writable" linpeas-after.t
 ```bash
 grep -nEi "writable.*root|root.*writable" linpeas-after.txt | head -n 80
 ```
+<img width="1227" height="50" alt="image" src="https://github.com/user-attachments/assets/43f77a7c-33bd-4666-8be5-fa91b84f119e" />
 
-<img width="701" height="27" alt="image" src="https://github.com/user-attachments/assets/549cd7a4-42b7-4eb8-8190-55683038dee3" />
-
-We can see it found something, it's over at the **5543** line, let's see what it found
+We can see it found something, it's over at the **6089** line, let's see what it found
 
 ```bash
-sed -n '5543,5600p' linpeas-after.txt
+sed -n '6089,6130p' linpeas-after.txt
 ```
 
-<img width="985" height="369" alt="image" src="https://github.com/user-attachments/assets/68681101-b838-4bcd-950f-92629788b020" />
+<img width="1139" height="499" alt="image" src="https://github.com/user-attachments/assets/78bc1de8-880d-4e8f-b683-9d723424f0d4" />
 
 
 ---
@@ -244,7 +240,7 @@ echo "=== After (insecure) ==="
 grep -nEi "demoapp|demo-backup|/etc/cron.d/demo-backup|SuperFakePassword|writable" linpeas-after.txt | head -n 80
 ```
 
-<img width="1149" height="424" alt="image" src="https://github.com/user-attachments/assets/a4f87d19-3de5-4c9d-9631-e914d0ab4682" />
+<img width="1376" height="527" alt="image" src="https://github.com/user-attachments/assets/9d0fae28-5c97-48ad-b997-f3726a8fe462" />
 
 
 ```bash
@@ -252,7 +248,8 @@ echo "=== Fixed ==="
 grep -nEi "demoapp|demo-backup|/etc/cron.d/demo-backup|SuperFakePassword|writable" linpeas-fixed.txt | head -n 80
 ```
 
-<img width="1151" height="379" alt="image" src="https://github.com/user-attachments/assets/bc78fbbc-7961-4fd2-aaa9-29eaa073df03" />
+<img width="1374" height="457" alt="image" src="https://github.com/user-attachments/assets/630a0b8f-18d8-4b13-b38a-1fdd8375275f" />
+
 
 
 You should see those “obvious” findings disappear or become less severe.
