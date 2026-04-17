@@ -68,7 +68,7 @@ You will complete four challenges that introduce deception and active defense co
 Hands-on labs for the tools shown on this card:
 
 - [CanaryTokens Lab](labs/canarytokens.md)
-- [HoneyBadger Lab](labs/honeybadger.md)
+- [HoneyBadger Lab](labs/HoneyBadger_files/honeybadger.md)
 - [ADHD (Active Defense Harbinger Distribution) Lab](labs/adhd.md)
 - [MITRE Engage Lab](labs/mitre-engage.md)
 
