@@ -34,7 +34,7 @@ Verify it is running:
 sudo docker ps
 ```
 
-![image](./images/img_01.png)
+![image](./attachments/img_01.png)
 
 Open your browser and go to:
 
@@ -48,7 +48,7 @@ http://10.10.75.191:3000
 >
 >You will have a different IP, use yours!
 
-![image](./images/img_02.png)
+![image](./attachments/img_02.png)
 
 ## Open Burp Suite
 
@@ -56,15 +56,15 @@ Burp Suite is a powerful tool with numerous capabilities. In our case, we will u
 
 Select the `search` icon in your taskbar and search `Burpsuite`.
 
-![image](./images/img_03.png)
+![image](./attachments/img_03.png)
 
-![image](./images/img_04.png)
+![image](./attachments/img_04.png)
 
 After open it, select `Next` -> `Start Burp`.
 
 Now Burp Suite is ready for use. Go to the `Proxy` tab and enable the `Intercept` to `on`.
 
-![image](./images/img_05.png)
+![image](./attachments/img_05.png)
 
 ## Foxy Proxy
 
@@ -72,7 +72,7 @@ Foxy Proxy is a web extension that helps us easily route our web traffic through
 
 The Foxy Proxy extension is on the top right of the browser.
 
-![image](./images/img_06.png)
+![image](./attachments/img_06.png)
 
 We have created the `burp` proxy, which routes our traffic through Burp Suite. We will use this proxy in the next step.
 
@@ -80,17 +80,17 @@ We have created the `burp` proxy, which routes our traffic through Burp Suite. W
 
 After accesing owasp juice shop in our browser navigate to the login page.
 
-![image](./images/img_07.png)
+![image](./attachments/img_07.png)
 
-![image](./images/img_08.png)
+![image](./attachments/img_08.png)
 
 Login pages are usually interesting for SQL Injection attacks, because we can get unauthorized access to an account where we are not supposed to have access without knowing the password. This account could be a simple user or an admin user with high privileges. This led us to privilege escalation on the website.
 
 Try to login at the page. Obviously, we don't have any credentials, and here comes the SQL Injection part. As we mentioned before, from a login page, we can get unauthorized access to an account without knowing the password. If you try a common SQLi payload like `' OR 1=1 --` and a random password, you will see that you logged in with an admin account.
 
-![image](./images/img_09.png)
+![image](./attachments/img_09.png)
 
-![image](./images/img_10.png)
+![image](./attachments/img_10.png)
 
 This is amazing, but it will not always be that simple. Let's capture the POST request and see what else we can do with sqlmap. Log out and go once again to the login page.
 
@@ -98,17 +98,17 @@ At this point, we must mention that sqlmap operates with both GET and POST reque
 
 Now its time to enable the burp proxy from our extension. Click on the extension on the top right of the browser and select the `burp` proxy.
 
-![image](./images/img_11.png)
+![image](./attachments/img_11.png)
 
 Try to log in with credentials like `test:test`. Burp Suite will pop up, and you will see the POST request. Copy the POST request and save it in a file.
 
 ### Add image from burp with the post request highlighted, then how to copy the request
 
-![image](./images/img_12.png)
+![image](./attachments/img_12.png)
 
-![image](./images/img_13.png)
+![image](./attachments/img_13.png)
 
-![image](./images/img_14.png)
+![image](./attachments/img_14.png)
 
 Open a terminal and execute the following commands:
 
@@ -122,13 +122,13 @@ nano req.txt
 
 Save with `CTRL+O` -> `Enter`. Exit with `CTRL+X`
 
-![image](./images/img_15.png)
+![image](./attachments/img_15.png)
 
 ```bash
 cat req.txt
 ```
 
-![image](./images/img_16.png)
+![image](./attachments/img_16.png)
 
 Now that we have the POST request, close the Burp Suite and disable the Foxy Proxy.
 
@@ -153,7 +153,7 @@ sqlmap -r req.txt -p email --dbs --batch
 - `--dbs`             : Enumerates databases
 - `--batch`           : Runs without interactive prompts
 
-![image](./images/img_17.png)
+![image](./attachments/img_17.png)
 
 Sqlmap terminated when it received status code 401. We don't want something like that because we know that the `email` parameter is vulnerable, and SQLi exists. When we want to ignore these kinds of terminations, we can use the `--ignore-code` parameter followed by the status code we want to ignore. Hence, when you want to ignore one or multiple status codes, you can use this parameter to achieve this functionality.
 
@@ -167,7 +167,7 @@ sqlmap -r req.txt -p email --dbs --batch --ignore-code=401
 
 - `--ignore-code=<status_codes>` : Ignore the specified HTTP codes
 
-![image](./images/img_18.png)
+![image](./attachments/img_18.png)
 
 This time, we see much more information from the sqlmap output, but still, we don't have the desired results. Although we have a new message, that all the tests failed.
 
@@ -182,9 +182,9 @@ sqlmap -r req.txt -p email --dbs --batch --ignore-code=401 --level=4 --risk=3
 - `--level=<1-5>` : Defines the level of tests to perform
 - `--risk=<1-3>`  : Defines the risk of tests to perform
 
-![image](./images/img_19.png)
+![image](./attachments/img_19.png)
 
-![image](./images/img_20.png)
+![image](./attachments/img_20.png)
 
 We found it!!!
 
@@ -207,7 +207,7 @@ sqlmap -r req.txt -p email --dbms=sqlite --batch --ignore-code=401 --tables
 - `--dbms=<databse_type>`  : Tells sqlmap which database system is used by the target
 - `--tables`               : Enumerate DBMS database tables
 
-![image](./images/img_21.png)
+![image](./attachments/img_21.png)
 
 We now have all the tables in the SQLite database!
 
@@ -232,7 +232,7 @@ sqlmap -r req.txt -p email --dbms=sqlite --batch --ignore-code=401 -T Users --co
 - `--columns`                     : Enumerate DBMS database table columns
 - `--threads <number_of_threads>` : The number of threads will be used by sqlmap
 
-![image](./images/img_22.png)
+![image](./attachments/img_22.png)
 
 Now that we know the table columns, we can either dump all the records of the table with the `--dump` parameter like that:
 
@@ -265,9 +265,9 @@ sqlmap -r req.txt -p email --dbms=sqlite --batch --ignore-code=401 -T Users -C i
 - `--start=<row_number>` : First dump table entry to retrieve
 - `--stop=<row_number>`  : Last dump table entry to retrieve
 
-![image](./images/img_23.png)
+![image](./attachments/img_23.png)
 
-![image](./images/img_24.png)
+![image](./attachments/img_24.png)
 
 >[!NOTE]
 >
