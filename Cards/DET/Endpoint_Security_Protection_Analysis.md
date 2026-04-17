@@ -65,7 +65,7 @@ Hands-on time with the tools defenders actually use:
 
 - [Elastic Security Lab](labs/elastic-security.md)
 - [OpenEDR Lab](labs/openedr.md)
-- [Velociraptor Lab](labs/velociraptor.md)
+- [Velociraptor Lab](labs/Velociraptor/velociraptor.md)
 - [Wazuh Lab](labs/wazuh.md)
 
 ---
