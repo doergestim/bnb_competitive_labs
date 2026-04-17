@@ -63,7 +63,7 @@ Four challenges to test what you know:
 
 Hands-on time with the tools defenders actually use:
 
-- [Elastic Security Lab](labs/elastic-security.md)
+- [Elastic Security Lab](labs/elasticSecurity/elastic-security.md)
 - [OpenEDR Lab](labs/openedr.md)
 - [Velociraptor Lab](labs/Velociraptor/velociraptor.md)
 - [Wazuh Lab](labs/wazuh.md)
