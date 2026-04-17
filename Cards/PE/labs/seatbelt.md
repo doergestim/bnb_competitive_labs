@@ -35,6 +35,13 @@ setx API_KEY "SECRET-KEY-12345"
 
 # Run Seatbelt
 
+- Move into the Lab directory
+
+```powershell
+cd Desktop\Labs\SeatbeltLab
+```
+
+
 ## 1. Logon events (recent activity)
 
 ```powershell
