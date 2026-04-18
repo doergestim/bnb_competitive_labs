@@ -75,8 +75,7 @@ Four challenges to test what you learned:
 Hands-on practice with the tools from the card:
 
 - [Volatility Lab](labs/volatility.md)
-- [Velociraptor Lab](labs/velociraptor.md)
-- [EDR Tools Lab](labs/edr-tools.md)
+- [Velociraptor Lab](labs/Velociraptor/velociraptor.md)
 
 ---
 
