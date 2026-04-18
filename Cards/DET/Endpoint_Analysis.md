@@ -72,8 +72,8 @@ Test what you have learned with these four challenges:
 
 Hands-on practice with the tools from the card:
 
-- [DeepBlueCLI Lab](labs/deepbluecli.md)
-- [Velociraptor Lab](labs/velociraptor.md)
+- [DeepBlueCLI Lab](labs/deelbluecli/deepbluecli.md)
+- [Velociraptor Lab](labs/Velociraptor/velociraptor.md)
 - [Incident Response Cheat Sheets Lab](labs/ir-cheatsheets.md)
 - [osquery Lab](labs/osquery.md)
 
