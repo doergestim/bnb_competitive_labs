@@ -82,4 +82,6 @@ For fun, let’s look at how **DeepBlueCLI** detects various encoding tactics th
 
 [Back to Endpoint_Analysis's Main Page](/Cards/DET/Endpoint_Analysis.md)
 
+[Back to Server_Analysis's Main Page](/Cards/DET/Server_Analysis.md)
+
 
