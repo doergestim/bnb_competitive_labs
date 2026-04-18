@@ -2,7 +2,7 @@
 
 [Part 1](./ritaLab1.md) [Part 2](./ritaLab2.md) [Part 3](./ritaLab3.md) [Part 4](./ritaLab4.md) [Part 5](./ritaLab5.md) [Part 6](./ritaLab6.md) [Part 7](./ritaLab7.md)
 
-# For the Network Threat Hunting VM
+# Ubuntu VM
 
 During these parts you will be going through 7 datasets and you will have to answer some questions for each, you will find the answers if you keep scrolling down
 
