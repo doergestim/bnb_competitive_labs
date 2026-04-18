@@ -74,7 +74,7 @@ You will complete four challenges focused on network-based investigations and hu
 
 Hands-on exercises using tools commonly used for network threat hunting:
 
-- [RITA Lab](labs/rita.md)
+- [RITA Lab](labs/ritaLab1.md)
 - [Security Onion Lab](labs/security-onion.md)
 - [AC-Hunter Community Edition Lab](labs/ac-hunter.md)
 - [espy Lab](labs/espy.md)
