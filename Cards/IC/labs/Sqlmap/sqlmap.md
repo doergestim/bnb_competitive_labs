@@ -102,8 +102,6 @@ Now its time to enable the burp proxy from our extension. Click on the extension
 
 Try to log in with credentials like `test:test`. Burp Suite will pop up, and you will see the POST request. Copy the POST request and save it in a file.
 
-### Add image from burp with the post request highlighted, then how to copy the request
-
 ![image](./attachments/img_12.png)
 
 ![image](./attachments/img_13.png)
