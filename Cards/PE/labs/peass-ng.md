@@ -121,6 +121,7 @@ cd ~/BnB/peass-ng
 ```
 
 >[!NOTES]
+>
 >Bare in mind it can take up to 10+ minutes
 
 You’ll likely see some normal system findings (that’s expected). Important are the few **very obvious** misconfigs that we added
