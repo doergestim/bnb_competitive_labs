@@ -76,7 +76,7 @@ Hands-on exercises using tools commonly used for network threat hunting:
 
 - [RITA Lab](labs/ritaLab1.md)
 - [Security Onion Lab](labs/security-onion.md)
-- [AC-Hunter Community Edition Lab](labs/ac-hunter.md)
+- [AC-Hunter Community Edition Lab](labs/achunter/ac-hunter.md)
 - [espy Lab](labs/espy.md)
 
 ---
