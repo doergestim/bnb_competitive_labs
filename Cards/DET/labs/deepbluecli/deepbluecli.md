@@ -78,6 +78,8 @@ For fun, let’s look at how **DeepBlueCLI** detects various encoding tactics th
 
 # Finished?
 
-[Back to Card's Main Page](/Cards/DET/UEBA_Analytics.md)
+[Back to UEBA_Analytics's Main Page](/Cards/DET/UEBA_Analytics.md)
+
+[Back to Endpoint_Analysis's Main Page](/Cards/DET/Endpoint_Analysis.md)
 
 
