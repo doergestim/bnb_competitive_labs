@@ -120,7 +120,7 @@ cd ~/BnB/peass-ng
 ./linpeas.sh | tee linpeas-after.txt
 ```
 
->[!NOTES]
+>[!NOTE]
 >
 >Bare in mind it can take up to 10+ minutes
 
