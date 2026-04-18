@@ -89,7 +89,11 @@ Some examples of useful rules are
 
 # Finished?
 
-[Back to Card's Main Page](/Cards/DET/Endpoint_Security_Protection_Analysis.md)
+[Back to Endpoint_Security_Protection_Analysis's Main Page](/Cards/DET/Endpoint_Security_Protection_Analysis.md)
+
+[Back to Firewall_Log_Analysis's Main Page](/Cards/DET/Firewall_Log_Analysis.md)
+
+
 
 
 > Created By Turcu Știolică Alexandru - Black Hills Information Security
