@@ -51,7 +51,7 @@ rita view slow_steady_beacon
 
 <br><br>
 
-### Continue with [Part 2](/courseFiles/Section_05-networkingAndTelemetry/rita_lab/ritaLab2.md)
+### Continue with [Part 2](./ritaLab2.md)
 
 ---
 
