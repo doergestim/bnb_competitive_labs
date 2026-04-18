@@ -70,7 +70,7 @@ Hands-on practice with common log analysis platforms:
 
 - [Wazuh Lab](labs/wazuh.md)  
 - [Graylog Open Lab](labs/graylog-open.md)  
-- [ELK Stack Lab](labs/elk-stack.md)  
+- [ELK Stack Lab](labs/elasticSecurity/elastic-security.md)  
 - [Security Onion Lab](labs/security-onion.md)
 
 ---
