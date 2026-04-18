@@ -83,10 +83,9 @@ These challenges focus on investigating suspicious server behavior and spotting 
 
 Hands-on labs based on the tools used for server analysis.
 
-- [DeepBlueCLI Lab](labs/deepbluecli.md)  
-- [Velociraptor Lab](labs/velociraptor.md)  
+- [DeepBlueCLI Lab](labs/deepbluecli/deepbluecli.md)  
+- [Velociraptor Lab](labs/Velociraptor/velociraptor.md)  
 - [Sysinternals Suite Lab](labs/sysinternals.md)  
-- [Server Log Analysis Lab](labs/server-log-analysis.md)  
 
 ---
 
