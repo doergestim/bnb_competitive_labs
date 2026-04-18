@@ -301,3 +301,6 @@ Want to try something cool?  Run a **Meterpreter agent** on you Windows system. 
 
 [Back to Server_Analysis's Main Page](/Cards/DET/Server_Analysis.md)
 
+
+[Back to Memory_Analysis's Main Page](/Cards/DET/Memory_Analysis.md)
+
