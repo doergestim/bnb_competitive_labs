@@ -238,4 +238,6 @@ Storing message nYyPFT2-foO9BZ2z...
 
 [Back to Card's Main Page](/Cards/IC/Phishing.md)
 
+---
+
 > Created by Turcu-Stiolica Alexandru
