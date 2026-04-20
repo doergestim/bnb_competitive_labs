@@ -85,6 +85,11 @@ Write-Host "Exfil Complete!" -ForegroundColor Green
 ```
 <img width="785" height="358" alt="image" src="https://github.com/user-attachments/assets/b6160515-b0fb-496c-bf5b-fdf5e175670e" />
 
+<img width="893" height="371" alt="image" src="https://github.com/user-attachments/assets/46b8ecfc-3299-4ff1-af8c-db3d952b59c0" />
+
+<img width="882" height="170" alt="image" src="https://github.com/user-attachments/assets/532e54de-69d5-42c2-a9f4-cf43a1cb7542" />
+
+<img width="881" height="285" alt="image" src="https://github.com/user-attachments/assets/7f0e802d-962a-42e9-a856-61c97e8a2543" />
 
 ---
 
@@ -96,7 +101,8 @@ Let's see if the firewall was bypassed successfully.
 ```bash
 cat exfiltrated_data.csv
 ```
-[Screenshot: Afișarea fișierului exfiltrat cu succes pe Linux, confirmând furtul]
+<img width="867" height="333" alt="image" src="https://github.com/user-attachments/assets/f0ceb50e-3cf5-4068-a847-3a8100d326df" />
+
 
 ---
 
