@@ -243,3 +243,7 @@ creds
 # Finished?
 
 [Back to Card's Main Page](/Cards/IC/External_Service_Exploitation.md)
+
+---
+
+> Created by Turcu-Stiolica Alexandru
