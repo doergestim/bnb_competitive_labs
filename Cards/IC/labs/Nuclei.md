@@ -123,3 +123,7 @@ This is how defenders:
 [Back to Compromised_Web_Server's Main Page](/Cards/IC/Compromised_Web_Server.md)
 
 [Back to External_Service_Exploitation's Main Page](/Cards/IC/External_Service_Exploitation.md)
+
+---
+
+> Created by Turcu-Stiolica Alexandru
