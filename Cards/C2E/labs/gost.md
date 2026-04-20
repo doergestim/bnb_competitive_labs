@@ -94,7 +94,7 @@ Write-Host "Exfil Complete!" -ForegroundColor Green
 ### Phase 3: Verification (Ubuntu VM)
 Let's see if the firewall was bypassed successfully.
 
-- Go back to your Ubuntu VM, specifically to *Terminal 2* (where Netcat was running). Press CTRL+C to stop the listener, then read the stolen data.
+- Go back to your Ubuntu VM, specifically to *Terminal 2* (where Netcat was running). The listener should automatically stop once the information is recieved. When it does, read the stolen data.
 
 ```bash
 cat exfiltrated_data.csv
