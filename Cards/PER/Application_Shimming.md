@@ -83,7 +83,8 @@ Hands-on practice with tools related to this technique:
 - [Metasploit Lab](labs/metasploit.md)  
 - [PowerShell Lab](labs/powershell.md)  
 - [Shim Generator (shimgen) Lab](labs/shimgen.md)  
-- [sdb-explorer Lab](labs/sdb-explorer.md)  
+- [sdb-explorer Lab](labs/sdb-explorer.md)
+- [Atomic Red Team Lab](labs/atomic-red-team.md)
 
 ---
 
