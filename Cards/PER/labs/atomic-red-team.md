@@ -420,7 +420,7 @@ Go and check Bluespawn.  Did it detect it?
 
 # Finished?
 
-[Back to Card's Main Page](/Cards/IC/Application_Shimming.md)
+[Back to Card's Main Page](/Cards/PER/Application_Shimming.md)
 
 
 
