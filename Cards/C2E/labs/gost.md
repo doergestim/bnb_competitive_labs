@@ -1,4 +1,4 @@
-<img width="928" height="285" alt="image" src="https://github.com/user-attachments/assets/44b51c63-00cd-4c3a-9f68-35578e0238f4" />![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
 # Lab: Cloud-Based Services as Exfil using Gost
 
@@ -83,11 +83,9 @@ $stream.Close()
 $client.Close()
 Write-Host "Exfil Complete!" -ForegroundColor Green
 ```
-<img width="785" height="358" alt="image" src="https://github.com/user-attachments/assets/b6160515-b0fb-496c-bf5b-fdf5e175670e" />
 
 <img width="893" height="371" alt="image" src="https://github.com/user-attachments/assets/46b8ecfc-3299-4ff1-af8c-db3d952b59c0" />
 
-<img width="882" height="170" alt="image" src="https://github.com/user-attachments/assets/532e54de-69d5-42c2-a9f4-cf43a1cb7542" />
 
 <img width="881" height="285" alt="image" src="https://github.com/user-attachments/assets/7f0e802d-962a-42e9-a856-61c97e8a2543" />
 
