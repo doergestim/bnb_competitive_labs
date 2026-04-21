@@ -137,7 +137,7 @@ Click the login button
 
 Go back to your terminal where SET is running. You will see the captured data printed in **real time**:
 
-<img width="948" height="414" alt="2026-04-08_12-24" src="https://github.com/user-attachments/assets/3853a2f9-5264-4aae-b53e-a66ce53d1e21" />
+<img width="574" height="137" alt="img3" src="https://github.com/user-attachments/assets/041c05f3-7e6d-444b-b1de-a77e6145dd69" />
 
 
 SET captured everything typed into the fake form - **username, password, and more** - without the "victim" knowing anything happened
