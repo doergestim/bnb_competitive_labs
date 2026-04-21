@@ -41,20 +41,41 @@ If you want to dive a bit deeper, check the [Gost Documentation](https://github.
  - **Why are we doing this?** By routing our exfiltration through WSS on port 443, the stolen data is encrypted and blends in perfectly with normal network traffic. To the firewall, it simply looks like a user browsing a legitimate HTTPS cloud service, allowing the data to slip past defenses completely unnoticed.
 
 >[!IMPORTANT]
-> **You** will switch between the two VM's at the beginning of each phase. All tools and sensitive data meant to be exfiltrated are located in the **Lab Directory**
+> **You** will start on the Windows VM, but you should think of all the commands that we type into the **Ubuntu Shell** as commands typed by the hacker on a totally different system. All tools and sensitive data meant to be exfiltrated are located in the **Lab Directory**.
 
 ---
 
-### Phase 1: Staging the Attack (Ubuntu VM)
+### Phase 1 : Setup and Objective
+
+We have access to a compromised *Windows 11* System, and we would like to exfiltrate a *"sensitive"* file containing bank statements. We will do that using **Gost**.
+
+- First things first, open Windows Powershell and navigate to the **Lab Directory** :
+
+```bash 
+cd Desktop/Labs/GostLab
+```
+
+<img width="1394" height="872" alt="image" src="https://github.com/user-attachments/assets/fd0b1603-cf87-4faf-8cbb-33a9b980626c" />
+
+- Let's take a look at the **financial_records.csv** file. This is what we are going to use **Gost** to exfiltrate to the *"Cloud VPS"* (here represented by the *Ubuntu VM*):
+  
+<img width="935" height="368" alt="image" src="https://github.com/user-attachments/assets/a0ad73bb-99f1-4f03-9731-0716c36bffd0" />
+
+
+### Phase 2: Staging the Attack 
+
 As an attacker, you already have your tools pre-staged on your server. We need to set up a delivery method for our Windows payload, a listener to catch the stolen data, and the Gost tunnel exit point.
 
-- First things first, navigate to the directory where our tools are located:
+- Navigate to the directory where our tools are located:
 
 ```bash
 cd ~/BnB/GostLab
 ls -lh
 ```
-You will need to use **3 terminals**.
+>[!IMPORTANT]
+> We will now open **3 Ubuntu Terminals**, which may take up a lot of space on your screens. You should *resize* the different terminals, such that they take up as little space as possible.  
+
+
 
 - *Terminal 1:* Start a quick Python web server to host the Windows payload (gost.exe) so the victim machine can download it.
 
