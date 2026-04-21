@@ -291,6 +291,8 @@ deactivate
 
 [Back to Logon Scripts's Main Page](/Cards/PER/Logon_Scripts.md)
 
+[Back to Malicious Firmware's Main Page](/Cards/PER/Malicious_Firmware.md)
+
 ---
 
 > Created by Turcu-Stiolica Alexandru
