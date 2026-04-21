@@ -2,11 +2,46 @@
 
 # Gost
 
-# Windows VM
+# Ubuntu & Windows VM
 
-### The objective of this lab is to use Gost to establish an encrypted WebSocket (WSS) tunnel over port 443, bypassing simulated egress firewall rules to exfiltrate sensitive data. You will also learn how to detect this type of anomalous connection.
+## The objective of this lab is to use Gost to establish an encrypted WebSocket (WSS) tunnel over port 443, bypassing simulated egress firewall rules to exfiltrate sensitive data. You will also learn how to detect this type of anomalous connection.
+---
+### Documentation and scenario : 
 
-If you want to learn a bit about this tool check the [Gost Documentation](https://github.com/ginuerzh/gost)
+**What is Gost?**
+
+Gost (GO Simple Tunnel) is a legitimate, open-source network tunneling and proxy tool written in the Go programming language. It is designed to help network administrators and users route traffic securely, bypass network restrictions, and manage complex routing scenarios.
+
+
+**Core Capabilities of Gost** :
+
+   - *Multi-Protocol Support* :  It supports a wide array of proxy and tunneling protocols, including HTTP, HTTPS, SOCKS4, SOCKS5, Shadowsocks, SSH, QUIC, and gRPC.
+
+   - *Proxy Chaining* :  Gost can chain multiple proxies together (e.g., routing traffic through Proxy A, then Proxy B, then to the destination), which can obscure the origin of the traffic.
+
+   - *Port Forwarding* :  It supports both local and remote (reverse) port forwarding for TCP and UDP traffic.
+
+   - *Encryption and Encapsulation* :  Gost can encapsulate standard traffic inside encrypted protocols like TLS, HTTPS, or QUIC. This allows the traffic to blend in with normal web browsing.
+
+If you want to dive a bit deeper, check the [Gost Documentation](https://github.com/ginuerzh/gost)
+
+>[!NOTE]
+>In the cybersecurity landscape, tools like Gost are known as "dual-use" tools. While designed for legitimate administration, **attackers frequently drop them onto compromised machines (like a breached Windows 11 endpoint) to facilitate post-exploitation activities**.
+>This technique is similar to **"Living off the Land"**, where attackers use existing or legitimate administrative tools to evade detection by antivirus software. 
+
+
+**This exact scenario is what we are going to simulate.** 
+
+### **SCENARIO** : 
+
+ - In this lab, we are simulating an advanced data exfiltration attack using cloud infrastructure. *The Ubuntu VM acts as the attacker's "Cloud VPS"* (representing a server hosted on AWS, Azure, or DigitalOcean), while *the Windows VM represents a compromised machine within a corporate network*.
+
+ - To successfully steal sensitive data without triggering the company's Egress Firewalls or Data Loss Prevention (DLP) systems, **we will use Gost to establish a WebSocket Secure (WSS) tunnel over port 443**.
+
+ - **Why are we doing this?** By routing our exfiltration through WSS on port 443, the stolen data is encrypted and blends in perfectly with normal network traffic. To the firewall, it simply looks like a user browsing a legitimate HTTPS cloud service, allowing the data to slip past defenses completely unnoticed.
+
+>[!IMPORTANT]
+> **You** will switch between the two VM's at the beginning of each phase. All tools and sensitive data meant to be exfiltrated are located in the **Lab Directory**
 
 ---
 
