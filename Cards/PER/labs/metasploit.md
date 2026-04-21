@@ -242,12 +242,15 @@ creds
 
 # Finished?
 
-[Back to Malicious_Driver's Main Page](/Cards/PER/Malicious_Driver.md)
+[Back to Maliciou Driver's Main Page](/Cards/PER/Malicious_Driver.md)
 
 
-[Back to New_User_Added's Main Page](/Cards/PER/New_User_Added.md)
+[Back to New User Added's Main Page](/Cards/PER/New_User_Added.md)
 
-[Back to Application_Shimming's Main Page](/Cards/PER/Application_Shimming.md)
+[Back to Application Shimming's Main Page](/Cards/PER/Application_Shimming.md)
+
+
+[Back to Malicious Browser Plugins's Main Page](/Cards/PER/Malicious_Browser_Plugins.md)
 
 ---
 
