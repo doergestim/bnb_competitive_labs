@@ -71,14 +71,6 @@ As an attacker, you already have your tools pre-staged on your server. We need t
   
   <img width="1843" height="797" alt="image" src="https://github.com/user-attachments/assets/3bb51f48-4d11-4287-81cf-ffbca6ec033a" />
 
-- Navigate to the directory where our tools are located:
-
-```bash
-cd ~/BnB/GostLab
-ls -lh
-```
-<img width="602" height="142" alt="image" src="https://github.com/user-attachments/assets/d637efec-b86e-4850-a357-2fbac586bd5e" />
-
 
 >[!IMPORTANT]
 > We will use **3 Ubuntu Terminals**, which may take up a lot of space on your screens. You should *resize* the different terminals, such that they take up as little space as possible.  
@@ -94,19 +86,25 @@ python3 -m http.server 8001
 <img width="1118" height="691" alt="image" src="https://github.com/user-attachments/assets/78374cf9-3aaa-4417-80d3-35a8124def32" />
 
 
-- *Terminal 2:* Start a Netcat listener on port 8080. This is the final destination that will save the incoming stolen data to a file.
+- *Terminal 2:* Open up another *Ubuntu Shell* and start a Netcat listener on port 8080. This is the final destination that will save the incoming stolen data to a file. **You should not minimize this one**.
 
 ```bash
 nc -lvnp 8080 > exfiltrated_data.csv
 ```
-<img width="846" height="59" alt="image" src="https://github.com/user-attachments/assets/08c23a18-79ea-4cac-ad9f-f666913f1bb3" />
+<img width="765" height="146" alt="image" src="https://github.com/user-attachments/assets/4776caec-91d8-43ae-aea3-bdd7eee2f091" />
 
-- *Terminal 3:* Start Gost to listen on port 443 (simulating standard HTTPS traffic) and forward that traffic internally to our Netcat listener. (Note down your Ubuntu VM IP address before running this, you will need it later).
+
+- *Terminal 3:* Open up another *Ubuntu Shell*, navigate to the **Lab Directory** and start Gost to listen on port 443 (simulating standard HTTPS traffic) and forward that traffic internally to our Netcat listener. **(Note down your Ubuntu VM IP address before running this, you will need it later)**. Minimize this window too.
+
 
 ```bash
+cd ~/BnB/GostLab
+ls -lh
 sudo ./gost -L wss://:443
 ```
-<img width="865" height="57" alt="image" src="https://github.com/user-attachments/assets/81e9aa3f-c810-4c2a-93b9-ae0a1f9759e9" />
+
+<img width="669" height="208" alt="image" src="https://github.com/user-attachments/assets/736d51d0-04c5-4678-93ab-bd1645b250fe" />
+
 
 ---
 
