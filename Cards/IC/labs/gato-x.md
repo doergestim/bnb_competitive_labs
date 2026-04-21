@@ -135,7 +135,7 @@ git config --global user.name "your-github-username"
 ```
 
 ```bash
-git remote set-url origin https://YOUR_USERNAME:$GITHUB_TOKEN@github.com/YOUR_USERNAME/gato-x-vulnerable-test.git
+git remote set-url origin https://YOUR_USERNAME:$GH_TOKEN@github.com/YOUR_USERNAME/gato-x-vulnerable-test.git
 ```
 
 ```bash
