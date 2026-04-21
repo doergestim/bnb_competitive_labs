@@ -105,17 +105,18 @@ Use the IPv4 shown (something like `10.x.x.x`). Type it and press Enter
 SET will ask which URL to clone:
 
 ```
-set:webattack> Enter the url to clone: http://testaspnet.vulnweb.com/login.aspx
+set:webattack> Enter the url to clone: https://pentest-ground.com:4280/login.php
 ```
 
-> We are cloning **http://testaspnet.vulnweb.com/login.aspx** - this is a **deliberately vulnerable test site** created by Acunetix specifically for security testing. It is safe and legal to use
+> We are cloning **https://pentest-ground.com:4280/login.php** - this is a **deliberately vulnerable test site** created by Acunetix specifically for security testing. It is safe and legal to use
 
 SET will clone the site and start a web server on port **80**.
 
 You will see:
 
-<img width="1400" height="279" alt="2026-04-08_12-21" src="https://github.com/user-attachments/assets/4b7bd96f-78f1-408c-bf68-c30f4a0beb0b" />
+<img width="1400" height="78" alt="img1" src="https://github.com/user-attachments/assets/f2837937-6baa-4222-9335-1fcd0ba3121c" />
 
+<img width="1023" height="164" alt="img2" src="https://github.com/user-attachments/assets/fa922c42-2c61-4a15-adba-0c5fdc2f605c" />
 
 ### Open the fake site in your browser
 
