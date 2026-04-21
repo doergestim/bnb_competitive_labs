@@ -252,6 +252,8 @@ creds
 
 [Back to Malicious Browser Plugins's Main Page](/Cards/PER/Malicious_Browser_Plugins.md)
 
+[Back to Logon Scripts's Main Page](/Cards/PER/Logon_Scripts.md)
+
 ---
 
 > Created by Turcu-Stiolica Alexandru
