@@ -1,8 +1,10 @@
 ![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
-# Lab: Cloud-Based Services as Exfil using Gost
+# Gost
 
-## The objective of this lab is to use Gost to establish an encrypted WebSocket (WSS) tunnel over port 443, bypassing simulated egress firewall rules to exfiltrate sensitive data. You will also learn how to detect this type of anomalous connection.
+# Windows VM
+
+### The objective of this lab is to use Gost to establish an encrypted WebSocket (WSS) tunnel over port 443, bypassing simulated egress firewall rules to exfiltrate sensitive data. You will also learn how to detect this type of anomalous connection.
 
 If you want to learn a bit about this tool check the [Gost Documentation](https://github.com/ginuerzh/gost)
 
