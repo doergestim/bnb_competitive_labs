@@ -61,10 +61,15 @@ cd Desktop/Labs/GostLab
   
 <img width="935" height="368" alt="image" src="https://github.com/user-attachments/assets/a0ad73bb-99f1-4f03-9731-0716c36bffd0" />
 
+- Type **"clear"** in the terminal and *resize* it such that it takes up less space.
 
 ### Phase 2: Staging the Attack 
 
 As an attacker, you already have your tools pre-staged on your server. We need to set up a delivery method for our Windows payload, a listener to catch the stolen data, and the Gost tunnel exit point.
+
+- First up, open up an **Ubuntu Shell** terminal:
+  
+  <img width="1843" height="797" alt="image" src="https://github.com/user-attachments/assets/3bb51f48-4d11-4287-81cf-ffbca6ec033a" />
 
 - Navigate to the directory where our tools are located:
 
@@ -72,17 +77,22 @@ As an attacker, you already have your tools pre-staged on your server. We need t
 cd ~/BnB/GostLab
 ls -lh
 ```
+<img width="602" height="142" alt="image" src="https://github.com/user-attachments/assets/d637efec-b86e-4850-a357-2fbac586bd5e" />
+
+
 >[!IMPORTANT]
-> We will now open **3 Ubuntu Terminals**, which may take up a lot of space on your screens. You should *resize* the different terminals, such that they take up as little space as possible.  
+> We will use **3 Ubuntu Terminals**, which may take up a lot of space on your screens. You should *resize* the different terminals, such that they take up as little space as possible.  
 
 
 
-- *Terminal 1:* Start a quick Python web server to host the Windows payload (gost.exe) so the victim machine can download it.
+- *Terminal 1:* - In the terminal you just opened, start a quick Python web server to host the Windows payload (gost.exe) so the victim machine can download it. Minimize it afterwards:
 
 ```bash
 python3 -m http.server 8001
 ```
-<img width="799" height="60" alt="image" src="https://github.com/user-attachments/assets/6591246d-4aaf-4bd4-a328-0d3f87fcc21f" />
+
+<img width="1118" height="691" alt="image" src="https://github.com/user-attachments/assets/78374cf9-3aaa-4417-80d3-35a8124def32" />
+
 
 - *Terminal 2:* Start a Netcat listener on port 8080. This is the final destination that will save the incoming stolen data to a file.
 
