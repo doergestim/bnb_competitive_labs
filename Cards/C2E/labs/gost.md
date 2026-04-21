@@ -16,7 +16,7 @@ As an attacker, you already have your tools pre-staged on your server. We need t
 - First things first, navigate to the directory where our tools are located:
 
 ```bash
-cd /BnB/GostLab
+cd ~/BnB/GostLab
 ls -lh
 ```
 You will need to use **3 terminals**.
