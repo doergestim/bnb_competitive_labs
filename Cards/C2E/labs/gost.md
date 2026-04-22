@@ -233,6 +233,12 @@ You're done! Let's clean up the environment so no malicious listeners are left b
 ---
 
 ### Conclusion
-In this lab, you successfully simulated a stealthy data exfiltration attack. You saw firsthand how tunneling data over WebSockets (WSS/443) easily bypasses standard egress firewalls by blending in with regular HTTPS traffic. More importantly, as a Blue Teamer, you learned that even if the attacker closes their external connection, you can still hunt them down by looking for forensic artifacts like "sleeping" local listeners and PowerShell command history.
+In this lab, you successfully simulated a stealthy data exfiltration attack. You saw firsthand how tunneling data over WebSockets (WSS/443) easily bypasses standard egress firewalls by blending in with regular HTTPS traffic. More importantly, as a Blue Teamer, you learned that even if the attacker closes their external connection, you can still hunt them down by looking for forensic artifacts like "sleeping" local listeners and PowerShell command history. 
+
+<br></br>
+
+# Finished?
+
+[Back to Card's Main Page](/Cards/C2E/Cloud_Based_Services_As_Exfil.md)
 
 
