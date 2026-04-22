@@ -176,25 +176,63 @@ cat exfiltrated_data.csv
 
 ### Phase 5: Blue Team Detection
 
-Why didn't the enterprise firewall block this? Because the traffic looked like a normal encrypted web connection (HTTPS/443). How can we detect it as defenders?
+If a real attacker exfiltrates data, they don't leave the external connection open for you to find. Once the CSV file was sent, Gost smartly closed the connection to the Ubuntu server (port 443) to avoid detection by the enterprise firewall.
 
-Open a NEW PowerShell terminal as Administrator. We will perform a Live Response on the machine to find the hidden tunnel.
+So, if the active connection is gone, how do we catch them? **We look for forensic artifacts left behind**.
 
-- Find anomalous network connections.
-Instead of standard netstat, we will use PowerShell cmdlets to specifically look for established external connections on port 443.
+Open a NEW PowerShell terminal as Administrator and let's hunt.
 
-
-```PowerShell
-Get-NetTCPConnection -RemotePort 443 -State Established | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, OwningProcess
-```
-
-[Screenshot: Output-ul comenzii, arătând clar IP-ul de Ubuntu la RemoteAddress, portul 443 și numărul OwningProcess (PID)]
-
-- Identify the process owning the connection: Take the OwningProcess ID (PID) from the previous command and let's see what program is actually communicating with the outside world. (Replace <PID> with your specific number).
+- Find the "Sleeping" Listener. Even though the external tunnel is closed, the malicious gost executable is likely still running in the background. Let's search for processes listening on unusual local ports.
 
 ```PowerShell
-Get-Process -Id <PID> | Select-Object Name, Path, Description
+Get-NetTCPConnection -State Listen | Select-Object LocalAddress, LocalPort, OwningProcess | Sort-Object LocalPort
 ```
-[Screenshot: Output-ul arătând Name: "gost", Path: "C:\Users\Administrator\AppData\Local\Temp\gost.exe"]
+
+<img width="520" height="188" alt="image" src="https://github.com/user-attachments/assets/192f325f-38eb-4026-8ae9-c4dc4fdb301e" />
+
+
+- Identify the Malicious Process. Take the OwningProcess ID (PID) from the local port 9000 and let's see what program is waiting for data. (Replace <PID> with your specific number, in this case it is PID 5300).
+
+```PowerShell
+Get-Process -Id <PID> | Select-Object Name, Path
+```
+
+<img width="875" height="152" alt="image" src="https://github.com/user-attachments/assets/dedb2a4f-9f04-49fe-8330-d8c1750a2e0e" />
+
+
+Analysis: Finding an unknown, unsigned executable named gost.exe running directly from the user's TEMP folder is a massive Indicator of Compromise (IoC).
+
+- Track the Attacker's Steps (Command History). Now we know what the malware is. But how did it get here? Modern PowerShell saves a history of executed commands, even if the attacker closed their terminal. 
+
+```PowerShell
+Get-Content (Get-PSReadLineOption).HistorySavePath | Select-String "gost.exe"
+```
+
+<img width="1135" height="119" alt="image" src="https://github.com/user-attachments/assets/2f04f7d6-891c-4487-a01c-2e836eab53bd" />
+
+
+**What are we looking at?**
+We can clearly see exactly the commands the attacket typed into the powershell. 
+
+- the **Invoke-WebRequest** that saved the tunneling tool into  TEMP; 
+- the exact port gost was connected to - 900;
+- the IP of our Ubuntu VM;
+
+---
+
+### Cleanup
+
+You're done! Let's clean up the environment so no malicious listeners are left behind.
+
+ - On both VMs: Go to every open terminal window (Python server, Gost tunnels, Netcat) and press CTRL+C to terminate the active processes.
+
+ - Close all terminal windows.
+
+ - (Optional) Delete the GostLab folders on both machines to leave no trace.
+
+---
+
+### Conclusion
+In this lab, you successfully simulated a stealthy data exfiltration attack. You saw firsthand how tunneling data over WebSockets (WSS/443) easily bypasses standard egress firewalls by blending in with regular HTTPS traffic. More importantly, as a Blue Teamer, you learned that even if the attacker closes their external connection, you can still hunt them down by looking for forensic artifacts like "sleeping" local listeners and PowerShell command history.
 
 
