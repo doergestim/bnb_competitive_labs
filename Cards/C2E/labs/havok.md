@@ -42,6 +42,16 @@ If you want to dive a bit deeper, check the [Havoc Official GitHub](https://gith
 
 ---
 
+### AWS Setup:
+
+ - Before we dive in to the actual Lab Exercise, we need an **AWS Free Tier Account**. If you don't have an AWS Account and want a step by step guide for the AWS Free Tier account, check out **Phase 1** of the [ScoutSuite Lab](/Cards/IC/labs/scoutsuite.md). 
+
+>[!NOTE] 
+>You will need a *Credit/Debit Card*, Amazon Web Services will withdraw $1 from your account and will hold it for 3-5 days, then return it in order to ensure you are a real person.
+
+Once you have your AWS Account set up, let's get an **EC2 Instance** up and running. 
+
+---
 ### Phase 1 : Setup and Objective
 
 We assume initial access to a *Windows 11* System, and our objective is to exfiltrate the sensitive financial databases without getting caught.
