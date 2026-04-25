@@ -201,5 +201,3 @@ In this lab, you successfully built a professional-grade C2 infrastructure. You 
 
 [Back to Card's Main Page](/Cards/C2E/Cloud_Based_Services_As_Exfil.md)
 
-
-Ești gata să faci screenshot-urile? Dacă ai nevoie de ajutor la rularea vreunei comenzi specifice din laborator ca să obții pozele, sunt aici!
