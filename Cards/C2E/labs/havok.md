@@ -51,6 +51,43 @@ If you want to dive a bit deeper, check the [Havoc Official GitHub](https://gith
 
 Once you have your AWS Account set up, let's get an **EC2 Instance** up and running. 
 
+ - Log into the *AWS Management Console*, type **EC2** in the searchbar and click:
+   
+<img width="1513" height="688" alt="image" src="https://github.com/user-attachments/assets/921d5f54-1293-40df-9ab0-1756729b6dbc" />
+
+ - Click the orange **Launch Instance** button:
+   
+ - Give your instance a recognizable name, like `Havoc-Teamserver`:
+   
+ - **Application and OS Images (Amazon Machine Image):** Select **Ubuntu** and make sure the *Ubuntu Server 22.04 LTS* (or newer) is selected. Ensure it has the "Free tier eligible" label below it.
+ 
+ - Leave the **instance type** as `t2.micro` (Free tier eligible):
+ 
+ **Key pair (login):** You need this to SSH into your server in the next phase. 
+   - Click **Create new key pair**.
+   - Name it *havoc-key*.
+   - Key pair type: **RSA**, Private key file format: **.pem**.
+   - Click **Create key pair**. The file will automatically download to your computer. *Keep it safe!*
+   
+ **Network settings:** This is the most important part. We need to open the specific ports Havoc uses. 
+   - Next to Network settings, click **Edit**.
+   
+   - Create a new security group and name it *Havoc-SG*.
+   
+   You need to add the following **Inbound Security Group Rules**:
+   
+   - **Rule 1 (SSH):** Type: `SSH`, Port range: `22`, Source type: `My IP` (This ensures only your current IP can access the backend terminal).
+
+   - **Rule 2 (Havoc Client):** Click "Add security group rule". Type: `Custom TCP`, Port range: `40056`, Source type: `Anywhere-IPv4` (This allows your Ubuntu UI to connect to the backend).
+
+   - **Rule 3 (Payload Traffic):** Click "Add security group rule". Type: `HTTP`, Port range: `80`, Source type: `Anywhere-IPv4`. (This is how the compromised Windows machine will communicate with the Teamserver).
+
+   - **Rule 4 (Secure Payload Traffic):** Click "Add security group rule". Type: `HTTPS`, Port range: `443`, Source type: `Anywhere-IPv4`.\
+     
+ **Configure storage:** The default 8 GB is plenty for this lab.
+ 
+ On the right-side summary panel, click **Launch instance**.
+
 ---
 ### Phase 1 : Setup and Objective
 
