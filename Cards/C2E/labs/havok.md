@@ -56,18 +56,36 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
 <img width="1513" height="688" alt="image" src="https://github.com/user-attachments/assets/921d5f54-1293-40df-9ab0-1756729b6dbc" />
 
  - Click the orange **Launch Instance** button:
+
+ <img width="1853" height="829" alt="image" src="https://github.com/user-attachments/assets/8fd81a2b-3d52-4ad6-a792-a361b11d848f" />
    
  - Give your instance a recognizable name, like `Havoc-Teamserver`:
+
+ <img width="1203" height="319" alt="image" src="https://github.com/user-attachments/assets/91bd8187-af50-4ff2-a541-014b86c404d0" />
    
- - **Application and OS Images (Amazon Machine Image):** Select **Ubuntu** and make sure the *Ubuntu Server 22.04 LTS* (or newer) is selected. Ensure it has the "Free tier eligible" label below it.
- 
- - Leave the **instance type** as `t2.micro` (Free tier eligible):
+ - **Application and OS Images (Amazon Machine Image):** Select **Ubuntu** and make sure the *Ubuntu Server 22.04 LTS* (or newer) is selected. Ensure it has the "Free tier eligible" label.
+
+   <img width="1102" height="662" alt="image" src="https://github.com/user-attachments/assets/70ec7158-fccb-4b1f-be27-1a293a78d69e" />
+
+ - Leave the **instance type** as `t3.micro` (Free tier eligible):
+
+   <img width="1119" height="233" alt="image" src="https://github.com/user-attachments/assets/3c9fdf25-7cab-4f4a-a83b-e8f865b0261d" />
  
  **Key pair (login):** You need this to SSH into your server in the next phase. 
-   - Click **Create new key pair**.
-   - Name it *havoc-key*.
-   - Key pair type: **RSA**, Private key file format: **.pem**.
-   - Click **Create key pair**. The file will automatically download to your computer. *Keep it safe!*
+   - Click **Create new key pair**: 
+   <img width="1110" height="195" alt="image" src="https://github.com/user-attachments/assets/6ad1a62a-6d48-4ed0-a94d-ea1a144b55e2" />
+   
+   - Name it *havoc-key*;
+     
+   - Key pair type: **RSA**, Private key file format: **.pem**;
+     
+   - Click **Create key pair**. The file will automatically download to your computer. *Keep it safe!*, 
+
+   <img width="632" height="598" alt="image" src="https://github.com/user-attachments/assets/7882a4c9-a74c-4adc-94d1-e18ce7a92f24" />
+
+>[!IMPORTANT]
+> Once you recieve **havoc-key.pem** and store it safely, you need to change the file permissions such that the .pem file can not be read by any users other than root. 
+> Open the 
    
  **Network settings:** This is the most important part. We need to open the specific ports Havoc uses. 
    - Next to Network settings, click **Edit**.
