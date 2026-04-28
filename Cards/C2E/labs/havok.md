@@ -102,16 +102,26 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
    <img width="1114" height="612" alt="image" src="https://github.com/user-attachments/assets/eabfe645-2e9c-42a4-b180-2f1a3a183889" />
 
    You need to add the following **Inbound Security Group Rules**:
-   
-   - **Rule 1 (SSH):** Type: `SSH`, Port range: `22`, Source type: `My IP` (This ensures only your current IP can access the backend terminal).
 
-   - **Rule 2 (Havoc Client):** Click "Add security group rule". Type: `Custom TCP`, Port range: `40056`, Source type: `Anywhere-IPv4` (This allows your Ubuntu UI to connect to the backend).
+   - **Rule 1 (SSH):** Leave *Source type: Anywhere*. This ensures that you'll be able to connect to your EC2 from the **Ubuntu VM**: 
 
-   - **Rule 3 (Payload Traffic):** Click "Add security group rule". Type: `HTTP`, Port range: `80`, Source type: `Anywhere-IPv4`. (This is how the compromised Windows machine will communicate with the Teamserver).
+   <img width="1064" height="265" alt="image" src="https://github.com/user-attachments/assets/d3a2a2ae-a31b-4607-b26c-cd992c64651e" />
 
-   - **Rule 4 (Secure Payload Traffic):** Click "Add security group rule". Type: `HTTPS`, Port range: `443`, Source type: `Anywhere-IPv4`.\
+   - **Rule 2 (Havoc Client):** Click "Add security group rule". Type: `Custom TCP`, Port range: `40056`, Source type: `Anywhere-IPv4` (This allows your Ubuntu UI to connect to the backend):
+
+   <img width="1062" height="294" alt="image" src="https://github.com/user-attachments/assets/16b6ea7b-87a3-477b-8154-c2084b285082" />
+
+   - **Rule 3 (Payload Traffic):** Click "Add security group rule". Type: `HTTP`, leave the port range: `80`, Source type: `Anywhere-IPv4`. (This is how the compromised Windows machine will communicate with the Teamserver):
+
+   <img width="1059" height="291" alt="image" src="https://github.com/user-attachments/assets/0fbc667f-65d0-4e05-9556-00cb0baf9210" />
+
+   - **Rule 4 (Secure Payload Traffic):** Click "Add security group rule". Type: `HTTPS`, Port range: `443`, Source type: `Anywhere-IPv4`:
      
+   <img width="1059" height="284" alt="image" src="https://github.com/user-attachments/assets/83299f0e-241a-460a-9045-1591ac4fb039" />
+ 
  **Configure storage:** The default 8 GB is plenty for this lab.
+ 
+ <img width="1117" height="431" alt="image" src="https://github.com/user-attachments/assets/c99353c1-84ca-46d8-ab98-845831c724b6" />
  
  On the right-side summary panel, click **Launch instance**.
 
