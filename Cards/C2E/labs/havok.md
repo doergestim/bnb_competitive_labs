@@ -4,6 +4,11 @@
 
 ## The objective of this lab is to establish a modern Command & Control (C2) infrastructure using a cloud-based backend (AWS EC2). You will learn how to bypass network defenses, execute a payload on a compromised Windows machine, exfiltrate data using the Havoc UI, and ultimately hunt for the malicious process as a Blue Teamer.
 ---
+
+>[!IMPORTANT]
+>For this particular lab, you will be required to **have the two VM's in two separate tabs**. We will start on the *Windows VM*. 
+
+---
 ### Documentation and scenario : 
 
 **What is Havoc?**
@@ -42,7 +47,7 @@ If you want to dive a bit deeper, check the [Havoc Official GitHub](https://gith
 
 ---
 
-### AWS Setup:
+### AWS Setup: (!!! NOTE : You will need to do this part on your personal computer)
 
  - Before we dive in to the actual Lab Exercise, we need an **AWS Free Tier Account**. If you don't have an AWS Account and want a step by step guide for the AWS Free Tier account, check out **Phase 1** of the [ScoutSuite Lab](/Cards/IC/labs/scoutsuite.md). 
 
@@ -84,14 +89,18 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
    <img width="632" height="598" alt="image" src="https://github.com/user-attachments/assets/7882a4c9-a74c-4adc-94d1-e18ce7a92f24" />
 
 >[!IMPORTANT]
-> Once you recieve **havoc-key.pem** and store it safely, you need to change the file permissions such that the .pem file can not be read by any users other than root. 
-> Open the 
+> Once you recieve **havoc-key.pem**, store it safely on your personal computer.
+> Later, you will need to copy the contents and paste them into the **Ubuntu VM**. You need to change the file permissions such that the .pem file can not be read by any users other than root (chmod 400 havoc-key.pem). 
    
  **Network settings:** This is the most important part. We need to open the specific ports Havoc uses. 
-   - Next to Network settings, click **Edit**.
-   
-   - Create a new security group and name it *Havoc-SG*.
-   
+   - Next to Network settings, click **Edit**:
+     
+   <img width="1123" height="629" alt="image" src="https://github.com/user-attachments/assets/4f454119-28f7-430a-8795-1607c3af926a" />
+
+   - Create a new security group and name it *Havoc-SG*:
+     
+   <img width="1114" height="612" alt="image" src="https://github.com/user-attachments/assets/eabfe645-2e9c-42a4-b180-2f1a3a183889" />
+
    You need to add the following **Inbound Security Group Rules**:
    
    - **Rule 1 (SSH):** Type: `SSH`, Port range: `22`, Source type: `My IP` (This ensures only your current IP can access the backend terminal).
