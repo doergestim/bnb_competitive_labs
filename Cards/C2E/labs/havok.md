@@ -171,7 +171,7 @@ icacls "havoc-key.pem" /grant:r "${env:USERNAME}:R"6
 
  <img width="1091" height="331" alt="image" src="https://github.com/user-attachments/assets/a59f2f8b-cae3-4038-a6d6-caa0e2eeb307" />
 
-   - **Rule 4 (Secure Payload Traffic):** Click "Add security group rule". Type: `HTTPS`, Port range: `443`, Source type: `Anywhere`:
+   - **Rule 4 (Secure Payload Traffic):** Click "Add security group rule". Type: `HTTPS`, Port range: `443`, Source type: `My IP`:
      
  <img width="1091" height="318" alt="image" src="https://github.com/user-attachments/assets/33a90388-c4c8-4925-8428-ddc3dfd1d70e" />
 
