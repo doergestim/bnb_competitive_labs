@@ -62,7 +62,7 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
 
  - Log into the *AWS Management Console*, type **EC2** in the searchbar and click:
    
-<img width="1513" height="688" alt="image" src="https://github.com/user-attachments/assets/921d5f54-1293-40df-9ab0-1756729b6dbc" />
+ <img width="1513" height="688" alt="image" src="https://github.com/user-attachments/assets/921d5f54-1293-40df-9ab0-1756729b6dbc" />
 
  - Click the orange **Launch Instance** button:
 
@@ -74,7 +74,7 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
    
  - **Application and OS Images (Amazon Machine Image):** Select **Ubuntu** and make sure the *Ubuntu Server 22.04 LTS* (or newer) is selected. Ensure it has the "Free tier eligible" label.
 
-   <img width="1102" height="662" alt="image" src="https://github.com/user-attachments/assets/70ec7158-fccb-4b1f-be27-1a293a78d69e" />
+ <img width="1102" height="662" alt="image" src="https://github.com/user-attachments/assets/70ec7158-fccb-4b1f-be27-1a293a78d69e" />
 
  - In the **instance type** tab, select`t3.small` (Free tier eligible). This wil give us *2gb* of ram to work with:
 
@@ -83,7 +83,7 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
  
  - **Key pair (login):** You need this to SSH into your server in the next phase. 
    - Click **Create new key pair**: 
-   <img width="1110" height="195" alt="image" src="https://github.com/user-attachments/assets/6ad1a62a-6d48-4ed0-a94d-ea1a144b55e2" />
+ <img width="1110" height="195" alt="image" src="https://github.com/user-attachments/assets/6ad1a62a-6d48-4ed0-a94d-ea1a144b55e2" />
    
    - Name it *havoc-key*;
      
@@ -91,23 +91,50 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
      
    - Click **Create key pair**. The file will automatically download to the *Downloads* section of the *Ubuntu VM*. **You MUST move it to your personal PC**;
 
-   <img width="632" height="598" alt="image" src="https://github.com/user-attachments/assets/7882a4c9-a74c-4adc-94d1-e18ce7a92f24" />
+ <img width="632" height="598" alt="image" src="https://github.com/user-attachments/assets/7882a4c9-a74c-4adc-94d1-e18ce7a92f24" />
 
 >[!IMPORTANT]
 > Once you recieve *havoc-key.pem*, **you NEED to move it to your personal computer**.
 > If there is a network error, or the Ubuntu Vm idles too long and closes, **you risk losing the RSA Private Key, and therefore access to your AWS EC2 instance**. If that happens you need to **delete the key and reconfigure the AWS EC2**.
 
 🔑 Securing the SSH Key (havoc-key.pem) : 
- - After creating the havoc-key.pem file on your host machine using the Copy-Paste method, you must set the correct file permissions. SSH clients are designed to ignore private keys that are "too readable" by other users on the system. If you skip this step, your connection will be rejected.
+ - The *RSA Key* should be in your *Downloads* folder on the VM :
+   
+ <img width="859" height="304" alt="image" src="https://github.com/user-attachments/assets/45364ac4-85e5-4305-8cda-b470c38a09c4" />
 
-Option A: Linux / macOS Users
-Open a terminal in the folder where you saved the key and run the following command:
+   We will use the **VM's clipboard** to copy the .pem file.
+ - To *open or close* the clipboard of the VM press **ctrl+alt+shift** and a small window will pop up: 
 
-```Bash
-# Sets read/write permissions for the owner only
-chmod 600 havoc-key.pem
+ <img width="526" height="826" alt="image" src="https://github.com/user-attachments/assets/9ce6ed1f-9a0a-4e46-80a0-39d65c95b40d" />
+ 
+ - Use **cat** and copy the contents of the file. Make sure to copy the **---BEGIN...---** and **---END...---** parts of the key. 
+
+ <img width="808" height="694" alt="image" src="https://github.com/user-attachments/assets/d18635c4-679c-4088-be72-9c9a93ad2275" />
+
+ - Copy the contents of the file using **ctrl+shift+c**, and you will see that when you open your clipboard, the contents of the file will be listed there : 
+
+ <img width="524" height="662" alt="image" src="https://github.com/user-attachments/assets/f104722a-7ed5-417c-aa21-a6a8a83dd6d7" />
+
+Use your cursor to **copy the contents of the VM clipboard with ctrl+a, then ctrl+c**, and paste them into a file on your personal machine. 
+>[!NOTE]
+>After creating the havoc-key.pem file on your host machine using the Copy-Paste method, you must set the correct file permissions. SSH clients are designed to ignore private keys that are "too readable" by other users on the system. If you skip this step, your connection will be rejected.
+
+Depending on your operating system, this proccess will differ : 
+
+### Option A: Linux / macOS Users
+
+- On Linux / macOS, open a folder of your choosing in the terminal, type **nano havoc-key.pem**, paste the content into a the file, press **ctrl+o, Enter, then ctrl+x**. After that, type:
+
+``` bash
+chmod 400 havoc-key.pem
 ```
-Option B: Windows Users (PowerShell)
+
+ - You should now see the that **only the root user has reading permission**: 
+
+ <img width="551" height="23" alt="image" src="https://github.com/user-attachments/assets/a8407052-8dc2-4793-9a48-b127315db08d" />
+
+
+### Option B: Windows Users (PowerShell)
 Open a PowerShell terminal in the folder containing your key and run these two commands. This will disable permission inheritance and ensure only your current user profile has access:
 
 ```PowerShell
@@ -124,38 +151,39 @@ icacls "havoc-key.pem" /grant:r "${env:USERNAME}:R"6
 - **Now, moving on to *Network settings*:** This is the most important part. We need to open the specific ports Havoc uses. 
    - Next to Network settings, click **Edit**:
      
-   <img width="1123" height="629" alt="image" src="https://github.com/user-attachments/assets/4f454119-28f7-430a-8795-1607c3af926a" />
+ <img width="1123" height="629" alt="image" src="https://github.com/user-attachments/assets/4f454119-28f7-430a-8795-1607c3af926a" />
 
    - Create a new security group and name it *Havoc-SG*:
      
-   <img width="1114" height="612" alt="image" src="https://github.com/user-attachments/assets/eabfe645-2e9c-42a4-b180-2f1a3a183889" />
+ <img width="1114" height="612" alt="image" src="https://github.com/user-attachments/assets/eabfe645-2e9c-42a4-b180-2f1a3a183889" />
 
    You need to add the following **Inbound Security Group Rules**:
 
    - **Rule 1 (SSH):** Set *Source type: My IP*. This ensures that *only* you'll be able to connect to your EC2 from the **Ubuntu VM**: 
 
-   <img width="1064" height="265" alt="image" src="https://github.com/user-attachments/assets/d3a2a2ae-a31b-4607-b26c-cd992c64651e" />
+ <img width="1089" height="351" alt="image" src="https://github.com/user-attachments/assets/c89f73a2-6e79-4029-9874-39944055a583" />
 
    - **Rule 2 (Havoc Client):** Click "Add security group rule". Type: `Custom TCP`, Port range: `40056`, Source type: `My IP` (This allows your Ubuntu UI to connect to the backend):
 
-   <img width="1062" height="294" alt="image" src="https://github.com/user-attachments/assets/16b6ea7b-87a3-477b-8154-c2084b285082" />
+ <img width="1112" height="330" alt="image" src="https://github.com/user-attachments/assets/3670a774-ab25-42f7-a109-f6fbee6284ee" />
 
    - **Rule 3 (Payload Traffic):** Click "Add security group rule". Type: `HTTP`, leave the port range: `80`, Source type: `My IP`. (This is how the compromised Windows machine will communicate with the Teamserver):
 
-   <img width="1059" height="291" alt="image" src="https://github.com/user-attachments/assets/0fbc667f-65d0-4e05-9556-00cb0baf9210" />
+ <img width="1091" height="331" alt="image" src="https://github.com/user-attachments/assets/a59f2f8b-cae3-4038-a6d6-caa0e2eeb307" />
 
    - **Rule 4 (Secure Payload Traffic):** Click "Add security group rule". Type: `HTTPS`, Port range: `443`, Source type: `Anywhere`:
      
-   <img width="1059" height="284" alt="image" src="https://github.com/user-attachments/assets/83299f0e-241a-460a-9045-1591ac4fb039" />
+ <img width="1091" height="318" alt="image" src="https://github.com/user-attachments/assets/33a90388-c4c8-4925-8428-ddc3dfd1d70e" />
 
 >[!IMPORTANT]
 > Note that a real red teamer does not leave the source type **Anywhere**. Normally you would select either **My IP** or another **custom** setting.
-> **DO NOT publish your .pem file or make the setup in one of the two VM's**. If the VM closes you lose acces to the *RSA Key* and have to start over.
+> Also note that, in a real data exfiltration scenario, the source for the 80 / 443 (HTTP/HTTPS) ports is the **victim's IP**. For this lab, however, the VM's are linked, so you can just leave "My IP" everywhere.
+> **DO NOT publish your .pem file or just leave the .pem file in one of the two VM's**. If the VM closes you lose acces to the *RSA Key* and have to start over.
 > Once the lab is done **destroy the EC2 instance** so you do not get charged. 
  
  - **Configure storage:** The default 8 GB could be enough, but since we'll be downloading *golang dependencies* let's increase that to **20gb**. It does not increase the cost of running the *EC2 Instance* . 
  
-<img width="911" height="458" alt="image" src="https://github.com/user-attachments/assets/130063bd-d4f2-47a0-82ea-28bf67d09fea" />
+ <img width="911" height="458" alt="image" src="https://github.com/user-attachments/assets/130063bd-d4f2-47a0-82ea-28bf67d09fea" />
 
  - Your **Summary** tab should look like this now : 
 
@@ -176,11 +204,11 @@ cd Desktop\Labs\Havoc
 ls
 ```
 
-<img width="820" height="302" alt="image" src="https://github.com/user-attachments/assets/5e62d876-cbe5-4e8a-a458-7052c0be192a" />
+ <img width="820" height="302" alt="image" src="https://github.com/user-attachments/assets/5e62d876-cbe5-4e8a-a458-7052c0be192a" />
 
 - Let's take a look at the **customer_database.csv** file. This is the "trophy" we are going to use **Havoc** to exfiltrate to our Cloud Teamserver:
   
-<img width="762" height="113" alt="image" src="https://github.com/user-attachments/assets/bfdb6d14-b0b0-427f-9d75-e9144b196450" />
+ <img width="762" height="113" alt="image" src="https://github.com/user-attachments/assets/bfdb6d14-b0b0-427f-9d75-e9144b196450" />
 
 ---
 
