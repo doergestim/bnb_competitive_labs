@@ -72,11 +72,12 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
 
    <img width="1102" height="662" alt="image" src="https://github.com/user-attachments/assets/70ec7158-fccb-4b1f-be27-1a293a78d69e" />
 
- - Leave the **instance type** as `t3.micro` (Free tier eligible):
+ - In the **instance type** tab, select`t3.small` (Free tier eligible). This wil give us *2gb* of ram to work with:
 
-   <img width="1119" height="233" alt="image" src="https://github.com/user-attachments/assets/3c9fdf25-7cab-4f4a-a83b-e8f865b0261d" />
+ <img width="889" height="623" alt="image" src="https://github.com/user-attachments/assets/24f55358-391b-4e37-97ac-3e6700f289d8" />
+
  
- **Key pair (login):** You need this to SSH into your server in the next phase. 
+ - **Key pair (login):** You need this to SSH into your server in the next phase. 
    - Click **Create new key pair**: 
    <img width="1110" height="195" alt="image" src="https://github.com/user-attachments/assets/6ad1a62a-6d48-4ed0-a94d-ea1a144b55e2" />
    
@@ -92,7 +93,7 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
 > Once you recieve **havoc-key.pem**, store it safely on your personal computer.
 > Later, you will need to copy the contents and paste them into the **Ubuntu VM**. You need to change the file permissions such that the .pem file can not be read by any users other than root (chmod 400 havoc-key.pem). 
    
- **Network settings:** This is the most important part. We need to open the specific ports Havoc uses. 
+  - **Network settings:** This is the most important part. We need to open the specific ports Havoc uses. 
    - Next to Network settings, click **Edit**:
      
    <img width="1123" height="629" alt="image" src="https://github.com/user-attachments/assets/4f454119-28f7-430a-8795-1607c3af926a" />
@@ -111,7 +112,7 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
 
    <img width="1062" height="294" alt="image" src="https://github.com/user-attachments/assets/16b6ea7b-87a3-477b-8154-c2084b285082" />
 
-   - **Rule 3 (Payload Traffic):** Click "Add security group rule". Type: `HTTP`, leave the port range: `80`, Source type: `Anywhere-IPv4`. (This is how the compromised Windows machine will communicate with the Teamserver):
+   - **Rule 3 (Payload Traffic):** Click "Add security group rule". Type: `HTTP`, leave the port range: `80`, Source type: `Anywhere`. (This is how the compromised Windows machine will communicate with the Teamserver):
 
    <img width="1059" height="291" alt="image" src="https://github.com/user-attachments/assets/0fbc667f-65d0-4e05-9556-00cb0baf9210" />
 
@@ -119,10 +120,14 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
      
    <img width="1059" height="284" alt="image" src="https://github.com/user-attachments/assets/83299f0e-241a-460a-9045-1591ac4fb039" />
  
- **Configure storage:** The default 8 GB is plenty for this lab.
+ - **Configure storage:** The default 8 GB could be enough, but since we'll be downloading *golang dependencies* let's increase that to **20gb**. It does not increase the cost of running the *EC2 Instance* . 
  
- <img width="1117" height="431" alt="image" src="https://github.com/user-attachments/assets/c99353c1-84ca-46d8-ab98-845831c724b6" />
- 
+<img width="911" height="458" alt="image" src="https://github.com/user-attachments/assets/130063bd-d4f2-47a0-82ea-28bf67d09fea" />
+
+ - Your **Summary** tab should look like this now : 
+
+ <img width="907" height="537" alt="image" src="https://github.com/user-attachments/assets/e64c8cf6-11ca-4dac-ba27-99557f135ecf" />
+
  On the right-side summary panel, click **Launch instance**.
 
 ---
@@ -187,19 +192,16 @@ make ts-build
 
 Step 3 (Start the Client): Open a NEW tab/terminal on your Ubuntu VM (do not close the SSH session). Start the pre-installed Havoc Client:
 
-```bash
+``` bash
 havoc-client
 ```
 
 A login screen will appear. Fill in the connection details:
 
-    - Host: <YOUR_AWS_PUBLIC_IP>
-
-    - Port: 40056
-
-    - User: 5pider (Default)
-
-    - Password: password1234 (Default)
+- Host: <YOUR_AWS_PUBLIC_IP>
+- Port: 40056
+- User: 5pider (Default)
+- Password: password1234 (Default)
 
 Once connected, you are inside the Havoc dashboard!
 
