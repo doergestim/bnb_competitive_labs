@@ -131,17 +131,18 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
 
 We assume initial access to a *Windows 11* System, and our objective is to exfiltrate the sensitive financial databases without getting caught.
 
-- First things first, open Windows PowerShell and navigate to the **Lab Directory** :
+- First things first, open Windows PowerShell and navigate to the **Lab Directory**. Let's see the loot :
 
 ```bash 
 cd Desktop\Labs\Havoc
+ls
 ```
 
-<img width="1000" height="500" alt="image" src="[ADAUGA_SCREENSHOT_CU_DIRECTORUL_WINDOWS_AICI]" />
+<img width="820" height="302" alt="image" src="https://github.com/user-attachments/assets/5e62d876-cbe5-4e8a-a458-7052c0be192a" />
 
 - Let's take a look at the **customer_database.csv** file. This is the "trophy" we are going to use **Havoc** to exfiltrate to our Cloud Teamserver:
   
-<img width="1000" height="500" alt="image" src="[ADAUGA_SCREENSHOT_CU_CONTINUTUL_CSV_AICI]" />
+<img width="762" height="113" alt="image" src="https://github.com/user-attachments/assets/bfdb6d14-b0b0-427f-9d75-e9144b196450" />
 
 ---
 
