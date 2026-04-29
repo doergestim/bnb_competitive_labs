@@ -23,7 +23,7 @@ Havoc is a modern and malleable post-exploitation command and control framework 
    
    - *Advanced Payload Generation* :  Generates custom agents called "Demons" (.exe, .dll, or shellcode) that feature advanced evasion techniques like sleep obfuscation and indirect syscalls.
 
-If you want to dive a bit deeper, check the [Havoc Official GitHub](https://github.com/HavocFramework/Havoc)
+If you want to dive a bit deeper, check the [Havoc Official GitHub](https://github.com/HavocFramework/Havoc).
 
 >[!NOTE]
 > In the cybersecurity landscape, platforms like Havoc and Cobalt Strike are the gold standard for Red Team operations. **Attackers never host the C2 server on their own laptops.** Instead, they rent cheap cloud servers (VPS) to host the Teamserver, making it difficult for Blue Teams to track the attacker's true physical location.
@@ -47,12 +47,16 @@ If you want to dive a bit deeper, check the [Havoc Official GitHub](https://gith
 
 ---
 
-## AWS Setup: (!!! NOTE : You will need to do this part on your personal computer)
+## AWS Setup: 
 
- - Before we dive in to the actual Lab Exercise, we need an **AWS Free Tier Account**. If you don't have an AWS Account and want a step by step guide for the AWS Free Tier account, check out **Phase 1** of the [ScoutSuite Lab](/Cards/IC/labs/scoutsuite.md). 
+Before we dive in to the actual Lab Exercise, we need an **AWS Free Tier Account**. If you don't have an AWS Account and want a step by step guide for the AWS Free Tier account, check out **Phase 1** of the [ScoutSuite Lab](/Cards/IC/labs/scoutsuite.md). Start the **Ubuntu VM** only after you have your *AWS Account* set up.
 
 >[!NOTE] 
 >You will need a *Credit/Debit Card*, Amazon Web Services will withdraw $1 from your account and will hold it for 3-5 days, then return it in order to ensure you are a real person.
+
+### Environment : Ubuntu VM
+
+ - On the **Ubuntu VM**, go to the [AWS Webpage](https://aws.amazon.com) using **Firefox** and log into your **AWS Free Tier Account**. 
 
 Once you have your AWS Account set up, let's get an **EC2 Instance** up and running. 
 
@@ -85,15 +89,39 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
      
    - Key pair type: **RSA**, Private key file format: **.pem**;
      
-   - Click **Create key pair**. The file will automatically download to your computer. *Keep it safe!*, 
+   - Click **Create key pair**. The file will automatically download to the *Downloads* section of the *Ubuntu VM*. **You MUST move it to your personal PC**;
 
    <img width="632" height="598" alt="image" src="https://github.com/user-attachments/assets/7882a4c9-a74c-4adc-94d1-e18ce7a92f24" />
 
 >[!IMPORTANT]
-> Once you recieve **havoc-key.pem**, store it safely on your personal computer.
-> Later, you will need to copy the contents and paste them into the **Ubuntu VM**. You need to change the file permissions such that the .pem file can not be read by any users other than root (chmod 400 havoc-key.pem). 
-   
-  - **Network settings:** This is the most important part. We need to open the specific ports Havoc uses. 
+> Once you recieve *havoc-key.pem*, **you NEED to move it to your personal computer**.
+> If there is a network error, or the Ubuntu Vm idles too long and closes, **you risk losing the RSA Private Key, and therefore access to your AWS EC2 instance**. If that happens you need to **delete the key and reconfigure the AWS EC2**.
+
+🔑 Securing the SSH Key (havoc-key.pem) : 
+ - After creating the havoc-key.pem file on your host machine using the Copy-Paste method, you must set the correct file permissions. SSH clients are designed to ignore private keys that are "too readable" by other users on the system. If you skip this step, your connection will be rejected.
+
+Option A: Linux / macOS Users
+Open a terminal in the folder where you saved the key and run the following command:
+
+```Bash
+# Sets read/write permissions for the owner only
+chmod 600 havoc-key.pem
+```
+Option B: Windows Users (PowerShell)
+Open a PowerShell terminal in the folder containing your key and run these two commands. This will disable permission inheritance and ensure only your current user profile has access:
+
+```PowerShell
+# 1. Disable permission inheritance
+icacls "havoc-key.pem" /inheritance:r
+
+# 2. Grant read access only to the current user
+icacls "havoc-key.pem" /grant:r "${env:USERNAME}:R"6
+```
+
+⚠️ Important Security Note: 
+ - These "Strict Permissions" ensure that you are the only one who can read this file. If you attempt to connect and see an error like Permissions 0644 for 'havoc-key.pem' are too open, it means the steps above were not completed successfully.
+
+- **Now, moving on to *Network settings*:** This is the most important part. We need to open the specific ports Havoc uses. 
    - Next to Network settings, click **Edit**:
      
    <img width="1123" height="629" alt="image" src="https://github.com/user-attachments/assets/4f454119-28f7-430a-8795-1607c3af926a" />
@@ -104,21 +132,26 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
 
    You need to add the following **Inbound Security Group Rules**:
 
-   - **Rule 1 (SSH):** Leave *Source type: Anywhere*. This ensures that you'll be able to connect to your EC2 from the **Ubuntu VM**: 
+   - **Rule 1 (SSH):** Set *Source type: My IP*. This ensures that *only* you'll be able to connect to your EC2 from the **Ubuntu VM**: 
 
    <img width="1064" height="265" alt="image" src="https://github.com/user-attachments/assets/d3a2a2ae-a31b-4607-b26c-cd992c64651e" />
 
-   - **Rule 2 (Havoc Client):** Click "Add security group rule". Type: `Custom TCP`, Port range: `40056`, Source type: `Anywhere-IPv4` (This allows your Ubuntu UI to connect to the backend):
+   - **Rule 2 (Havoc Client):** Click "Add security group rule". Type: `Custom TCP`, Port range: `40056`, Source type: `My IP` (This allows your Ubuntu UI to connect to the backend):
 
    <img width="1062" height="294" alt="image" src="https://github.com/user-attachments/assets/16b6ea7b-87a3-477b-8154-c2084b285082" />
 
-   - **Rule 3 (Payload Traffic):** Click "Add security group rule". Type: `HTTP`, leave the port range: `80`, Source type: `Anywhere`. (This is how the compromised Windows machine will communicate with the Teamserver):
+   - **Rule 3 (Payload Traffic):** Click "Add security group rule". Type: `HTTP`, leave the port range: `80`, Source type: `My IP`. (This is how the compromised Windows machine will communicate with the Teamserver):
 
    <img width="1059" height="291" alt="image" src="https://github.com/user-attachments/assets/0fbc667f-65d0-4e05-9556-00cb0baf9210" />
 
-   - **Rule 4 (Secure Payload Traffic):** Click "Add security group rule". Type: `HTTPS`, Port range: `443`, Source type: `Anywhere-IPv4`:
+   - **Rule 4 (Secure Payload Traffic):** Click "Add security group rule". Type: `HTTPS`, Port range: `443`, Source type: `Anywhere`:
      
    <img width="1059" height="284" alt="image" src="https://github.com/user-attachments/assets/83299f0e-241a-460a-9045-1591ac4fb039" />
+
+>[!IMPORTANT]
+> Note that a real red teamer does not leave the source type **Anywhere**. Normally you would select either **My IP** or another **custom** setting.
+> **DO NOT publish your .pem file or make the setup in one of the two VM's**. If the VM closes you lose acces to the *RSA Key* and have to start over.
+> Once the lab is done **destroy the EC2 instance** so you do not get charged. 
  
  - **Configure storage:** The default 8 GB could be enough, but since we'll be downloading *golang dependencies* let's increase that to **20gb**. It does not increase the cost of running the *EC2 Instance* . 
  
