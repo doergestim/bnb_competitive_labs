@@ -190,7 +190,13 @@ icacls "havoc-key.pem" /grant:r "${env:USERNAME}:R"6
  <img width="907" height="537" alt="image" src="https://github.com/user-attachments/assets/e64c8cf6-11ca-4dac-ba27-99557f135ecf" />
 
  On the right-side summary panel, click **Launch instance**.
+ - You wil be given an **Instance Number**. Click on it to find out the details about the AWS instance: 
+ 
+ <img width="1380" height="182" alt="image" src="https://github.com/user-attachments/assets/658ba5fa-0d73-4b2f-a84f-815ca9e6eda5" />
 
+ <img width="1104" height="448" alt="image" src="https://github.com/user-attachments/assets/f6a0aa3b-c806-44e5-81b4-e1b9b412aced" />
+
+ - You will use this address to log into the AWS EC2. 
 ---
 ## Phase 1 : Setup and Objective
 ### Environment: Windows VM
@@ -237,7 +243,7 @@ sudo apt update
 sudo apt install -y golang-go
 
 # Clone the repo and build the teamserver
-git clone [https://github.com/HavocFramework/Havoc.git](https://github.com/HavocFramework/Havoc.git)
+git clone https://github.com/HavocFramework/Havoc.git
 cd Havoc
 make ts-build
 
@@ -245,13 +251,21 @@ make ts-build
 ./havoc server --profile ./profiles/havoc.yaotl -v
 ```
 
+<img width="1238" height="542" alt="image" src="https://github.com/user-attachments/assets/f2ccc7fc-0b75-462c-b438-d879065677c1" />
+
 >[!IMPORTANT]
 > Leave this SSH terminal open so the Teamserver keeps running. Note down your AWS Public IP address, you will need it for the next step.
+
+
+Once it's done building, you will see the Teamserver mention the **Custom TCP Port** from our AWS Machine: 
+
+<img width="1067" height="564" alt="image" src="https://github.com/user-attachments/assets/e726cacd-5a77-4848-bbb0-a0fa5e19a73d" />
 
 Step 3 (Start the Client): Open a NEW tab/terminal on your Ubuntu VM (do not close the SSH session). Start the pre-installed Havoc Client:
 
 ``` bash
-havoc-client
+cd /opt/havoc-client
+./Havoc
 ```
 
 A login screen will appear. Fill in the connection details:
@@ -260,6 +274,9 @@ A login screen will appear. Fill in the connection details:
 - Port: 40056
 - User: 5pider (Default)
 - Password: password1234 (Default)
+
+<img width="556" height="325" alt="image" src="https://github.com/user-attachments/assets/35571025-9a58-49c8-842f-82fc4082b0d4" />
+
 
 Once connected, you are inside the Havoc dashboard!
 
