@@ -275,7 +275,7 @@ A login screen will appear. Fill in the connection details:
 - User: 5pider (Default)
 - Password: password1234 (Default)
 
-<img width="556" height="325" alt="image" src="https://github.com/user-attachments/assets/35571025-9a58-49c8-842f-82fc4082b0d4" />
+<img width="554" height="321" alt="image" src="https://github.com/user-attachments/assets/c9fc6984-1831-4456-8edc-69e02ccfa774" />
 
 
 Once connected, you are inside the Havoc dashboard!
