@@ -218,14 +218,11 @@ ls
 As a professional attacker, you need to spin up your backend infrastructure before deploying malware. We will use the *Ubuntu VM* to connect to our AWS cloud and set up the "Mothership", then connect our local user interface to it.
 
 >[!NOTE]
-> If you have not yet moved the **.pem** file into the **Ubuntu VM**, now's the time. To access the VM's clipboard, type **ctrl+alt+shift** and a small window will pop up.
-> Paste the copied **RSA Key** in there, create a file named **havoc-key.pem** using nano, and **ctrl+shift+v** to paste it into the text editor.
-> Type **ctrl+s** and then **ctrl+x** to save and exit nano. Your should now have your RSA key saved. 
+> If you have not yet moved the **.pem** file into the **Ubuntu VM**, now's the time.
 
-- Step 1 (Connect to AWS): On your *Ubuntu VM*, open a terminal and locate the havoc-key.pem file you saved earlier. Set the correct permissions and SSH into your AWS EC2 instance (replace <YOUR_AWS_PUBLIC_IP> with your actual EC2 IP):
+- Step 1 (Connect to AWS): On your *Ubuntu VM*, open a terminal and locate the havoc-key.pem file you saved earlier. SSH into your AWS EC2 instance (replace <YOUR_AWS_PUBLIC_IP> with your actual EC2 IP):
 
 ```bash
-chmod 400 havoc-key.pem
 ssh -i "havoc-key.pem" ubuntu@<YOUR_AWS_PUBLIC_IP>
 ```
 
