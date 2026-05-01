@@ -361,7 +361,8 @@ Open a NEW PowerShell terminal as Administrator on the Windows VM.
 Get-NetTCPConnection -State Established | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, OwningProcess
 ```
 
-<img width="1000" height="500" alt="image" src="[ADAUGA_SCREENSHOT_CU_NETTCPCONNECTION_AICI]" />
+<img width="1152" height="500" alt="image" src="https://github.com/user-attachments/assets/dd759700-cdf6-411b-bbac-9621e712fe40" />
+
 
 *Notice how the RemoteAddress points to our AWS Cloud IP, bypassing internal network suspicion.*
 
@@ -371,7 +372,8 @@ Get-NetTCPConnection -State Established | Select-Object LocalAddress, LocalPort,
 Get-Process -Id <PID> | Select-Object Name, Path
 ```
 
-<img width="1000" height="500" alt="image" src="[ADAUGA_SCREENSHOT_CU_GET_PROCESS_AICI]" />
+<img width="917" height="193" alt="image" src="https://github.com/user-attachments/assets/5aa8d0ae-7c47-4679-82d3-846827d8418e" />
+
 
 Analysis: Finding an unsigned executable named `demon.exe` running from the user's TEMP folder and communicating with an external cloud IP is a massive Indicator of Compromise (IoC).
 
