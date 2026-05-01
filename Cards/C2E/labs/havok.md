@@ -377,6 +377,9 @@ Get-Process -Id <PID> | Select-Object Name, Path
 
 Analysis: Finding an unsigned executable named `demon.exe` running from the user's TEMP folder and communicating with an external cloud IP is a massive Indicator of Compromise (IoC).
 
+**Use `Stop-Process -Id <PID> -Force` to kill the demon payload.**
+
+
 ---
 
 ### Cleanup
@@ -384,7 +387,9 @@ Analysis: Finding an unsigned executable named `demon.exe` running from the user
 You're done! Let's clean up the environment to avoid unnecessary AWS charges and remove the malware.
 
  - **CRITICAL (AWS):** Go to your AWS EC2 Dashboard, right-click your instance, and select **Terminate instance**. If you only close the terminal, Amazon will continue billing you after your free tier limit is reached!
- - On the Windows VM: Use `Stop-Process -Id <PID> -Force` to kill the demon payload.
+
+ <img width="1585" height="573" alt="image" src="https://github.com/user-attachments/assets/d87bfa69-3066-42d2-9179-d27ca778f8c5" />
+ 
  - On the Ubuntu VM: Close the Havoc Client and the Python web server.
 
 ---
