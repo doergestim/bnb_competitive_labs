@@ -270,19 +270,27 @@ cd /opt/havoc-client
 
 A login screen will appear. Fill in the connection details:
 
+- Name : AWS_Teamserver (or any other suggestive name - it's not all that important)
 - Host: <YOUR_AWS_PUBLIC_IP>
 - Port: 40056
 - User: 5pider (Default)
 - Password: password1234 (Default)
 
-<img width="554" height="321" alt="image" src="https://github.com/user-attachments/assets/c9fc6984-1831-4456-8edc-69e02ccfa774" />
-
+<img width="561" height="326" alt="image" src="https://github.com/user-attachments/assets/d4a9313f-7ed8-40b0-9df7-e0369058f542" />
 
 Once connected, you are inside the Havoc dashboard!
 
-Create a Listener: Go to View -> Listeners -> Add. Set it to HTTP and input your AWS Public IP in the 'Hosts' field. Click Save.
+Create a Listener: Go to View -> Listeners -> Add. Give the listener a name. Set it to HTTP and input your AWS Public and Private IP in the 'Hosts' field. Click Save.
+<img width="1335" height="454" alt="image" src="https://github.com/user-attachments/assets/07b68045-86f9-475a-a2c6-412997b1c810" />
+
+<img width="1195" height="1029" alt="image" src="https://github.com/user-attachments/assets/3b49c7b2-459b-450f-98da-2aea919440d5" />
+
+<img width="613" height="831" alt="image" src="https://github.com/user-attachments/assets/e2dcbab3-7ccf-4291-9a9a-5a0db746dcfa" />
 
 Generate the Payload: Go to Attack -> Payload. Select your HTTP Listener, choose 'Windows' and 'Executable (.exe)'. Click Generate and save the file as demon.exe.
+
+<img width="1854" height="1049" alt="image" src="https://github.com/user-attachments/assets/2187d663-8c58-4770-8c36-6eb3790766de" />
+
 
 Start a quick Python web server on the Ubuntu VM to host the demon.exe so the victim machine can download it (make sure you run this in the directory where demon.exe was saved):
 
