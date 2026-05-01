@@ -282,6 +282,8 @@ Look for:
 - Event ID `7045`
 - service creation involving `LabPSEXESVC`
 
+You can filter the logs, using 'Filter Current Log...' option
+
 ---
 
 # Part 9 — Detection Thinking
