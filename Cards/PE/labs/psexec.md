@@ -69,6 +69,8 @@ On the **Windows target**:
 
 This limits SMB access to your attacker VM only.
 
+<img width="1918" height="903" alt="graphrunner11" src="https://github.com/user-attachments/assets/ba63942a-5c52-46ae-a02d-ab4280523155" />
+
 ---
 
 ## Enable local admin remote access
@@ -117,6 +119,8 @@ Verify that Impacket installed correctly:
 which psexec.py
 ```
 
+<img width="1918" height="906" alt="graphrunner2" src="https://github.com/user-attachments/assets/014de970-24a5-4ecd-bb52-067ddf13f9ce" />
+
 ---
 
 # Part 3 — Connectivity Tests
@@ -139,6 +143,8 @@ nc -vz <TARGET_IP> 445
 
 You should see that port `445` is open.
 
+<img width="1918" height="912" alt="graphrunner3" src="https://github.com/user-attachments/assets/a4802bff-cb99-4373-8ff3-d96a92a77d28" />
+
 ---
 
 ## List SMB shares
@@ -160,6 +166,8 @@ psexec.py 'labadmin:Password123!@<TARGET_IP>'
 ```
 
 If successful, you should receive a Windows command shell.
+
+<img width="1918" height="911" alt="graphrunner4" src="https://github.com/user-attachments/assets/80ff2a55-14dd-400e-b6b6-d77f9830a804" />
 
 ---
 
@@ -266,6 +274,8 @@ or in PowerShell:
 Get-Service LabPSEXESVC -ErrorAction SilentlyContinue
 ```
 
+<img width="1917" height="907" alt="graphrunner5" src="https://github.com/user-attachments/assets/3e834243-3ca7-47f8-8431-42acfcb90184" />
+
 ---
 
 ## Check Event Viewer
@@ -283,6 +293,8 @@ Look for:
 - service creation involving `LabPSEXESVC`
 
 You can filter the logs, using 'Filter Current Log...' option
+
+<img width="1918" height="907" alt="graphrunner66" src="https://github.com/user-attachments/assets/e89ba267-dc3f-4800-b57e-6e0bcd8174b7" />
 
 ---
 
