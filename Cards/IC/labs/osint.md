@@ -115,6 +115,9 @@ These tools are built into every Linux system and give you domain ownership, reg
 whois github.com
 ```
 
+<img width="918" height="574" alt="image" src="https://github.com/user-attachments/assets/60b9867a-50b3-4b03-9d97-70a89f870457" />
+
+
 Look for:
 - **Registrant** - who registered the domain
 - **Registrar** - where it was registered (GoDaddy, Namecheap, etc.)
@@ -137,11 +140,16 @@ You can also run WHOIS on an IP to find who owns that IP block:
 whois 8.8.8.8
 ```
 
+<img width="1178" height="880" alt="image" src="https://github.com/user-attachments/assets/5cf51f18-20af-423e-96a8-1e1003a6571f" />
+
+
 You will see it belongs to Google. Try:
 
 ```bash
 whois 1.1.1.1
 ```
+
+<img width="757" height="887" alt="image" src="https://github.com/user-attachments/assets/1f966155-9997-4bc6-a6e7-48ec4f699fda" />
 
 This belongs to Cloudflare. Knowing who owns an IP helps during incident response - is the traffic going to AWS, a VPS provider, or a residential ISP?
 
@@ -157,11 +165,16 @@ Get the A record (IP address) of a domain:
 dig hackthissite.org A
 ```
 
+<img width="809" height="536" alt="image" src="https://github.com/user-attachments/assets/cff5efd4-5535-4dc4-bd4e-c4159fa307dd" />
+
+
 Get all mail servers (MX records):
 
 ```bash
 dig hackthissite.org MX
 ```
+
+<img width="807" height="579" alt="Screenshot 2026-05-17 232008" src="https://github.com/user-attachments/assets/d4ef8a46-36af-4a4c-b2ca-3f3f744a7adc" />
 
 Get name servers:
 
@@ -169,11 +182,16 @@ Get name servers:
 dig hackthissite.org NS
 ```
 
+<img width="700" height="540" alt="2026-05-18_15-24" src="https://github.com/user-attachments/assets/2aea08b7-ab2e-45e7-8bb6-8144f90c385c" />
+
+
 Get the TXT records (often contains SPF, DKIM, verification tokens):
 
 ```bash
 dig hackthissite.org TXT
 ```
+
+<img width="1902" height="535" alt="2026-05-18_15-26" src="https://github.com/user-attachments/assets/5a5159e0-6d7d-4124-9940-8f463a685896" />
 
 TXT records can leak internal information - verify tokens, third-party integrations, sometimes internal hostnames.
 
@@ -187,6 +205,9 @@ Instead of using your ISP's DNS, query Google's directly:
 dig @8.8.8.8 hackthissite.org A
 ```
 
+<img width="828" height="558" alt="2026-05-18_15-27" src="https://github.com/user-attachments/assets/3a7f28f8-0b23-4f8e-8dcf-e458013397cb" />
+
+
 This is useful when you want to bypass local DNS caching or test DNS propagation.
 
 ---
@@ -196,7 +217,7 @@ This is useful when you want to bypass local DNS caching or test DNS propagation
 Given an IP, find what hostname it resolves to:
 
 ```bash
-dig -x 140.82.121.4
+dig -x 1.1.1.1
 ```
 
 This is the reverse of a normal DNS query. Useful for identifying what a suspicious IP belongs to during log analysis.
@@ -219,38 +240,9 @@ Run this as a one-liner. You now have a quick DNS profile of the target in secon
 
 ---
 
-## Putting it all together
-
-A real OSINT workflow for a target company might look like this:
-
-**Step 1 - Find the domain and subdomains:**
-```bash
-theHarvester -d hackthissite.org -b crtsh -f /tmp/hts_recon
-```
-
-**Step 2 - Pull emails and any leaked data:**
-```bash
-theHarvester -d hackthissite.org -b google,bing -l 200 -f /tmp/hts_emails
-```
-
-**Step 3 - Get DNS and ownership info:**
-```bash
-whois hackthissite.org
-dig hackthissite.org A MX TXT NS
-```
-
-**Step 4 - Search for public usernames tied to the platform:**
-```bash
-sherlock hts --print-found
-```
-
-Each step builds a picture. Subdomains -> attack surface. Emails -> phishing targets. DNS records -> infrastructure layout. Usernames -> personal accounts that may expose more data.
-
----
-
 ## What to think about
 
-- Everything in this lab used **publicly available data** - no exploitation occurred
+- Everything in this lab used **publicly available data**
 - OSINT is the first phase of almost every real-world attack
 - As a defender, run these tools against **your own organization** periodically to see what attackers see
 - If theHarvester finds internal-looking subdomains, leaked emails, or dev/staging servers exposed to the internet - that is a finding worth reporting
