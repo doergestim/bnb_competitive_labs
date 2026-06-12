@@ -36,7 +36,7 @@ source venv/bin/activate
 ### Verify the install
 
 ```bash
-python -c "import impacket; print('Impacket version:', getattr(impacket,'__version__','(unknown)'))"
+python3 -m pip show impacket
 ```
 
 Also check that some scripts exist:
